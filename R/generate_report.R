@@ -37,7 +37,7 @@ generate_report <- function(html = F){
     addParagraph("") %>% addTitle("Mark D. Danese, MHS, PhD", 4) %>% addTitle("Claire Cangialose", 4) %>% addParagraph("") %>% addTitle(format(Sys.Date(), "%B %d, %Y"), 4)
   if (!html) { doc = addPageBreak(doc) }
 
-  
+
   # Overview
   doc = doc %>% addTitle("Overview") %>%
     addParagraph("Information was extracted from the National Cancer Institute (NCI) online reference database for \"SEER-Medicare\" publications",
@@ -98,7 +98,7 @@ generate_report <- function(html = F){
                      par.properties = parCenter())
   if (!html) {doc = addSection(doc)}
 
-  
+
   # Conclusions
   doc = doc %>% addTitle("Conclusions") %>%
     addParagraph(set_of_paragraphs(
@@ -111,7 +111,7 @@ generate_report <- function(html = F){
       "Leukemia, lymphoma, lung, and renal might be under-represented in terms of the absolute number of publications"),
       par.properties = level(1)) %>% addParagraph("")
 
-  
+
   # Data Sources
   doc = doc %>% addTitle("Data Sources") %>%
     addParagraph(paste0(sapply(seer_cols(), function(x){sprintf("%s (%s)", tools::toTitleCase(x), metadata[[paste0(x, "_year")]])}), collapse = ", "),
