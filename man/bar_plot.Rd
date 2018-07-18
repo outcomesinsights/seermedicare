@@ -4,7 +4,8 @@
 \alias{bar_plot}
 \title{Create Publications Bar Charts (i.e., Publications by Tumor Site, Author, or Journal)}
 \usage{
-bar_plot(x, years = publications$year, display = NULL, x_label = x)
+bar_plot(x, publications, years = publications$year, display = NULL,
+  x_label = x)
 }
 \arguments{
 \item{x}{String representing data to plot on x axis}

@@ -15,7 +15,7 @@ utils::globalVariables(c("values", "."))
 #' bar_plot("sites")
 #' bar_plot("sites", years = c(2008:2015), display = 15)
 #' }
-bar_plot <- function(x, years = publications$year, display = NULL, x_label = x) {
+bar_plot <- function(x, publications, years = publications$year, display = NULL, x_label = x) {
   # get appropriate dataset, then subset by years and display parameter
   data <- get_data(x, dataset = publications[year %in% years])
   if(!is.null(display)) data <- data[values %in% levels(values)[1:display]]
@@ -40,7 +40,7 @@ bar_plot <- function(x, years = publications$year, display = NULL, x_label = x) 
 .format_plot <- function(plot, x_label, y_label = "Publications", title = "") {
   top <- plyr::round_any(max(unlist(lapply(ggplot_build(plot)$data, function(x){x[["y"]]})), na.rm = T), 50, f = ceiling)
   plot <- plot + .theme_seermedicare() + scale_y_continuous(breaks = seq(0, top, top / 10), limits = c(0, top + 5), expand = c(0, 0))
-  
+
   # add plot title and labels
   plot + ggtitle(sprintf("%s\u000A", title)) + xlab(tools::toTitleCase(x_label)) + ylab(y_label)
 }
@@ -58,11 +58,11 @@ bar_plot <- function(x, years = publications$year, display = NULL, x_label = x) 
 #' line_plot()
 #' line_plot(by = "sites", by_label = "tumor site")
 #' }
-line_plot <- function(by = NULL, by_label = by) {
-  if(is.null(by)) { 
+line_plot <- function(publications, by = NULL, by_label = by) {
+  if(is.null(by)) {
     lp <- ggplot(publications, aes(factor(year), group = 1)) + geom_line(color = palette()[1], size = 1, stat = "count")
-  } else { 
-    lp <- ggplot(get_data(by)[values %in% levels(values)[1:4]], aes(factor(year), group = values, color = values, linetype = values)) + geom_line(size = 1, stat = "count") +
+  } else {
+    lp <- ggplot(get_data(by, publications)[values %in% levels(values)[1:4]], aes(factor(year), group = values, color = values, linetype = values)) + geom_line(size = 1, stat = "count") +
       scale_color_manual(values = palette()) + scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted"))
   }
   .format_plot(lp, x_label = "year", title = sprintf("Publications by year%s", ifelse(is.null(by), "", sprintf(" and top 4 %ss", by_label))))
@@ -81,19 +81,25 @@ line_plot <- function(by = NULL, by_label = by) {
 #' seer_plot("prevalence")
 #' seer_plot("deaths")
 #' }
-seer_plot <- function(x) {
+seer_plot <- function(x, seer_pub_data) {
+
+  sites <- seer_pub_data$site_summary
+  metadata <- seer_pub_data$metadata
+
   # validate parameter
   .arg_error(x, sites)
-  
+
   # create dataset to use in plot
   data <- data.table(melt(sites, id.vars = "site", value.name = "values"), key = "variable") %>% .["publications", ("label") := "Total Publications"]
-  data[x, `:=`(values = values / get_scale(values), label = .seer_label(x))]
+  data[x, `:=`(values = values / get_scale(values), label = .seer_label(x, sites, metadata))]
 
   # create plot
-  sp <- ggplot(data, aes_string("site", "values", color = "label", fill = "label")) + geom_bar(data = data[x], position = "dodge", stat = "identity") +
-    geom_line(aes_string(group = "label"), data["publications"], linetype = "dashed") + geom_point(aes_string(group = "label"), data["publications"], size = 3, shape = 22) +
-    scale_fill_manual(values = palette()[1:2]) + scale_color_manual(values = palette()[1:2])
-  .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x))
+  sp <- ggplot(data, aes_string("site", "values", color = "label", fill = "label")) +
+          geom_bar(data = data[x], position = "dodge", stat = "identity") +
+          geom_line(aes_string(group = "label"), data["publications"], linetype = "dashed") +
+          geom_point(aes_string(group = "label"), data["publications"], size = 3, shape = 22) +
+          scale_fill_manual(values = palette()[1:2]) + scale_color_manual(values = palette()[1:2])
+          .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x))
 }
 
 #' ggplot2 Theme

@@ -93,22 +93,7 @@ seer_cols <- function() {
 #' @export
 #'
 #' @examples \dontrun{}
-.seer_label <- function(x, measure = tools::toTitleCase(x)) {
+.seer_label <- function(x, sites, metadata, measure = tools::toTitleCase(x)) {
   sprintf("%s per %s (%s)", measure, format(get_scale(sites[[x]]), big.mark = ","), metadata[[paste0(x, "_year")]])
-}
-
-
-#' Determine Underrepresented Years in Publications Data
-#'
-#' Assumes that publication data for any given year is fully represented 3 months after the year ends
-#'
-#' @return Underrepresented data years, or NULL, if no years are underrepresented
-#' @import data.table
-#' @export
-#'
-#' @examples \dontrun{}
-.underrepresented <- function(){
-  urep <- ifelse(lubridate::month(metadata$access_date) < 4, lubridate::year(metadata$access_date) - 1, lubridate::year(metadata$access_date))
-  publications[year >= urep, year, keyby = "year"]$year # underrepresented years that exist in dataset
 }
 

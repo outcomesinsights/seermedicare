@@ -33,7 +33,7 @@
 #' @examples \dontrun{
 #' scale_seer()
 #' }
-scale_seer <- function() {
+scale_seer <- function(sites) {
   copy(sites) %>% setkey("site") %>% .[, (seer_cols()) := lapply(.SD, function(x){x / get_scale(x)}), .SDcols = seer_cols()]
 }
 
@@ -51,9 +51,13 @@ scale_seer <- function() {
 #' seer_table()
 #' seer_table(standardize = T)
 #' }
-seer_table <- function(standardize = F, ...) {
+seer_table <- function(seer_pub_data, standardize = F, ...) {
+  publications <- seer_pub_data$publications
+  sites <- seer_pub_data$site_summary
+  metadata <- seer_pub_data$metadata
+
   # calculate publications to incidence, prevalence, and deaths ratios (scaled)
-  dt <- scale_seer()[, (seer_cols()) := lapply(.SD, function(x){publications / x}), .SDcols = seer_cols()]
+  dt <- scale_seer(sites)[, (seer_cols()) := lapply(.SD, function(x){publications / x}), .SDcols = seer_cols()]
 
   # standardize to median
   if (standardize) {dt[, (seer_cols()) := lapply(.SD, function(x){x / stats::median(x)}), .SDcols = seer_cols()]}
@@ -64,7 +68,7 @@ seer_table <- function(standardize = F, ...) {
   dt <- melt(dt, id.vars = c("site")) %>% dcast(variable ~ site) %>% .[c("publications", "min65", seer_cols())]
 
   # create labels/names for table and format as flex table
-  dt$variable <- c("Total\u000APublications", sprintf("%% incident patients 65 years\u000Aor older (%s)", metadata$cdc_year), sapply(seer_cols(), function(x){.seer_label(x, sprintf("Pub/%s ratio\u000A", x))}))
+  dt$variable <- c("Total\u000APublications", sprintf("%% incident patients 65 years\u000Aor older (%s)", metadata$cdc_year), sapply(seer_cols(), function(x){.seer_label(x, sites, metadata, sprintf("Pub/%s ratio\u000A", x))}))
   setnames(dt, "variable", " ")
   .format_table(dt, paste0("Publications per patient according to incidence, prevalence, and deaths", ifelse(standardize, ", standardized to the median ratio", "")), ...)
 }

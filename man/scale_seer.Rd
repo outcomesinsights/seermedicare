@@ -4,7 +4,7 @@
 \alias{scale_seer}
 \title{Scale Publications to Incidence, Prevalence, and Deaths Data}
 \usage{
-scale_seer()
+scale_seer(sites)
 }
 \value{
 data.table

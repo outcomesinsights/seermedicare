@@ -4,7 +4,7 @@
 \alias{seer_plot}
 \title{Create Publications and Incidence/Prevalence/Deaths by Year Plot}
 \usage{
-seer_plot(x)
+seer_plot(x, seer_pub_data)
 }
 \arguments{
 \item{x}{Data column to plot - should be "incidence", "prevalence", or "deaths"}

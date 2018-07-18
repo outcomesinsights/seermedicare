@@ -4,9 +4,13 @@
 \alias{generate_report}
 \title{Generate Full Report: Overview of All SEER-Medicare Publications}
 \usage{
-generate_report(html = F)
+generate_report(seer_pub_data, outputPath = ".", html = FALSE)
 }
 \arguments{
+\item{seer_pub_data}{Result of running scrape_all_data.  Should have class "scrape_all_data"}
+
+\item{outputPath}{Path to directory where report will be generated. Default is working directory}
+
 \item{html}{Logical value - if TRUE, will generate html file; if FALSE, will generate Microsoft Word file}
 }
 \value{

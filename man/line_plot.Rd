@@ -4,7 +4,7 @@
 \alias{line_plot}
 \title{Create Publications by Year Plots}
 \usage{
-line_plot(by = NULL, by_label = by)
+line_plot(publications, by = NULL, by_label = by)
 }
 \arguments{
 \item{by}{String representing variable to use to cut data - will use top 4 most frequent in publications data}

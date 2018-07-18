@@ -4,7 +4,7 @@
 \alias{seer_table}
 \title{Create SEER Tables}
 \usage{
-seer_table(standardize = F, ...)
+seer_table(seer_pub_data, standardize = F, ...)
 }
 \arguments{
 \item{standardize}{Logical value - if TRUE, standardizes publications ratios to median}
