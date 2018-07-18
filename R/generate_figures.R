@@ -61,7 +61,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
 
   writeWorksheetToFile(doc, data = dt, sheet = "Year and Top Tumor Site")
 
-  png(filename = "Figures/publications_by_year_and_tumor_site.png", width = 650, height = 400)
+  png(filename = file.path(figure_path, "publications_by_year_and_tumor_site.png"), width = 650, height = 400)
   print(line_plot(publications, "sites", "tumor site"))
   dev.off()
 
