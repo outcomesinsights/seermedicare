@@ -201,8 +201,13 @@ get_publication_data <- function(nci_search_url = "http://healthcaredelivery.can
   }
 
   parserows <- function(table) {
-    rows <- table %>% html_nodes("tr") %>% .[-c(10, 11)] # take table and parse into rows ("tr") (exclude abstract links)
-    df <- c(sapply(rows, parserow), parselink(table)) %>% as.list %>% data.frame(check.names = F, stringsAsFactors = FALSE) # put rows into dataframe
+    rows <- table %>% html_nodes("tr") %>% .[-c(9,10)] # take table and parse into rows ("tr") (exclude abstract links)
+    
+    data <- sapply(rows, parserow)
+    link <- tryCatch( parselink(table), error = function(e) {
+      return(NA_character_)
+    })
+    df <- c(data, link) %>% as.list %>% data.frame(check.names = F, stringsAsFactors = FALSE) # put rows into dataframe
   }
 
   parsetables <- function(tables) {
@@ -264,6 +269,10 @@ get_publication_data <- function(nci_search_url = "http://healthcaredelivery.can
   authorref[to_remove_middle] <- remove_middle_init(to_remove_middle) # remove middle initials from appropriate authors
   publications$authors <- lapply(publications$authors, function(x){authorref[x]})
 
+  # Remove report and NA_character column
+  if("report" %in% names(publications)) publications[,report := NULL]
+  if("NA_character_" %in% names(publications)) publications[,`NA_character_`  := NULL]
+  
   publications
 }
 
