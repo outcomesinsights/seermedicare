@@ -56,7 +56,14 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
 
   message("Generate Figures and Tables")
   write("sites", "tumor site")
-  writeWorksheetToFile(doc, data = setnames(get_data("year", publications)[, count(values)], c("Year", "Publications")), sheet = "Year")
+  
+  year_data <- setnames(get_data("year", publications)[, count(values)], c("Year", "Publications"))
+  
+  setDT(year_data)
+  
+  year_data[, Year := as.numeric(levels(Year))]
+  
+  writeWorksheetToFile(doc, data = year_data[order(-Year)], sheet = "Year")
 
   # Output Publication By Year Chart
   png(filename = paste0(figure_path,"/publications_by_year.png"), width = 650, height = 400)
