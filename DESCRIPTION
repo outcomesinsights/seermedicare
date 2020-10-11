@@ -1,9 +1,9 @@
 Package: seermedicare
 Title: Visualization tools for SEER-Medicare publications data
-Version: 0.3
+Version: 0.4
 Authors@R: person("Marc", "Halperin", email = "halperin@outins.com", role = c("aut", "cre"))
 Description: Generates plots and tables for NCI publications data, SEER data, and CDC Wonder cancer data. Generates full overview report for SEER-Medicare data.
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.2.2)
 License: MIT
 Encoding: UTF-8
 LazyData: true

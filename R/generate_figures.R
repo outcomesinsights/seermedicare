@@ -13,10 +13,16 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   publications <- seer_pub_data$publications
   metadata <- seer_pub_data$metadata
   sites <- seer_pub_data$site_summary
+  
+  outputPath <- normalizePath(outputPath)
 
   # SAVE FIGURES TO DIRECTORY
-  figure_path <- file.path(outputPath,"Figures")
+  tmpdir <- tempdir()
+  curr_wd <- getwd()
+  setwd(tmpdir)
+  figure_path <- file.path("Figures")
   dir.create(figure_path, showWarnings = FALSE, recursive = TRUE)
+  
 
   # XLSX File Path
   doc <- file.path(outputPath, sprintf("SEER_Medicare_Data_Tables_%s.xlsx",metadata$access_date))
@@ -85,5 +91,5 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   message("Writing Figures zip file to ", figure_path)
   files <- dir(figure_path, full.names = TRUE)
   zip(zipfile = file.path(outputPath, sprintf("SEER_Medicare_Figures_%s", metadata$access_date)), files = files)
-
+  setwd(curr_wd)
 }

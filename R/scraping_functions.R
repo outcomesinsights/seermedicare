@@ -13,7 +13,7 @@
 #' @export
 scrape_all_data <- function(
   nci_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM",
-  cdc_cancer_stat_url = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip",
+  cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip", # https://www.cdc.gov/cancer/uscs/dataviz/download_data.htm for all years
   seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html"
 ) {
 
@@ -31,7 +31,6 @@ scrape_all_data <- function(
   cdc <- get_cdc_data(pathToZip=cdc_cancer_stat_url)
 
   # cdc year data contains column year that has single years plus one summary of the last 5 years
-  # This sets cdc_year to be the year that represents the summary (Ex 2010-2016)
   cdc_year <- cdc[nchar(year) > 4,unique(year)]
 
   ## Get SEER INCIDENCE, PREVALENCE, DEATHS Data
@@ -61,7 +60,7 @@ scrape_all_data <- function(
   metadata[["cdc_year"]] <- cdc_year
 
   # citations
-  metadata[["cdc_citation"]] <- read_html("http://www.cdc.gov/cancer/npcr/uscs/about.htm") %>% html_node("p:nth-child(17)") %>% html_text %>% repair_encoding
+  metadata[["cdc_citation"]] <-  sprintf("Data collected from CDC website: %s", cdc_cancer_stat_url)
   metadata[["seer_citation"]] <- html_session(seer_url) %>% follow_link("Cancer Statistics Review") %>% html_node("h2+ p") %>% html_text
 
   # data access
@@ -314,7 +313,7 @@ get_seer_data <- function(seer_url = "http://seer.cancer.gov/statfacts/more.html
 #'
 #' @return \code{\link{data.table}}
 parse_seer_cancer_fact_page <- function(link) {
-  page <- read_html(paste0("http://seer.cancer.gov", html_attr(link, "href")))
+  page <- read_html(paste0("https://seer.cancer.gov", html_attr(link, "href")))
   site = html_text(link)
 
   year_node <- html_text(html_node(page, ".glanceBox.new p" ))
@@ -325,9 +324,11 @@ parse_seer_cancer_fact_page <- function(link) {
     year <- as.numeric( stringi::stri_extract_first_regex(year_node, "[[:digit:]]{4}") )
 
     # Get incidence and deaths from table
-    inc_row <- html_node(page, "table tr.selected")
-    incidence <- as.numeric(gsub(",","",html_text( html_node(inc_row,"td:nth-child(3)" ))))
-    deaths <- as.numeric(gsub(",","",html_text( html_node(inc_row,"td:nth-child(4)" ))))
+    inc_row <- html_node(page, ".glance-factSheet .glanceBox.new")
+    incidence <- as.numeric(gsub(",","",html_text( html_node(inc_row,"p:nth-child(1) span:nth-child(2)" ))))
+    
+    death_row <- html_node(page, ".glance-factSheet .glanceBox.death")
+    deaths <- as.numeric(gsub(",","",html_text( html_node(death_row,"p:nth-child(1) span:nth-child(2)" ))))
 
     # Get prevalence from main text
     ## Main selector
@@ -335,7 +336,12 @@ parse_seer_cancer_fact_page <- function(link) {
     ## Some pages dont have an inner div.row
     non_inner_row_selector <- ".factSheet .tog-content .glance-factSheet ~ p:nth-of-type(3)"
     prev_text <- html_text(html_node(page, paste(c(main_selector, non_inner_row_selector), collapse = ",")))
-    prevalence <- as.numeric(gsub(",","",stri_match_all_regex(prev_text,"estimated (\\S+) " )[[1]][,2]))
+    
+    if(is.na(prev_text)) {
+      prevalence <- NA_integer_
+    }else {
+      prevalence <- as.numeric(gsub(",","",stri_match_all_regex(prev_text,"estimated (\\S+) " )[[1]][,2]))
+    }
 
     dt <- data.table(site=site, year = year,
                      x = c("incidence", "prevalence", "deaths"),
