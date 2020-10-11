@@ -42,7 +42,7 @@ scale_seer <- function(sites) {
 #' @param standardize Logical value - if TRUE, standardizes publications ratios to median
 #' @param ... Further arguments passed to .format_table()
 #'
-#' @return ReporteRs package FlexTable containing total publications, % incident patients 65 or older, publications to incidence ratios,
+#' @return ReporteRs package FlexTable containing total publications, % incident patients age 65 or older, publications to incidence ratios,
 #' publications to prevalence ratios, and publications to deaths ratios for each tumor site
 #' @import data.table magrittr
 #' @export
@@ -68,7 +68,7 @@ seer_table <- function(seer_pub_data, standardize = F, ...) {
   dt <- melt(dt, id.vars = c("site")) %>% dcast(variable ~ site) %>% .[c("publications", "min65", seer_cols())]
 
   # create labels/names for table and format as flex table
-  dt$variable <- c("Total\u000APublications", sprintf("%% incident patients 65 years\u000Aor older (%s)", metadata$cdc_year), sapply(seer_cols(), function(x){.seer_label(x, sites, metadata, sprintf("Pub/%s ratio\u000A", x))}))
+  dt$variable <- c("Total\u000APublications", sprintf("%% incident patients age 65 years\u000Aor older (%s)", metadata$cdc_year), sapply(seer_cols(), function(x){.seer_label(x, sites, metadata, sprintf("Pub/%s ratio\u000A", x))}))
   setnames(dt, "variable", " ")
   .format_table(dt, paste0("Publications per patient according to incidence, prevalence, and deaths", ifelse(standardize, ", standardized to the median ratio", "")), ...)
 }

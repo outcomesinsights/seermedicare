@@ -6,7 +6,7 @@
 \usage{
 
   scrape_all_data(nci_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM",
-  cdc_cancer_stat_url = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip",
+  cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip",
   seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html")
 }
 \arguments{

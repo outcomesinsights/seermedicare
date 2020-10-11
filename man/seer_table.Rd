@@ -12,7 +12,7 @@ seer_table(seer_pub_data, standardize = F, ...)
 \item{...}{Further arguments passed to .format_table()}
 }
 \value{
-ReporteRs package FlexTable containing total publications, % incident patients 65 or older, publications to incidence ratios,
+ReporteRs package FlexTable containing total publications, % incident patients age 65 or older, publications to incidence ratios,
 publications to prevalence ratios, and publications to deaths ratios for each tumor site
 }
 \description{

@@ -132,11 +132,11 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE){
   if (!html) {doc = addSection(doc, landscape = T)}
 
   message("...Tables")
-  doc = addFlexTable(doc, seer_table(seer_pub_data, footnote = "Notes: Higher numbers indicate more publications per patient (see table for comparisons to the median ratios)"),  par.properties = parCenter())
+  doc = addFlexTable(doc, seer_table(seer_pub_data, footnote = "Notes: Higher numbers indicate more publications per patient (see next table for comparisons to the median ratios)"),  par.properties = parCenter())
 
   if (!html) {doc = addPageBreak(doc)}
 
-  doc = addFlexTable(doc, seer_table(seer_pub_data, standardize = T, less_than = 1, footnote = "Notes: Ratios reflect the tumor-specific publication ratio relative to median publication ratio (see table for non-standardized ratios)\u000AValues above 1.0 indicate ratios higher than the median, and values below 1.0 indicate ratios below the median (shaded orange)"), par.properties = parCenter())
+  doc = addFlexTable(doc, seer_table(seer_pub_data, standardize = T, less_than = 1, footnote = "Notes: Ratios reflect the tumor-specific publication ratio relative to median publication ratio (see previous table for non-standardized ratios)\u000AValues above 1.0 indicate ratios higher than the median, and values below 1.0 indicate ratios below the median (shaded orange)"), par.properties = parCenter())
 
   if (!html) {doc = addSection(doc)}
 
@@ -148,10 +148,9 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE){
     addParagraph(set_of_paragraphs(
       "There has been steady growth in the number of publications over time using the SEER-Medicare data",
       sprintf("%s, and %s are the tumor sites with the highest number of publications", paste(c(all_sites[1], tolower(all_sites[2:3])), collapse = ", "), tolower(all_sites[4]))), par.properties = level(1)) %>%
-    addParagraph("This corresponds well with estimates of incidence and prevalence in the United States population", par.properties = level(2)) %>%
     addParagraph(set_of_paragraphs(
       "The number of publications appears to align better with incidence and prevalence than with death, particularly for more common cancers",
-      "Leukemia, lymphoma, lung, and renal might be under-represented in terms of the absolute number of publications"),
+      "Leukemia, corpus uteri, multiple myeloma, and skin might be under-represented in terms of the absolute number of publications"),
       par.properties = level(1)) %>% nline
 
 
@@ -184,8 +183,8 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE){
 
   doc = doc %>%
     addTitle("Contact Information") %>%
-    addParagraph(set_of_paragraphs("Mark D. Danese", "Outcomes Insights, Inc.", "2801 Townsgate Road, Suite #330",
-                                   "Westlake Village, CA 91361", "805-498-0034", "mark@outins.com",
+    addParagraph(set_of_paragraphs("Mark D. Danese", "Outcomes Insights, Inc.", "30200 Agoura Road, Suite 230",
+                                   "Agoura Hills, CA 91302", "805-498-0034", "mark@outins.com",
                                    pot("www.outins.com", hyperlink = "http://www.outins.com/", format = textProperties(underlined = T))))
 
   if(outputPath != "") {
