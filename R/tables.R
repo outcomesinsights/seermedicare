@@ -13,7 +13,7 @@
   table <- flextable::flextable(dt)
   table <- flextable::align(table, align = "center", part = "all")
   table <- flextable::fontsize(table, size = 10, part = "body")
-  table <- flextable::bg(table, part = "header", bg = palette()[1])
+  table <- flextable::bg(table, part = "header", bg = seer_palette()[1])
   table <- flextable::color(table, part = "header", color = "white")
   table <- flextable::bold(table, part = "header")
   table <- flextable::add_header_row(table, values = title, colwidths = ncol(dt))

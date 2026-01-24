@@ -68,9 +68,9 @@ get_scale <- function(x, limit = 500) {
 #' @export
 #'
 #' @examples \dontrun{
-#' palette()
+#' seer_palette()
 #' }
-palette <- function() {
+seer_palette <- function() {
   c("steelblue4", "black", "darkorange4", "chartreuse4")
 }
 
