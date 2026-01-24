@@ -408,7 +408,15 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
 }
 
 .fetch_wonder_csv <- function(params, url) {
-  resp <- httr::POST(url, body = params, encode = "form")
+  # Flatten params for form encoding: repeat parameter names for multi-value params
+  flat_params <- list()
+  for (name in names(params)) {
+    vals <- params[[name]]
+    for (v in vals) {
+      flat_params <- c(flat_params, setNames(list(v), name))
+    }
+  }
+  resp <- httr::POST(url, body = flat_params, encode = "form")
   httr::stop_for_status(resp)
   httr::content(resp, as = "text", encoding = "UTF-8")
 }
