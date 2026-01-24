@@ -675,7 +675,7 @@ get_publication_data <- function(
       auth_token = auth_token,
       batch_size = batch_size
     )
-    return(publications)
+    # Continue to formatting section below
   } else {
 
   # Functions to parse publication data results
@@ -712,8 +712,10 @@ get_publication_data <- function(
 
   ## FORMAT PUBLICATIONS DATA
 
-  # clean column names
-  setnames(publications, sub("(s)", "s", names(publications), fixed = T)) %>% setnames("tumor sites", "sites")
+  # clean column names (only for HTML-scraped data which has "tumor sites")
+  if ("tumor sites" %in% names(publications)) {
+    setnames(publications, sub("(s)", "s", names(publications), fixed = T)) %>% setnames("tumor sites", "sites")
+  }
 
   # set blank cells to NA and remove rows with any critical fields missing - note that reports are dropped
   publications <- publications[, lapply(.SD, function(x){ifelse(x == "", NA, x)})] %>%
