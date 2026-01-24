@@ -567,12 +567,25 @@ get_publication_data <- function(
 #'
 #' @param seer_url \code{character} Url to Main SEER cancer fact site that contains links to each cancer
 #' @param link_css_selector \code{character} CSS selector to select all links to each cancer site
+#' @param delay_seconds \code{numeric} Delay between requests in seconds
+#' @param retries \code{numeric} Number of retries for HTTP fetches
+#' @param user_agent \code{character} User agent string for HTTP requests
 #'
 #' @return \code{\link{data.table}}
-get_seer_data <- function(seer_url = "http://seer.cancer.gov/statfacts/more.html", link_css_selector = ".alphaList.rpw a") {
+get_seer_data <- function(
+  seer_url = "http://seer.cancer.gov/statfacts/more.html",
+  link_css_selector = ".alphaList.rpw a",
+  delay_seconds = 0.2,
+  retries = 3,
+  user_agent = "Mozilla/5.0"
+) {
 
   # get hyperlinks for each cancer type from seer statfacts homepage
-  links <- read_html(seer_url) %>% html_nodes(link_css_selector)
+  seer_index <- .seer_fetch_html(seer_url, retries = retries, user_agent = user_agent)
+  links <- seer_index %>% html_nodes(link_css_selector)
+  if (!length(links)) {
+    warning("No SEER site links found. Check link_css_selector or page structure.")
+  }
 
   # get data from each cancer site page
   res <- list()
@@ -582,10 +595,24 @@ get_seer_data <- function(seer_url = "http://seer.cancer.gov/statfacts/more.html
     # Don't pull in All Cancers data
     if(link_text != "All Cancers") {
       message("Getting Data For...", link_text)
-      res[[link_text]] <- parse_seer_cancer_fact_page(link)
+      res[[link_text]] <- tryCatch(
+        parse_seer_cancer_fact_page(
+          link,
+          retries = retries,
+          user_agent = user_agent
+        ),
+        error = function(e) {
+          warning(sprintf("Failed to parse SEER page for %s: %s", link_text, e$message))
+          data.table(site = character(0), year = numeric(0), x = character(0), value = numeric(0))
+        }
+      )
+      if (delay_seconds > 0) {
+        Sys.sleep(delay_seconds)
+      }
     }
   }
   seer <- rbindlist(res, use.names = T, fill = T)
+  .seer_scrape_summary(seer)
 }
 
 #' Parse SEER Cancer Fact Page to get Latest Incidence, Prevalence, and Mortality Data
@@ -595,36 +622,46 @@ get_seer_data <- function(seer_url = "http://seer.cancer.gov/statfacts/more.html
 #' @param link \code{character} Url to site specific SEER cancer fact site
 #'
 #' @return \code{\link{data.table}}
-parse_seer_cancer_fact_page <- function(link) {
-  page <- read_html(paste0("https://seer.cancer.gov", html_attr(link, "href")))
+parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla/5.0") {
+  page <- .seer_fetch_html(paste0("https://seer.cancer.gov", html_attr(link, "href")), retries = retries, user_agent = user_agent)
   site = html_text(link)
 
-  year_node <- html_text(html_node(page, ".glanceBox.new p" ))
+  year_node <- .seer_extract_text(page, c(
+    ".glanceBox.new p",
+    ".glanceBox p",
+    ".glanceBox .year"
+  ))
 
   if(!is.na(year_node)) {
 
     # Get year
-    year <- as.numeric( stringi::stri_extract_first_regex(year_node, "[[:digit:]]{4}") )
+    year <- as.numeric(stringi::stri_extract_first_regex(year_node, "[[:digit:]]{4}"))
 
     # Get incidence and deaths from table
-    inc_row <- html_node(page, ".glance-factSheet .glanceBox.new")
-    incidence <- as.numeric(gsub(",","",html_text( html_node(inc_row,"p:nth-child(1) span:nth-child(2)" ))))
-    
-    death_row <- html_node(page, ".glance-factSheet .glanceBox.death")
-    deaths <- as.numeric(gsub(",","",html_text( html_node(death_row,"p:nth-child(1) span:nth-child(2)" ))))
+    incidence <- .seer_extract_numeric(page, c(
+      ".glance-factSheet .glanceBox.new",
+      ".glanceBox.new",
+      ".glanceBox.incidence"
+    ))
+
+    deaths <- .seer_extract_numeric(page, c(
+      ".glance-factSheet .glanceBox.death",
+      ".glanceBox.death",
+      ".glanceBox.mortality"
+    ))
 
     # Get prevalence from main text
     ## Main selector
     main_selector <- ".factSheet .tog-content div.row p:nth-child(3)"
     ## Some pages dont have an inner div.row
     non_inner_row_selector <- ".factSheet .tog-content .glance-factSheet ~ p:nth-of-type(3)"
-    prev_text <- html_text(html_node(page, paste(c(main_selector, non_inner_row_selector), collapse = ",")))
+    prev_text <- .seer_extract_text(page, c(
+      main_selector,
+      non_inner_row_selector,
+      ".factSheet .tog-content p"
+    ))
     
-    if(is.na(prev_text)) {
-      prevalence <- NA_integer_
-    }else {
-      prevalence <- as.numeric(gsub(",","",stri_match_all_regex(prev_text,"estimated (\\S+) " )[[1]][,2]))
-    }
+    prevalence <- .seer_extract_prevalence(prev_text)
 
     dt <- data.table(site=site, year = year,
                      x = c("incidence", "prevalence", "deaths"),
@@ -637,6 +674,77 @@ parse_seer_cancer_fact_page <- function(link) {
   }
 
   return(dt)
+}
+
+.seer_fetch_html <- function(url, retries = 3, user_agent = "Mozilla/5.0") {
+  attempt <- 1
+  repeat {
+    resp <- httr::GET(url, httr::add_headers(`User-Agent` = user_agent))
+    if (httr::status_code(resp) == 200) {
+      html <- httr::content(resp, as = "text", encoding = "UTF-8")
+      return(xml2::read_html(html))
+    }
+    if (attempt >= retries) {
+      httr::stop_for_status(resp)
+    }
+    Sys.sleep(0.5 * attempt)
+    attempt <- attempt + 1
+  }
+}
+
+.seer_extract_text <- function(page, selectors) {
+  for (selector in selectors) {
+    node <- html_node(page, selector)
+    if (!is.null(node)) {
+      text <- html_text(node)
+      if (!is.na(text) && nzchar(trimws(text))) {
+        return(text)
+      }
+    }
+  }
+  NA_character_
+}
+
+.seer_extract_numeric <- function(page, selectors) {
+  for (selector in selectors) {
+    node <- html_node(page, selector)
+    if (!is.null(node)) {
+      text <- html_text(node)
+      number <- stringi::stri_extract_first_regex(text, "[0-9][0-9,]*")
+      if (!is.na(number)) {
+        return(as.numeric(gsub(",", "", number)))
+      }
+    }
+  }
+  NA_real_
+}
+
+.seer_extract_prevalence <- function(text) {
+  if (is.na(text) || !nzchar(text)) {
+    return(NA_real_)
+  }
+  match <- stringi::stri_match_first_regex(text, "(?i)estimated\\s+([0-9][0-9,]*)")
+  if (!is.na(match[, 2])) {
+    return(as.numeric(gsub(",", "", match[, 2])))
+  }
+  fallback <- stringi::stri_extract_first_regex(text, "[0-9][0-9,]*")
+  if (!is.na(fallback)) {
+    return(as.numeric(gsub(",", "", fallback)))
+  }
+  NA_real_
+}
+
+.seer_scrape_summary <- function(seer) {
+  if (nrow(seer) == 0) {
+    warning("SEER scrape returned no data.")
+    return(invisible(NULL))
+  }
+  missing <- seer[is.na(value), .N, by = x]
+  if (nrow(missing)) {
+    msg <- paste(sprintf("%s: %d missing", missing$x, missing$N), collapse = "; ")
+    message("SEER scrape missing values - ", msg)
+  }
+  invisible(NULL)
 }
 
 #' Summarize CDC incidence data by standardized cancer site
