@@ -208,7 +208,8 @@ assemble_seermedicare <- function(
   message("Generating metadata")
 
   # Incidence, prevalence, and death data years from seer
-  seeryears <- unique(seer[, c("x", "year")])
+  # Take the most common (mode) or max year for each measure type
+  seeryears <- seer[!is.na(year), .(year = as.numeric(names(sort(table(year), decreasing = TRUE))[1])), by = x]
   metadata <- setNames(as.list(seeryears$year), paste0(seeryears$x, "_year"))
 
   # CDC age data year

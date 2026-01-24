@@ -78,7 +78,13 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
   message("Generating Summary of Publications")
 
   ## Get last 7 years not including the most recent year as there is a lag
-  last_reporting_year = metadata$prevalence_year-1
+  last_reporting_year <- metadata$prevalence_year
+  if (is.null(last_reporting_year) || is.na(last_reporting_year)) {
+    # Fallback to current year - 1 if prevalence_year is missing
+    last_reporting_year <- as.numeric(format(Sys.Date(), "%Y")) - 1
+  } else {
+    last_reporting_year <- as.numeric(last_reporting_year) - 1
+  }
   time_period <- seq(from=last_reporting_year-6, to=last_reporting_year)
 
   doc <- doc_add_title(doc, "Summary of Publications")
