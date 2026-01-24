@@ -194,6 +194,8 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
 
   if(outputPath != "") {
     dir.create(outputPath, recursive = TRUE, showWarnings = FALSE)
+    # Use absolute path to avoid working directory issues
+    outputPath <- normalizePath(outputPath, mustWork = TRUE)
     filename <- sprintf("SEER_Medicare_Report_%s.docx", metadata$access_date)
     fullPath <- file.path(outputPath, filename)
     print(doc, target = fullPath)
