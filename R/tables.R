@@ -9,8 +9,6 @@
 #' @return flextable object
 #' @import data.table magrittr flextable
 #' @export
-#'
-#' @examples \dontrun{}
 .format_table <- function(dt, title = "", footnote = "", less_than = NULL) {
   table <- flextable::flextable(dt)
   table <- flextable::align(table, align = "center", part = "all")
@@ -44,12 +42,16 @@
 
 #' Scale Publications to Incidence, Prevalence, and Deaths Data
 #'
-#' @return data.table
+#' @param sites data.table of site summary data from scrape_all_data
+#'
+#' @return data.table with scaled incidence, prevalence, and deaths columns
 #' @import data.table magrittr
 #' @export
 #'
-#' @examples \dontrun{
-#' scale_seer()
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' scale_seer(seer_pub_data$site_summary)
 #' }
 scale_seer <- function(sites) {
   copy(sites) %>% setkey("site") %>% .[, (seer_cols()) := lapply(.SD, function(x){x / get_scale(x)}), .SDcols = seer_cols()]
@@ -57,17 +59,20 @@ scale_seer <- function(sites) {
 
 #' Create SEER Tables
 #'
+#' @param seer_pub_data Object of class seermedicare from scrape_all_data
 #' @param standardize Logical value - if TRUE, standardizes publications ratios to median
 #' @param ... Further arguments passed to .format_table()
 #'
-#' @return flextable object containing total publications, % incident patients age 65 or older, publications to incidence ratios,
+#' @return flextable object containing total publications, percent incident patients age 65 or older, publications to incidence ratios,
 #' publications to prevalence ratios, and publications to deaths ratios for each tumor site
 #' @import data.table magrittr
 #' @export
 #'
-#' @examples \dontrun{
-#' seer_table()
-#' seer_table(standardize = T)
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' seer_table(seer_pub_data)
+#' seer_table(seer_pub_data, standardize = TRUE)
 #' }
 seer_table <- function(seer_pub_data, standardize = F, ...) {
   publications <- seer_pub_data$publications

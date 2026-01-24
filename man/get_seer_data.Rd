@@ -4,13 +4,24 @@
 \alias{get_seer_data}
 \title{Get SEER Incidence, Prevalence, and Mortality Data}
 \usage{
-get_seer_data(seer_url = "http://seer.cancer.gov/statfacts/more.html",
-  link_css_selector = ".alphaList.rpw a")
+get_seer_data(
+  seer_url = "http://seer.cancer.gov/statfacts/more.html",
+  link_css_selector = ".alphaList.rpw a",
+  delay_seconds = 0.2,
+  retries = 3,
+  user_agent = "Mozilla/5.0"
+)
 }
 \arguments{
 \item{seer_url}{\code{character} Url to Main SEER cancer fact site that contains links to each cancer}
 
 \item{link_css_selector}{\code{character} CSS selector to select all links to each cancer site}
+
+\item{delay_seconds}{\code{numeric} Delay between requests in seconds}
+
+\item{retries}{\code{numeric} Number of retries for HTTP fetches}
+
+\item{user_agent}{\code{character} User agent string for HTTP requests}
 }
 \value{
 \code{\link{data.table}}

@@ -7,6 +7,8 @@
 line_plot(publications, by = NULL, by_label = by)
 }
 \arguments{
+\item{publications}{data.table of publications data from scrape_all_data}
+
 \item{by}{String representing variable to use to cut data - will use top 4 most frequent in publications data}
 
 \item{by_label}{Label to use in chart title}
@@ -19,7 +21,8 @@ Create Publications by Year Plots
 }
 \examples{
 \dontrun{
-line_plot()
-line_plot(by = "sites", by_label = "tumor site")
+seer_pub_data <- scrape_all_data()
+line_plot(seer_pub_data$publications)
+line_plot(seer_pub_data$publications, by = "sites", by_label = "tumor site")
 }
 }

@@ -1,12 +1,13 @@
-#' Generate Full Report: Overview of All SEER-Medicare Publications
+#' Generate Figures and Excel Data Tables
 #'
-#' @param seer_pub_data Result of running scrape_all_data.  Should have class "scrape_all_data"
-#' @param outputPath Path to directory where report will be generated. Default is working directory
-#' @param html Logical value - if TRUE, will generate html file; if FALSE, will generate Microsoft Word file
+#' @param seer_pub_data Result of running scrape_all_data. Should have class "seermedicare"
+#' @param outputPath Path to directory where figures will be generated. Default is working directory
 #'
-#' @return doc Object of class \code{\link{docx}} or \code{\link{bsdoc}} containing SEER-Medicare report
+#' @return Invisibly returns NULL. Side effect: writes PNG figures and Excel file to outputPath
 #'
 #' @import openxlsx
+#' @importFrom grDevices dev.off png
+#' @importFrom utils zip
 #' @export
 generate_figures <- function(seer_pub_data, outputPath = "."){
 

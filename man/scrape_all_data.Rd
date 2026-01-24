@@ -4,11 +4,13 @@
 \alias{scrape_all_data}
 \title{Gets all data needed to generate SEER Publication report}
 \usage{
-
-  scrape_all_data(nci_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
-  cdc_wonder_request_xml = NULL, cdc_year = NULL,
+scrape_all_data(
+  nci_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
+  cdc_wonder_request_xml = NULL,
+  cdc_year = NULL,
   cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip",
-  seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html")
+  seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html"
+)
 }
 \arguments{
 \item{nci_url}{\code{character} URL used to fetch NCI publications data}
@@ -19,15 +21,17 @@ to load the bundled request template.}
 
 \item{cdc_year}{\code{character} Year to request from CDC WONDER (single year)}
 
-\item{cdc_cancer_stat_url}{\code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ whic contains multiple years of CDC cancer  data}
+\item{cdc_cancer_stat_url}{\code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ which contains multiple years of CDC cancer data}
 
-\item{seer_cancer_stats_url}{\code{character} Url to Main SEER cancer fact site that contains links to each cancer}
+\item{seer_cancer_stats_url}{\code{character} URL to Main SEER cancer fact site that contains links to each cancer}
 }
 \value{
-\code{seermedicare} obj
+Object of class \code{seermedicare} containing publications, seer, cdc, site_summary, and metadata
 }
 \description{
-Returns
+Scrapes publication data from NCI, cancer statistics from CDC WONDER,
+and incidence/prevalence/deaths data from SEER. Returns a combined
+data object suitable for report generation.
 }
 \examples{
 \dontrun{

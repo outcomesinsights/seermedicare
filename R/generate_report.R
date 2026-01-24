@@ -1,20 +1,23 @@
 #' Generate Full Report: Overview of All SEER-Medicare Publications
 #'
-#' @param seer_pub_data Result of running scrape_all_data.  Should have class "scrape_all_data"
+#' @param seer_pub_data Result of running scrape_all_data.  Should have class "seermedicare"
 #' @param outputPath Path to directory where report will be generated. Default is working directory
 #' @param html Logical value - deprecated, retained for compatibility
 #' @param pdf Logical value - if TRUE, will generate a PDF file
 #'
-#' @return doc Object of class \code{\link{rdocx}} containing SEER-Medicare report
+#' @return Invisibly returns an officer rdocx object containing the SEER-Medicare report
 #' @import magrittr officer rmarkdown flextable
 #' @export
 #'
-#' @examples \dontrun{
-#' generate_report()
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' generate_report(seer_pub_data, outputPath = "output")
+#' generate_report(seer_pub_data, outputPath = "output", pdf = TRUE)
 #' }
 generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE){
 
-  if(class(seer_pub_data) != "seermedicare") {
+  if(!inherits(seer_pub_data, "seermedicare")) {
     stop("seer_pub_data argument must be of class seermedicare")
   }
 

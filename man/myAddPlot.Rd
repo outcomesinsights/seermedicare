@@ -7,12 +7,12 @@
 myAddPlot(doc, plot)
 }
 \arguments{
-\item{doc}{Object of class \code{\link{docx}} where plot should be added}
+\item{doc}{officer docx object where plot should be added}
 
 \item{plot}{plot to be added to the document}
 }
 \value{
-doc Object of class \code{\link{docx}}
+doc officer docx object
 }
 \description{
 Add Plot to Document suppressing warnings

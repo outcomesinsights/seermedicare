@@ -4,11 +4,18 @@
 \alias{bar_plot}
 \title{Create Publications Bar Charts (i.e., Publications by Tumor Site, Author, or Journal)}
 \usage{
-bar_plot(x, publications, years = publications$year, display = NULL,
-  x_label = x)
+bar_plot(
+  x,
+  publications,
+  years = publications$year,
+  display = NULL,
+  x_label = x
+)
 }
 \arguments{
 \item{x}{String representing data to plot on x axis}
+
+\item{publications}{data.table of publications data from scrape_all_data}
 
 \item{years}{Data years to include in analysis}
 
@@ -24,7 +31,8 @@ Create Publications Bar Charts (i.e., Publications by Tumor Site, Author, or Jou
 }
 \examples{
 \dontrun{
-bar_plot("sites")
-bar_plot("sites", years = c(2008:2015), display = 15)
+seer_pub_data <- scrape_all_data()
+bar_plot("sites", seer_pub_data$publications)
+bar_plot("sites", seer_pub_data$publications, years = c(2008:2015), display = 15)
 }
 }

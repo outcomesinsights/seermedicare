@@ -7,12 +7,14 @@
 seer_table(seer_pub_data, standardize = F, ...)
 }
 \arguments{
+\item{seer_pub_data}{Object of class seermedicare from scrape_all_data}
+
 \item{standardize}{Logical value - if TRUE, standardizes publications ratios to median}
 
 \item{...}{Further arguments passed to .format_table()}
 }
 \value{
-flextable object containing total publications, % incident patients age 65 or older, publications to incidence ratios,
+flextable object containing total publications, percent incident patients age 65 or older, publications to incidence ratios,
 publications to prevalence ratios, and publications to deaths ratios for each tumor site
 }
 \description{
@@ -20,7 +22,8 @@ Create SEER Tables
 }
 \examples{
 \dontrun{
-seer_table()
-seer_table(standardize = T)
+seer_pub_data <- scrape_all_data()
+seer_table(seer_pub_data)
+seer_table(seer_pub_data, standardize = TRUE)
 }
 }

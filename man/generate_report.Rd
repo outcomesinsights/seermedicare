@@ -7,7 +7,7 @@
 generate_report(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE)
 }
 \arguments{
-\item{seer_pub_data}{Result of running scrape_all_data.  Should have class "scrape_all_data"}
+\item{seer_pub_data}{Result of running scrape_all_data.  Should have class "seermedicare"}
 
 \item{outputPath}{Path to directory where report will be generated. Default is working directory}
 
@@ -16,13 +16,15 @@ generate_report(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE)
 \item{pdf}{Logical value - if TRUE, will generate a PDF file}
 }
 \value{
-doc Object of class \code{\link{rdocx}} containing SEER-Medicare report
+Invisibly returns an officer rdocx object containing the SEER-Medicare report
 }
 \description{
 Generate Full Report: Overview of All SEER-Medicare Publications
 }
 \examples{
 \dontrun{
-generate_report()
+seer_pub_data <- scrape_all_data()
+generate_report(seer_pub_data, outputPath = "output")
+generate_report(seer_pub_data, outputPath = "output", pdf = TRUE)
 }
 }

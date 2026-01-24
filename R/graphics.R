@@ -3,6 +3,7 @@ utils::globalVariables(c("values", "."))
 #' Create Publications Bar Charts (i.e., Publications by Tumor Site, Author, or Journal)
 #'
 #' @param x String representing data to plot on x axis
+#' @param publications data.table of publications data from scrape_all_data
 #' @param years Data years to include in analysis
 #' @param display Number of bars to show on plot
 #' @param x_label String for x-axis label
@@ -11,9 +12,11 @@ utils::globalVariables(c("values", "."))
 #' @import data.table ggplot2 magrittr
 #' @export
 #'
-#' @examples \dontrun{
-#' bar_plot("sites")
-#' bar_plot("sites", years = c(2008:2015), display = 15)
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' bar_plot("sites", seer_pub_data$publications)
+#' bar_plot("sites", seer_pub_data$publications, years = c(2008:2015), display = 15)
 #' }
 bar_plot <- function(x, publications, years = publications$year, display = NULL, x_label = x) {
   # get appropriate dataset, then subset by years and display parameter
@@ -35,8 +38,6 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #' @return Formatted ggplot2 plot with labels
 #' @import ggplot2
 #' @export
-#'
-#' @examples \dontrun{}
 .format_plot <- function(plot, x_label, y_label = "Publications", title = "") {
   top <- ceiling(max(unlist(lapply(ggplot_build(plot)$data, function(x){x[["y"]]})), na.rm = T) / 50) * 50
   plot <- plot + .theme_seermedicare() + scale_y_continuous(breaks = seq(0, top, top / 10), limits = c(0, top + 5), expand = c(0, 0))
@@ -47,6 +48,7 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 
 #' Create Publications by Year Plots
 #'
+#' @param publications data.table of publications data from scrape_all_data
 #' @param by String representing variable to use to cut data - will use top 4 most frequent in publications data
 #' @param by_label Label to use in chart title
 #'
@@ -54,9 +56,11 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #' @import data.table ggplot2 magrittr
 #' @export
 #'
-#' @examples \dontrun{
-#' line_plot()
-#' line_plot(by = "sites", by_label = "tumor site")
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' line_plot(seer_pub_data$publications)
+#' line_plot(seer_pub_data$publications, by = "sites", by_label = "tumor site")
 #' }
 line_plot <- function(publications, by = NULL, by_label = by) {
   if(is.null(by)) {
@@ -71,15 +75,18 @@ line_plot <- function(publications, by = NULL, by_label = by) {
 #' Create Publications and Incidence/Prevalence/Deaths by Year Plot
 #'
 #' @param x Data column to plot - should be "incidence", "prevalence", or "deaths"
+#' @param seer_pub_data Object of class seermedicare from scrape_all_data
 #'
 #' @return Combination ggplot2 plot containing bar plot for parameter and line plot for total publications
 #' @import data.table ggplot2 magrittr
 #' @export
 #'
-#' @examples \dontrun{
-#' seer_plot("incidence")
-#' seer_plot("prevalence")
-#' seer_plot("deaths")
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' seer_plot("incidence", seer_pub_data)
+#' seer_plot("prevalence", seer_pub_data)
+#' seer_plot("deaths", seer_pub_data)
 #' }
 seer_plot <- function(x, seer_pub_data) {
 
@@ -99,16 +106,14 @@ seer_plot <- function(x, seer_pub_data) {
           geom_line(aes_string(group = "label"), data["publications"], linetype = "dashed") +
           geom_point(aes_string(group = "label"), data["publications"], size = 3, shape = 22) +
           scale_fill_manual(values = palette()[1:2]) + scale_color_manual(values = palette()[1:2])
-          .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x))
+  .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x))
 }
 
-#' ggplot2 Theme
+#' ggplot2 Theme for SEER-Medicare Plots
 #'
-#' @return ggplot2 Theme
+#' @return ggplot2 theme object
 #' @import ggplot2
 #' @export
-#'
-#' @examples \dontrun{}
 .theme_seermedicare <- function() {
   theme_classic() + theme(text = element_text(family = "serif"), plot.title = element_text(face = "bold", hjust = 0.5, size = 12),
                           axis.text = element_text(size = 10), axis.text.x = element_text(angle = 40, hjust = 1),

@@ -4,10 +4,14 @@
 \alias{parse_seer_cancer_fact_page}
 \title{Parse SEER Cancer Fact Page to get Latest Incidence, Prevalence, and Mortality Data}
 \usage{
-parse_seer_cancer_fact_page(link)
+parse_seer_cancer_fact_page(link, retries = 3, user_agent = "Mozilla/5.0")
 }
 \arguments{
-\item{link}{\code{character} Url to site specific SEER cancer fact site}
+\item{link}{\code{character} URL to site specific SEER cancer fact site}
+
+\item{retries}{\code{numeric} Number of retries for HTTP fetches (default 3)}
+
+\item{user_agent}{\code{character} User agent string for HTTP requests}
 }
 \value{
 \code{\link{data.table}}

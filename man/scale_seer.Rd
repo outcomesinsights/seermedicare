@@ -6,14 +6,18 @@
 \usage{
 scale_seer(sites)
 }
+\arguments{
+\item{sites}{data.table of site summary data from scrape_all_data}
+}
 \value{
-data.table
+data.table with scaled incidence, prevalence, and deaths columns
 }
 \description{
 Scale Publications to Incidence, Prevalence, and Deaths Data
 }
 \examples{
 \dontrun{
-scale_seer()
+seer_pub_data <- scrape_all_data()
+scale_seer(seer_pub_data$site_summary)
 }
 }

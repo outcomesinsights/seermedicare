@@ -4,7 +4,7 @@ Version: 0.4
 Authors@R: person("Marc", "Halperin", email = "halperin@outins.com", role = c("aut", "cre"))
 Description: Generates plots and tables for NCI publications data, SEER data, and CDC Wonder cancer data. Generates full overview report for SEER-Medicare data.
 Depends: R (>= 3.2.2)
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
@@ -18,8 +18,11 @@ Imports:
     officer,
     openxlsx,
     rmarkdown,
-    tools
+    rvest,
+    stringi,
+    tools,
+    xml2
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-RoxygenNote: 6.0.1
+RoxygenNote: 7.3.3

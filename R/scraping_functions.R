@@ -1,19 +1,23 @@
 
 #' Gets all data needed to generate SEER Publication report
 #'
-#' Returns
+#' Scrapes publication data from NCI, cancer statistics from CDC WONDER,
+#' and incidence/prevalence/deaths data from SEER. Returns a combined
+#' data object suitable for report generation.
 #'
 #' @param nci_url \code{character} URL used to fetch NCI publications data
 #' @param cdc_wonder_request_xml \code{character} Path to CDC WONDER request XML file.
 #' Use \code{system.file("extdata", "cdc_wonder_request.xml", package = "seermedicare", mustWork = TRUE)}
 #' to load the bundled request template.
 #' @param cdc_year \code{character} Year to request from CDC WONDER (single year)
-#' @param cdc_cancer_stat_url \code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ whic contains multiple years of CDC cancer  data
-#' @param seer_cancer_stats_url \code{character} Url to Main SEER cancer fact site that contains links to each cancer
+#' @param cdc_cancer_stat_url \code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ which contains multiple years of CDC cancer data
+#' @param seer_cancer_stats_url \code{character} URL to Main SEER cancer fact site that contains links to each cancer
 #'
-#' @return \code{seermedicare} obj
+#' @return Object of class \code{seermedicare} containing publications, seer, cdc, site_summary, and metadata
 #'
 #' @import rvest xml2 stringi
+#' @importFrom stats na.omit setNames
+#' @importFrom utils download.file packageVersion tail unzip
 #' @examples
 #' \dontrun{
 #' xml_path <- system.file("extdata", "cdc_wonder_request.xml",
@@ -471,7 +475,7 @@ get_publication_data <- function(
   nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
   table_results_css_selector = "table.pubsearch-results",
   data_source = "SEERM",
-  auth_token = "Token adce2118f5d880436bd5f603369fa9f19e5f24ea",
+  auth_token = NULL,
   batch_size = 1000
 ) {
   if (.is_pubsearch_api_url(nci_search_url)) {
@@ -635,7 +639,9 @@ get_seer_data <- function(
 #'
 #' Takes link to SEER site specific cancer stat fact page and returns data set with a column for site, year, x (A categorical variable defining what is in the value column. Can be "incidence", "prevalence", or "deaths"), value ( the number associated with the measure in x)
 #'
-#' @param link \code{character} Url to site specific SEER cancer fact site
+#' @param link \code{character} URL to site specific SEER cancer fact site
+#' @param retries \code{numeric} Number of retries for HTTP fetches (default 3)
+#' @param user_agent \code{character} User agent string for HTTP requests
 #'
 #' @return \code{\link{data.table}}
 parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla/5.0") {

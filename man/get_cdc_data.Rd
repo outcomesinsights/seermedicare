@@ -4,9 +4,11 @@
 \alias{get_cdc_data}
 \title{Get CDC United States Cancer Statistics Data: All Data Combined (Mortality and Incidence Rates)}
 \usage{
-
-  get_cdc_data(wonder_request_xml = NULL, year = NULL,
-  pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip")
+get_cdc_data(
+  wonder_request_xml = NULL,
+  year = NULL,
+  pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip"
+)
 }
 \arguments{
 \item{wonder_request_xml}{\code{character} Path to CDC WONDER request XML file}

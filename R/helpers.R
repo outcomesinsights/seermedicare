@@ -3,10 +3,9 @@
 #' @param x String column name to check for in dataset
 #' @param dataset dataset to search
 #'
-#' @return Appropriate error
+#' @return Stops with error if column not found, otherwise returns invisibly
 #' @import data.table
-#'
-#' @examples \dontrun{}
+#' @keywords internal
 .arg_error <- function(x, dataset){
   if(!x %in% colnames(dataset)){
     stop(paste0("Invalid argument '", x, "': column not found in dataset"), call. = F)
@@ -89,10 +88,13 @@ seer_cols <- function() {
 
 #' Format Seer Labels
 #'
+#' @param x Character string for the SEER data type ("incidence", "prevalence", or "deaths")
+#' @param sites data.table of site summary data from scrape_all_data
+#' @param metadata List of metadata from scrape_all_data
+#' @param measure Character string for the measure label (defaults to title case of x)
+#'
 #' @return String in the form [SEER Data] per [SEER Data Scale] ([SEER Data Year]) - e.g., Incidence per 1,000 (2016)
 #' @export
-#'
-#' @examples \dontrun{}
 .seer_label <- function(x, sites, metadata, measure = tools::toTitleCase(x)) {
   sprintf("%s per %s (%s)", measure, format(get_scale(sites[[x]]), big.mark = ","), metadata[[paste0(x, "_year")]])
 }

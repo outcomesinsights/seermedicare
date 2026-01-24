@@ -13,12 +13,10 @@ myAddPlot <- function(doc, plot) {
 
 #' Add Blank Line to Report
 #'
-#' @param doc officer docx object where line should be added
+#' @param doc officer rdocx object where line should be added
 #'
-#' @return Object of class \code{\link{docx}} with line added
+#' @return officer rdocx object with blank line added
 #' @export
-#'
-#' @examples \dontrun{}
 nline <- function(doc){
   officer::body_add_par(doc, "")
 }
@@ -132,10 +130,10 @@ doc_add_hyperlink <- function(doc, text, url, style = "Normal") {
 #' Assumes that publication data for any given year is fully represented 3 months after the year ends
 #' Calculates if data is underrepresented using data access date and latest year in data
 #'
+#' @param seer_pub_data Object of class seermedicare from scrape_all_data
+#'
 #' @return String containing underrepresented data years, or NULL, if no years are underrepresented
 #' @export
-#'
-#' @examples \dontrun{}
 .underrepresented <- function(seer_pub_data){
   accessdate <- seer_pub_data$metadata$access_date
   yeardata <- seer_pub_data$publications

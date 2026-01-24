@@ -2,20 +2,18 @@
 % Please edit documentation in R/generate_figures.R
 \name{generate_figures}
 \alias{generate_figures}
-\title{Generate Full Report: Overview of All SEER-Medicare Publications}
+\title{Generate Figures and Excel Data Tables}
 \usage{
 generate_figures(seer_pub_data, outputPath = ".")
 }
 \arguments{
-\item{seer_pub_data}{Result of running scrape_all_data.  Should have class "scrape_all_data"}
+\item{seer_pub_data}{Result of running scrape_all_data. Should have class "seermedicare"}
 
-\item{outputPath}{Path to directory where report will be generated. Default is working directory}
-
-\item{html}{Logical value - if TRUE, will generate html file; if FALSE, will generate Microsoft Word file}
+\item{outputPath}{Path to directory where figures will be generated. Default is working directory}
 }
 \value{
-doc Object of class \code{\link{docx}} or \code{\link{bsdoc}} containing SEER-Medicare report
+Invisibly returns NULL. Side effect: writes PNG figures and Excel file to outputPath
 }
 \description{
-Generate Full Report: Overview of All SEER-Medicare Publications
+Generate Figures and Excel Data Tables
 }

@@ -4,11 +4,13 @@
 \alias{get_publication_data}
 \title{Get SEER Medicare based Publications data}
 \usage{
-
-  get_publication_data(nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
+get_publication_data(
+  nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
   table_results_css_selector = "table.pubsearch-results",
-  data_source = "SEERM", auth_token = "Token adce2118f5d880436bd5f603369fa9f19e5f24ea",
-  batch_size = 1000)
+  data_source = "SEERM",
+  auth_token = NULL,
+  batch_size = 1000
+)
 }
 \arguments{
 \item{nci_search_url}{\code{character} URL that searches NCI publications}

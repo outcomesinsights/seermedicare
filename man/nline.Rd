@@ -7,14 +7,11 @@
 nline(doc)
 }
 \arguments{
-\item{doc}{Object of class \code{\link{docx}} where line should be added}
+\item{doc}{officer rdocx object where line should be added}
 }
 \value{
-Object of class \code{\link{docx}} with line added
+officer rdocx object with blank line added
 }
 \description{
 Add Blank Line to Report
-}
-\examples{
-\dontrun{}
 }

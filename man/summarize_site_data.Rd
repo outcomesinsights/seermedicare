@@ -4,8 +4,7 @@
 \alias{summarize_site_data}
 \title{Summarize Site Data from Publication, CDC, and SEER}
 \usage{
-summarize_site_data(publications, seer, cdc, cdc_year = cdc[nchar(year) > 4,
-  unique(year)])
+summarize_site_data(publications, seer, cdc, cdc_year = NULL)
 }
 \arguments{
 \item{publications}{\code{data.table} publication data from running get_publication_data}

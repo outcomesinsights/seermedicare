@@ -8,6 +8,8 @@ seer_plot(x, seer_pub_data)
 }
 \arguments{
 \item{x}{Data column to plot - should be "incidence", "prevalence", or "deaths"}
+
+\item{seer_pub_data}{Object of class seermedicare from scrape_all_data}
 }
 \value{
 Combination ggplot2 plot containing bar plot for parameter and line plot for total publications
@@ -17,8 +19,9 @@ Create Publications and Incidence/Prevalence/Deaths by Year Plot
 }
 \examples{
 \dontrun{
-seer_plot("incidence")
-seer_plot("prevalence")
-seer_plot("deaths")
+seer_pub_data <- scrape_all_data()
+seer_plot("incidence", seer_pub_data)
+seer_plot("prevalence", seer_pub_data)
+seer_plot("deaths", seer_pub_data)
 }
 }
