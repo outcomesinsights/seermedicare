@@ -94,7 +94,7 @@ scrape_all_data <- function(
   } else {
     metadata[["cdc_citation"]] <- sprintf("Data collected from CDC website: %s", cdc_cancer_stat_url)
   }
-  metadata[["seer_citation"]] <- html_session(seer_url) %>% follow_link("Cancer Statistics Review") %>% html_node("h2+ p") %>% html_text
+  metadata[["seer_citation"]] <- session(seer_url) %>% session_follow_link("Cancer Statistics Review") %>% html_node("h2+ p") %>% html_text
 
   # data access
   if (.is_pubsearch_api_url(nci_url)) {
@@ -227,8 +227,8 @@ assemble_seermedicare <- function(
     metadata[["seer_citation"]] <- seer_citation
   } else {
     metadata[["seer_citation"]] <- tryCatch({
-      html_session(seer_url) %>%
-        follow_link("Cancer Statistics Review") %>%
+      session(seer_url) %>%
+        session_follow_link("Cancer Statistics Review") %>%
         html_node("h2+ p") %>%
         html_text()
     }, error = function(e) {

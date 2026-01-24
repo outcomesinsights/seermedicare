@@ -67,9 +67,9 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #' }
 line_plot <- function(publications, by = NULL, by_label = by) {
   if(is.null(by)) {
-    lp <- ggplot(publications, aes(factor(year), group = 1)) + geom_line(color = seer_palette()[1], size = 1, stat = "count")
+    lp <- ggplot(publications, aes(factor(year), group = 1)) + geom_line(color = seer_palette()[1], linewidth = 1, stat = "count")
   } else {
-    lp <- ggplot(get_data(by, publications)[values %in% levels(values)[1:4]], aes(factor(year), group = values, color = values, linetype = values)) + geom_line(size = 1, stat = "count") +
+    lp <- ggplot(get_data(by, publications)[values %in% levels(values)[1:4]], aes(factor(year), group = values, color = values, linetype = values)) + geom_line(linewidth = 1, stat = "count") +
       scale_color_manual(values = seer_palette()) + scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted"))
   }
   .format_plot(lp, x_label = "year", title = sprintf("Publications by year%s", ifelse(is.null(by), "", sprintf(" and top 4 %ss", by_label))))
