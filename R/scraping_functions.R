@@ -506,7 +506,62 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
 }
 
 .is_pubsearch_api_url <- function(url) {
+
   grepl("pubsearch-api", url, fixed = TRUE)
+}
+
+# Mapping of publication API site codes to standardized full names
+# These codes are returned by the NCI publications API and need to be
+# converted to match SEER and CDC site naming conventions.
+# The values here must match the site_std values set in create_std_site_lookup().
+.pub_site_code_map <- c(
+  "BONS" = "Brain & Other Nervous System",
+  "BREAST" = "Breast",
+  "CERVICAL" = "Cervical",
+  "COLO" = "Colorectal",
+  "CU" = "Corpus Uteri",
+  "ESO" = "Esophagus",
+  "GASTRIC" = "Gastric",
+  "HEADNECK" = "Head and Neck",
+  "LEU" = "Leukemia",
+  "LIVER" = "Liver",
+  "LUNG" = "Lung",
+  "LYMPHOMA" = "Lymphoma",
+  "MM" = "Multiple Myeloma",
+  "OVARY" = "Ovary",
+  "PANCREAS" = "Pancreas",
+  "PROSTATE" = "Prostate",
+  "RENAL" = "Renal",
+  "SKIN" = "Skin",
+  "TESTIS" = "Testis",
+  "UB" = "Urinary Bladder",
+  "OTHER" = "Other"
+)
+
+#' Map publication site codes to full names
+#'
+#' Converts abbreviated site codes from the NCI publications API
+#' to full names that match SEER and CDC naming conventions.
+#'
+#' @param codes Character vector of site codes
+#' @return Character vector of full site names
+#' @keywords internal
+.map_pub_site_codes <- function(codes) {
+  # Handle NA or empty
+  if (is.null(codes) || length(codes) == 0) {
+    return(codes)
+  }
+  
+  # Map each code to its full name, keeping original if not found
+  vapply(codes, function(code) {
+    code_upper <- toupper(trimws(code))
+    if (code_upper %in% names(.pub_site_code_map)) {
+      .pub_site_code_map[[code_upper]]
+    } else {
+      # Keep original (title case) if not in mapping
+      tools::toTitleCase(tolower(code))
+    }
+  }, character(1), USE.NAMES = FALSE)
 }
 
 .fetch_pubsearch_publications <- function(api_url, data_source, auth_token, batch_size = 1000) {
@@ -730,8 +785,8 @@ get_publication_data <- function(
   publications[,`:=`(id = generateids(nrow(publications)), # new column -  unique identifiers
                      year = stringi::stri_extract_first_regex(date, "[[:digit:]]{4}"), # new column - publication year only
                      issue = journal, # new column - journal with volume and issue (because journal will be modified)
-                     journal = stringi::stri_extract_all_regex(journal, "[[:alpha:]]+") %>% sapply(paste, collapse = " "), # change journal column to include name only
-                     sites = toTitleCase(sites))] %>% setkey(id)
+                     journal = stringi::stri_extract_all_regex(journal, "[[:alpha:]]+") %>% sapply(paste, collapse = " "))] %>% setkey(id)
+  # Note: sites are converted to full names via .map_pub_site_codes after listify
 
   # for columns with multiple pieces of data per cell, split pieces and convert to list
   listify <- function(col, split = ";", data = publications, removeItems = "") {
@@ -749,6 +804,12 @@ get_publication_data <- function(
 
   listify("authors", split = ",")
   listify("sites", removeItems = "All Sites or No Specific Site") # Remove All Sites from Sites
+
+  # Map publication site codes to full names (for API data which uses abbreviated codes)
+  publications[, sites := lapply(sites, .map_pub_site_codes)]
+
+  # Remove "Other" sites as they don't map to specific cancer types
+  publications[, sites := lapply(sites, function(x) x[x != "Other"])]
 
   # Remove journals with no site information
   publications <- publications[sapply(sites, function(x) length(x)!=0)]
