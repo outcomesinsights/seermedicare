@@ -5,12 +5,19 @@
 \title{Gets all data needed to generate SEER Publication report}
 \usage{
 
-  scrape_all_data(nci_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM",
+  scrape_all_data(nci_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
+  cdc_wonder_request_xml = NULL, cdc_year = NULL,
   cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip",
   seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html")
 }
 \arguments{
-\item{nci_url}{\code{data.table} publication data from running get_publication_data}
+\item{nci_url}{\code{character} URL used to fetch NCI publications data}
+
+\item{cdc_wonder_request_xml}{\code{character} Path to CDC WONDER request XML file.
+Use \code{system.file("extdata", "cdc_wonder_request.xml", package = "seermedicare", mustWork = TRUE)}
+to load the bundled request template.}
+
+\item{cdc_year}{\code{character} Year to request from CDC WONDER (single year)}
 
 \item{cdc_cancer_stat_url}{\code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ whic contains multiple years of CDC cancer  data}
 
@@ -21,4 +28,11 @@
 }
 \description{
 Returns
+}
+\examples{
+\dontrun{
+xml_path <- system.file("extdata", "cdc_wonder_request.xml",
+                        package = "seermedicare", mustWork = TRUE)
+seer_pub_data <- scrape_all_data(cdc_wonder_request_xml = xml_path, cdc_year = "2022")
+}
 }

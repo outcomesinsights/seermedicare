@@ -5,17 +5,27 @@
 \title{Get SEER Medicare based Publications data}
 \usage{
 
-  get_publication_data(nci_search_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM",
-  table_results_css_selector = "table.pubsearch-results")
+  get_publication_data(nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
+  table_results_css_selector = "table.pubsearch-results",
+  data_source = "SEERM", auth_token = "Token adce2118f5d880436bd5f603369fa9f19e5f24ea",
+  batch_size = 1000)
 }
 \arguments{
-\item{nci_search_url}{\code{character} URL that searches NCI publications for all SEER Medicare publications}
+\item{nci_search_url}{\code{character} URL that searches NCI publications}
 
 \item{table_results_css_selector}{\code{character} CSS selector to select main result table}
+
+\item{data_source}{\code{character} Data source filter (e.g. "SEERM" for SEER-Medicare)}
+
+\item{auth_token}{\code{character} Authorization token for the publications API.
+If NULL, the token will be fetched from the publications site.}
+
+\item{batch_size}{\code{numeric} Number of records to request per batch}
 }
 \value{
 \code{\link{data.table}}
 }
 \description{
-Searches https://healthcaredelivery.cancer.gov/publications/ for all SEER-Medicare Publications (Data Source/Project/Initiative = "SEER-Medicare Linked Database) and returns data.table with information about each publication
+Searches https://healthcaredelivery.cancer.gov/publications/ for SEER-CMS Linkages publications
+and returns data.table with information about each publication
 }

@@ -5,17 +5,30 @@
 \title{Get CDC United States Cancer Statistics Data: All Data Combined (Mortality and Incidence Rates)}
 \usage{
 
-  get_cdc_data(pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip")
+  get_cdc_data(wonder_request_xml = NULL, year = NULL,
+  pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip")
 }
 \arguments{
+\item{wonder_request_xml}{\code{character} Path to CDC WONDER request XML file}
+
+\item{year}{\code{character} Year to request from CDC WONDER (single year)}
+
 \item{pathToZip}{\code{character} Path to zip file on cdc website}
 }
 \value{
 \code{\link{data.table}}
 }
 \description{
-Downloads and unzips pathToZip file from CDC website returns data.table version of BYAGE.TXT file which contains mortality and incidence rates by age group, race, sex, site, and year
+Downloads and unzips pathToZip file from CDC website returns data.table version of BYAGE.TXT file which contains mortality and incidence rates by age group, race, sex, site, and year.
+Alternatively, uses a CDC WONDER request XML to fetch incidence counts by cancer site and age group for a single year.
 }
 \details{
 see https://www.cdc.gov/cancer/npcr/uscs/download_data.htm which has links to all historical data
+}
+\examples{
+\dontrun{
+xml_path <- system.file("extdata", "cdc_wonder_request.xml",
+                        package = "seermedicare", mustWork = TRUE)
+cdc <- get_cdc_data(wonder_request_xml = xml_path, year = "2022")
+}
 }

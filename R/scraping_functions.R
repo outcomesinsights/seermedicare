@@ -3,8 +3,10 @@
 #'
 #' Returns
 #'
-#' @param nci_url \code{data.table} publication data from running get_publication_data
-#' @param cdc_wonder_request_xml \code{character} Path to CDC WONDER request XML file
+#' @param nci_url \code{character} URL used to fetch NCI publications data
+#' @param cdc_wonder_request_xml \code{character} Path to CDC WONDER request XML file.
+#' Use \code{system.file("extdata", "cdc_wonder_request.xml", package = "seermedicare", mustWork = TRUE)}
+#' to load the bundled request template.
 #' @param cdc_year \code{character} Year to request from CDC WONDER (single year)
 #' @param cdc_cancer_stat_url \code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ whic contains multiple years of CDC cancer  data
 #' @param seer_cancer_stats_url \code{character} Url to Main SEER cancer fact site that contains links to each cancer
@@ -12,6 +14,12 @@
 #' @return \code{seermedicare} obj
 #'
 #' @import rvest xml2 stringi
+#' @examples
+#' \dontrun{
+#' xml_path <- system.file("extdata", "cdc_wonder_request.xml",
+#'                         package = "seermedicare", mustWork = TRUE)
+#' seer_pub_data <- scrape_all_data(cdc_wonder_request_xml = xml_path, cdc_year = "2022")
+#' }
 #' @export
 scrape_all_data <- function(
   nci_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
@@ -191,6 +199,12 @@ create_std_site_lookup <- function(publications, seer, cdc) {
 #'
 #' @return \code{\link{data.table}}
 #' @import httr
+#' @examples
+#' \dontrun{
+#' xml_path <- system.file("extdata", "cdc_wonder_request.xml",
+#'                         package = "seermedicare", mustWork = TRUE)
+#' cdc <- get_cdc_data(wonder_request_xml = xml_path, year = "2022")
+#' }
 get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip") {
   if (!is.null(wonder_request_xml)) {
     if (is.null(year) || !nzchar(year)) {
