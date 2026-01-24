@@ -39,7 +39,10 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #' @import ggplot2
 #' @export
 .format_plot <- function(plot, x_label, y_label = "Publications", title = "") {
-  top <- ceiling(max(unlist(lapply(ggplot_build(plot)$data, function(x){x[["y"]]})), na.rm = T) / 50) * 50
+  y_vals <- unlist(lapply(ggplot_build(plot)$data, function(x){x[["y"]]}))
+  y_vals <- y_vals[is.finite(y_vals)]
+  top <- if (length(y_vals) > 0) ceiling(max(y_vals) / 50) * 50 else 50
+  if (top <= 0) top <- 50  # Ensure valid positive value
   plot <- plot + .theme_seermedicare() + scale_y_continuous(breaks = seq(0, top, top / 10), limits = c(0, top + 5), expand = c(0, 0))
 
   # add plot title and labels
