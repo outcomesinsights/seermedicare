@@ -30,7 +30,7 @@ scrape_all_data <- function(
   cdc_wonder_request_xml = NULL,
   cdc_year = NULL,
   cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip", # https://www.cdc.gov/cancer/uscs/dataviz/download_data.htm for all years
-  seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html"
+  seer_cancer_stats_url = "https://seer.cancer.gov/statfacts/"
 ) {
 
   message("Starting Process")
@@ -65,7 +65,7 @@ scrape_all_data <- function(
   ## Get SEER INCIDENCE, PREVALENCE, DEATHS Data
   message("Get SEER INCIDENCE, PREVALENCE, DEATHS Data")
   seer_url <- seer_cancer_stats_url
-  seer <- get_seer_data(seer_url, link_css_selector = ".alphaList.rpw a")
+  seer <- get_seer_data(seer_url, link_css_selector = ".alphaList.row a")
 
   message("Map CDC and SEER site to NCI Publication Site")
   ## Get mapping of site to publications site and add site_std variable to cdc and seer data
@@ -173,7 +173,7 @@ assemble_seermedicare <- function(
     cdc_year = NULL,
     nci_url = "https://healthcaredelivery.cancer.gov/publications/",
     cdc_wonder_request_xml = NULL,
-    seer_url = "http://seer.cancer.gov/statfacts/more.html",
+    seer_url = "https://seer.cancer.gov/statfacts/",
     seer_citation = NULL
 ) {
 
@@ -731,8 +731,8 @@ get_publication_data <- function(
 #' @return \code{\link{data.table}}
 #' @export
 get_seer_data <- function(
-  seer_url = "http://seer.cancer.gov/statfacts/more.html",
-  link_css_selector = ".alphaList.rpw a",
+  seer_url = "https://seer.cancer.gov/statfacts/",
+  link_css_selector = ".alphaList.row a",
   delay_seconds = 0.2,
   retries = 3,
   user_agent = "Mozilla/5.0"

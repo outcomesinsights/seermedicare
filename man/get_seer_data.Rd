@@ -5,8 +5,8 @@
 \title{Get SEER Incidence, Prevalence, and Mortality Data}
 \usage{
 get_seer_data(
-  seer_url = "http://seer.cancer.gov/statfacts/more.html",
-  link_css_selector = ".alphaList.rpw a",
+  seer_url = "https://seer.cancer.gov/statfacts/",
+  link_css_selector = ".alphaList.row a",
   delay_seconds = 0.2,
   retries = 3,
   user_agent = "Mozilla/5.0"

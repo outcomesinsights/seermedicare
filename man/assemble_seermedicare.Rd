@@ -11,7 +11,7 @@ assemble_seermedicare(
   cdc_year = NULL,
   nci_url = "https://healthcaredelivery.cancer.gov/publications/",
   cdc_wonder_request_xml = NULL,
-  seer_url = "http://seer.cancer.gov/statfacts/more.html",
+  seer_url = "https://seer.cancer.gov/statfacts/",
   seer_citation = NULL
 )
 }

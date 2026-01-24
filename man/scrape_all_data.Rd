@@ -9,7 +9,7 @@ scrape_all_data(
   cdc_wonder_request_xml = NULL,
   cdc_year = NULL,
   cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip",
-  seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html"
+  seer_cancer_stats_url = "https://seer.cancer.gov/statfacts/"
 )
 }
 \arguments{
