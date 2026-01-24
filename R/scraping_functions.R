@@ -393,9 +393,6 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
   if (!is.null(year)) {
     param_list[["V_D205.V1"]] <- as.character(year)
   }
-  if (!is.null(export_format)) {
-    param_list[["O_export-format"]] <- export_format
-  }
 
   param_list
 }
@@ -418,44 +415,91 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
   }
   resp <- httr::POST(url, body = flat_params, encode = "form")
   httr::stop_for_status(resp)
-  httr::content(resp, as = "text", encoding = "UTF-8")
+  httr::content(resp, as = "text", encoding = "latin1")
 }
 
-.parse_wonder_csv <- function(csv_text, year) {
-  lines <- readLines(textConnection(csv_text))
-  if (!length(lines)) {
+.parse_wonder_csv <- function(html_text, year) {
+  if (!nzchar(html_text)) {
     stop("CDC WONDER response was empty.")
   }
 
-  cutoff <- which(grepl("^\"---\"", lines))
-  if (length(cutoff)) {
-    lines <- lines[1:(cutoff[1] - 1)]
+  # Parse HTML and find the data table
+  page <- xml2::read_html(html_text)
+  tables <- rvest::html_table(page, fill = TRUE)
+  
+  if (!length(tables)) {
+    stop("CDC WONDER response did not contain any tables.")
   }
-  lines <- lines[nzchar(lines)]
-  if (!length(lines)) {
-    stop("CDC WONDER response did not contain tabular data.")
+  
+  # Find the table with Cancer Sites, Age Groups, and Count columns
+  # It's typically the largest table with data rows
+  data_table <- NULL
+  for (tbl in tables) {
+    col_names <- tolower(trimws(as.character(names(tbl))))
+    # Check if this looks like the data table (has cancer sites in column names or first row)
+    if (nrow(tbl) > 100 && ncol(tbl) >= 3) {
+      # Check first column values for cancer site names
+      first_col <- as.character(tbl[[1]])
+      if (any(grepl("Oral Cavity|Breast|Lung|Colon|Prostate", first_col, ignore.case = TRUE))) {
+        data_table <- tbl
+        break
+      }
+    }
   }
-
-  dt <- fread(text = paste(lines, collapse = "\n"))
-  setnames(dt, trimws(names(dt)))
-
-  if ("Notes" %in% names(dt)) {
-    dt[, Notes := NULL]
+  
+  if (is.null(data_table)) {
+    stop("CDC WONDER response missing expected data table with cancer sites.")
   }
-
-  if (!all(c("Cancer Sites", "Age Groups", "Count") %in% names(dt))) {
+  
+  # The table structure from CDC WONDER HTML has columns: Cancer Site, Age Group, Count
+  # But may have extra/duplicate columns due to HTML structure
+  # Take first 3 meaningful columns
+  dt <- data.table::as.data.table(data_table)
+  
+  # Find columns with actual data
+  # First column should be cancer sites, second age groups, third count
+  site_col <- NULL
+  age_col <- NULL
+  count_col <- NULL
+  
+  for (i in seq_len(ncol(dt))) {
+    col_vals <- as.character(dt[[i]])
+    col_vals <- col_vals[!is.na(col_vals) & nzchar(col_vals)]
+    
+    if (is.null(site_col) && any(grepl("Oral Cavity|Breast|Lung|Colon", col_vals, ignore.case = TRUE))) {
+      site_col <- i
+    } else if (!is.null(site_col) && is.null(age_col) && any(grepl("years|\\d+-\\d+", col_vals, ignore.case = TRUE))) {
+      age_col <- i
+    } else if (!is.null(age_col) && is.null(count_col) && any(grepl("^\\d+$", col_vals))) {
+      count_col <- i
+      break
+    }
+  }
+  
+  if (is.null(site_col) || is.null(age_col) || is.null(count_col)) {
     stop("CDC WONDER response missing expected columns: Cancer Sites, Age Groups, Count.")
   }
-
-  setnames(dt, c("Cancer Sites", "Age Groups", "Count"), c("site", "age", "count"))
+  
+  # Extract relevant columns
+  dt <- dt[, c(site_col, age_col, count_col), with = FALSE]
+  setnames(dt, c("site", "age", "count"))
+  
+  # Clean data - remove header rows and empty rows
+  dt <- dt[!is.na(site) & nzchar(site)]
+  dt <- dt[!grepl("^Cancer Sites$|^$", site, ignore.case = TRUE)]
+  dt <- dt[!is.na(age) & nzchar(age)]
+  
   dt[, age := gsub("\\s*years$", "", trimws(age))]
   dt[, `:=`(
-    count = as.numeric(count),
+    count = as.numeric(gsub(",", "", count)),
     year = as.character(year),
     event_type = "Incidence",
     race = "All Races",
     sex = "Male and Female"
   )]
+  
+  # Remove rows where count is NA (header rows, etc.)
+  dt <- dt[!is.na(count)]
 
   dt
 }
