@@ -339,6 +339,7 @@ create_std_site_lookup <- function(publications, seer, cdc) {
 #'
 #' @return \code{\link{data.table}}
 #' @import httr
+#' @export
 #' @examples
 #' \dontrun{
 #' xml_path <- system.file("extdata", "cdc_wonder_request.xml",
@@ -607,6 +608,7 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
 #' @importFrom tools toTitleCase
 #'
 #' @return \code{\link{data.table}}
+#' @export
 get_publication_data <- function(
   nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
   table_results_css_selector = "table.pubsearch-results",
@@ -727,6 +729,7 @@ get_publication_data <- function(
 #' @param user_agent \code{character} User agent string for HTTP requests
 #'
 #' @return \code{\link{data.table}}
+#' @export
 get_seer_data <- function(
   seer_url = "http://seer.cancer.gov/statfacts/more.html",
   link_css_selector = ".alphaList.rpw a",
