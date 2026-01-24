@@ -43,7 +43,8 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   period <- seq(from=last_reporting_year-6, to=last_reporting_year)
 
   count_pubs <- function(dt) {
-    dt <- dt[, count(values)] %>% setnames("freq", sprintf("Publications: %s-%s", min(dt$year), max(dt$year)))
+    # Count values (replaces plyr::count)
+    dt <- dt[, .(freq = .N), by = .(x = values)] %>% setnames("freq", sprintf("Publications: %s-%s", min(dt$year), max(dt$year)))
     dt
   }
 
@@ -69,7 +70,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   message("Generate Figures and Tables")
   write("sites", "tumor site")
   
-  year_data <- setnames(get_data("year", publications)[, count(values)], c("Year", "Publications"))
+  year_data <- setnames(get_data("year", publications)[, .(freq = .N), by = .(x = values)], c("Year", "Publications"))
   
   setDT(year_data)
   
@@ -82,7 +83,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   print(line_plot(publications))
   dev.off()
 
-  dt <- get_data("sites", publications)[, count(values), by = "year"] %>% .[x %in% levels(x)[1:4]] %>% dcast(year~x, value.var = "freq") %>% setnames(c("Year", paste("Publications:", colnames(.)[-1])))
+  dt <- get_data("sites", publications)[, .(freq = .N), by = .(year, x = values)] %>% .[x %in% levels(x)[1:4]] %>% dcast(year~x, value.var = "freq") %>% setnames(c("Year", paste("Publications:", colnames(.)[-1])))
 
   add_sheet("Year and Top Tumor Site", dt)
 

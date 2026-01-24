@@ -1030,8 +1030,12 @@ summarize_site_data <- function(publications, seer, cdc, cdc_year = NULL) {
   cdc_incidence <- summarize_cdc_incidence_data_by_site(cdc, cdc_year)
 
   # COMBINE PUBLICATIONS DATA, SEER DATA, AND CDC DATA TO CREATE CANCER SITE STATISTICS DATASET
+  # Count publications by site (replaces plyr::count)
+  pub_sites <- unlist(publications$sites)
+  pub_counts <- data.table(site = pub_sites)[, .(publications = .N), by = site]
+  
   sites <- data.table(Reduce(function(...) merge(..., by = "site", all = T),
-                             list(setnames(publications[, count(unlist(sites))], c("site", "publications")), cdc_incidence, dcast(seer_summary, site ~ x, value.var = "value")))) %>% setorder(-publications)
+                             list(pub_counts, cdc_incidence, dcast(seer_summary, site ~ x, value.var = "value")))) %>% setorder(-publications)
   sites[, `:=`(site = factor(site, levels = site))]
   sites <- sites[, lapply(.SD, as.numeric), by = site] %>% na.omit
 }
