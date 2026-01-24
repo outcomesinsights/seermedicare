@@ -10,6 +10,7 @@ LazyData: true
 Imports:
     data.table,
     ggplot2,
+    httr,
     lubridate,
     magrittr,
     plyr,

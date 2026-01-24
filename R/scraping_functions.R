@@ -4,6 +4,8 @@
 #' Returns
 #'
 #' @param nci_url \code{data.table} publication data from running get_publication_data
+#' @param cdc_wonder_request_xml \code{character} Path to CDC WONDER request XML file
+#' @param cdc_year \code{character} Year to request from CDC WONDER (single year)
 #' @param cdc_cancer_stat_url \code{character} Path to zip file on cdc website. Base url is http://www.cdc.gov/cancer/npcr/uscs/ whic contains multiple years of CDC cancer  data
 #' @param seer_cancer_stats_url \code{character} Url to Main SEER cancer fact site that contains links to each cancer
 #'
@@ -13,11 +15,17 @@
 #' @export
 scrape_all_data <- function(
   nci_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM",
+  cdc_wonder_request_xml = NULL,
+  cdc_year = NULL,
   cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip", # https://www.cdc.gov/cancer/uscs/dataviz/download_data.htm for all years
   seer_cancer_stats_url = "http://seer.cancer.gov/statfacts/more.html"
 ) {
 
   message("Starting Process")
+  if (!is.null(cdc_wonder_request_xml) && (is.null(cdc_year) || !nzchar(cdc_year))) {
+    cdc_year <- .default_cdc_year()
+    message(sprintf("CDC WONDER year not provided; using default %s", cdc_year))
+  }
 
   ## SCRAPE PUBLICATIONS DATA
   message("Scape SEER-Medicare Publications from NCI")
@@ -28,10 +36,19 @@ scrape_all_data <- function(
   # ----- CANCER SITE STATISTICS -----
   ## Get CDC US CANCER STATISTICS BY AGE DATA
   message("Get CDC Incidence Rates")
-  cdc <- get_cdc_data(pathToZip=cdc_cancer_stat_url)
+  if (!is.null(cdc_wonder_request_xml)) {
+    cdc <- get_cdc_data(wonder_request_xml = cdc_wonder_request_xml, year = cdc_year)
+  } else {
+    cdc <- get_cdc_data(pathToZip = cdc_cancer_stat_url)
+  }
 
   # cdc year data contains column year that has single years plus one summary of the last 5 years
-  cdc_year <- cdc[nchar(year) > 4,unique(year)]
+  if (is.null(cdc_year)) {
+    cdc_year <- cdc[nchar(year) > 4, unique(year)]
+    if (!length(cdc_year)) {
+      cdc_year <- as.character(suppressWarnings(max(as.numeric(cdc$year), na.rm = TRUE)))
+    }
+  }
 
   ## Get SEER INCIDENCE, PREVALENCE, DEATHS Data
   message("Get SEER INCIDENCE, PREVALENCE, DEATHS Data")
@@ -48,7 +65,7 @@ scrape_all_data <- function(
 
   message("Create Summary Data")
     # COMBINE PUBLICATIONS DATA, SEER DATA, AND CDC DATA TO CREATE CANCER SITE STATISTICS DATASET
-  sites <- summarize_site_data(publications, seer, cdc)
+  sites <- summarize_site_data(publications, seer, cdc, cdc_year = cdc_year)
 
   # ----- METADATA -----
   message("Generate Metadata")
@@ -60,7 +77,11 @@ scrape_all_data <- function(
   metadata[["cdc_year"]] <- cdc_year
 
   # citations
-  metadata[["cdc_citation"]] <-  sprintf("Data collected from CDC website: %s", cdc_cancer_stat_url)
+  if (!is.null(cdc_wonder_request_xml)) {
+    metadata[["cdc_citation"]] <- sprintf("CDC WONDER request XML: %s", cdc_wonder_request_xml)
+  } else {
+    metadata[["cdc_citation"]] <- sprintf("Data collected from CDC website: %s", cdc_cancer_stat_url)
+  }
   metadata[["seer_citation"]] <- html_session(seer_url) %>% follow_link("Cancer Statistics Review") %>% html_node("h2+ p") %>% html_text
 
   # data access
@@ -155,14 +176,32 @@ create_std_site_lookup <- function(publications, seer, cdc) {
 
 #' Get CDC United States Cancer Statistics Data: All Data Combined (Mortality and Incidence Rates)
 #'
-#' Downloads and unzips pathToZip file from CDC website returns data.table version of BYAGE.TXT file which contains mortality and incidence rates by age group, race, sex, site, and year
+#' Downloads and unzips pathToZip file from CDC website returns data.table version of BYAGE.TXT file which contains mortality and incidence rates by age group, race, sex, site, and year.
+#' Alternatively, uses a CDC WONDER request XML to fetch incidence counts by cancer site and age group for a single year.
 #'
 #' see https://www.cdc.gov/cancer/npcr/uscs/download_data.htm which has links to all historical data
 #'
+#' @param wonder_request_xml \code{character} Path to CDC WONDER request XML file
+#' @param year \code{character} Year to request from CDC WONDER (single year)
 #' @param pathToZip \code{character} Path to zip file on cdc website
 #'
 #' @return \code{\link{data.table}}
-get_cdc_data <- function(pathToZip="http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip") {
+#' @import httr
+get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip") {
+  if (!is.null(wonder_request_xml)) {
+    if (is.null(year) || !nzchar(year)) {
+      year <- .default_cdc_year()
+      message(sprintf("CDC WONDER year not provided; using default %s", year))
+    }
+    params <- .read_wonder_request_xml(wonder_request_xml, year = year, export_format = "csv")
+    csv_text <- .fetch_wonder_csv(params, url = "https://wonder.cdc.gov/controller/datarequest/D205")
+    year_value <- params[["V_D205.V1"]][1]
+    return(.parse_wonder_csv(csv_text, year = year_value))
+  }
+
+  if (is.null(pathToZip)) {
+    stop("Either wonder_request_xml or pathToZip must be provided.")
+  }
 
   zipfile <- pathToZip
   tf <- tempfile()
@@ -174,6 +213,84 @@ get_cdc_data <- function(pathToZip="http://www.cdc.gov/cancer/npcr/uscs/USCS_199
   unlink(x) # removes the tempfiles
 
   cdc
+}
+
+.read_wonder_request_xml <- function(path, year = NULL, export_format = "csv") {
+  if (is.null(path) || !nzchar(path)) {
+    stop("wonder_request_xml must be provided when requesting CDC WONDER data.")
+  }
+
+  doc <- xml2::read_xml(path)
+  params <- xml2::xml_find_all(doc, ".//parameter")
+  names_vec <- xml2::xml_text(xml2::xml_find_first(params, "name"))
+  values_list <- lapply(params, function(param) {
+    vals <- xml2::xml_text(xml2::xml_find_all(param, "value"))
+    trimws(vals)
+  })
+
+  param_list <- split(values_list, names_vec)
+  param_list <- lapply(param_list, function(values) unlist(values, use.names = FALSE))
+
+  if (!is.null(year)) {
+    param_list[["V_D205.V1"]] <- as.character(year)
+  }
+  if (!is.null(export_format)) {
+    param_list[["O_export-format"]] <- export_format
+  }
+
+  param_list
+}
+
+.default_cdc_year <- function(current_date = Sys.Date(), update_month = 4, lag_years = 3) {
+  year_val <- as.integer(format(current_date, "%Y"))
+  month_val <- as.integer(format(current_date, "%m"))
+  update_year <- if (month_val > update_month) year_val else (year_val - 1)
+  as.character(update_year - lag_years)
+}
+
+.fetch_wonder_csv <- function(params, url) {
+  resp <- httr::POST(url, body = params, encode = "form")
+  httr::stop_for_status(resp)
+  httr::content(resp, as = "text", encoding = "UTF-8")
+}
+
+.parse_wonder_csv <- function(csv_text, year) {
+  lines <- readLines(textConnection(csv_text))
+  if (!length(lines)) {
+    stop("CDC WONDER response was empty.")
+  }
+
+  cutoff <- which(grepl("^\"---\"", lines))
+  if (length(cutoff)) {
+    lines <- lines[1:(cutoff[1] - 1)]
+  }
+  lines <- lines[nzchar(lines)]
+  if (!length(lines)) {
+    stop("CDC WONDER response did not contain tabular data.")
+  }
+
+  dt <- fread(text = paste(lines, collapse = "\n"))
+  setnames(dt, trimws(names(dt)))
+
+  if ("Notes" %in% names(dt)) {
+    dt[, Notes := NULL]
+  }
+
+  if (!all(c("Cancer Sites", "Age Groups", "Count") %in% names(dt))) {
+    stop("CDC WONDER response missing expected columns: Cancer Sites, Age Groups, Count.")
+  }
+
+  setnames(dt, c("Cancer Sites", "Age Groups", "Count"), c("site", "age", "count"))
+  dt[, age := gsub("\\s*years$", "", trimws(age))]
+  dt[, `:=`(
+    count = as.numeric(count),
+    year = as.character(year),
+    event_type = "Incidence",
+    race = "All Races",
+    sex = "Male and Female"
+  )]
+
+  dt
 }
 
 #' Get SEER Medicare based Publications data
@@ -400,7 +517,13 @@ summarize_seer_data_by_site <- function(seer) {
 #'
 #' @return \code{\link{data.table}} Summarized seer data by measure ("incidence", "prevalence", "deaths"), site, and year
 #' @export
-summarize_site_data <- function(publications, seer, cdc, cdc_year = cdc[nchar(year) > 4,unique(year)] ) {
+summarize_site_data <- function(publications, seer, cdc, cdc_year = NULL) {
+  if (is.null(cdc_year)) {
+    cdc_year <- cdc[nchar(year) > 4, unique(year)]
+    if (!length(cdc_year)) {
+      cdc_year <- as.character(suppressWarnings(max(as.numeric(cdc$year), na.rm = TRUE)))
+    }
+  }
 
   seer_summary <- summarize_seer_data_by_site(seer)
   cdc_incidence <- summarize_cdc_incidence_data_by_site(cdc, cdc_year)
