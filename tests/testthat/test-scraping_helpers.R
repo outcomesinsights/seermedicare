@@ -87,7 +87,8 @@ test_that("pubsearch token refresh occurs on auth errors", {
         journal = "Journal",
         medicare_topics = c("Topic"),
         tumorsite = c("Breast"),
-        pmid = "123"
+        pmid = "123",
+        Title = "Sample Title"
       ))
     ),
     auto_unbox = TRUE

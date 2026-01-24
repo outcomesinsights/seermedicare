@@ -21,7 +21,7 @@ test_that("get_cdc_data handles WONDER XML flow", {
     .package = "httr"
   )
 
-  dt <- get_cdc_data(wonder_request_xml = path, year = "2022")
+  dt <- seermedicare:::get_cdc_data(wonder_request_xml = path, year = "2022")
   expect_equal(dt$site[[1]], "Breast")
   expect_equal(dt$count[[1]], 100)
   expect_equal(dt$year[[1]], "2022")
@@ -37,7 +37,8 @@ test_that("get_publication_data uses pubsearch API flow", {
         journal = "Journal",
         medicare_topics = c("Topic"),
         tumorsite = c("Breast"),
-        pmid = "123"
+        pmid = "123",
+        Title = "Sample Title"
       ))
     ),
     auto_unbox = TRUE
@@ -60,7 +61,10 @@ test_that("get_publication_data uses pubsearch API flow", {
     .package = "httr"
   )
 
-  dt <- get_publication_data(auth_token = "Token test")
+  dt <- seermedicare:::get_publication_data(
+    nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
+    auth_token = "Token test"
+  )
   expect_equal(dt$journal[[1]], "Journal")
   expect_equal(dt$sites[[1]], "Breast")
   expect_equal(dt$link[[1]], "https://pubmed.ncbi.nlm.nih.gov/123/")
@@ -92,7 +96,7 @@ test_that("get_seer_data parses site pages end-to-end", {
     .package = "seermedicare"
   )
 
-  dt <- get_seer_data(seer_url = "http://seer.cancer.gov/statfacts/more.html")
+  dt <- seermedicare:::get_seer_data(seer_url = "http://seer.cancer.gov/statfacts/more.html")
   expect_true(any(dt$x == "incidence"))
   expect_true(any(dt$x == "prevalence"))
   expect_true(any(dt$x == "deaths"))

@@ -45,9 +45,9 @@ test_that("generate_report creates docx output", {
 
   out_dir <- tempfile("seer-report-")
   dir.create(out_dir, recursive = TRUE)
-  generate_report(seer_pub_data, outputPath = out_dir)
+  seermedicare::generate_report(seer_pub_data, outputPath = out_dir)
 
-  expect_true(length(list.files(out_dir, pattern = "\\\\.docx$")) > 0)
+  expect_true(length(list.files(out_dir, pattern = "docx$")) > 0)
 })
 
 test_that("generate_report attempts PDF when pandoc available", {
@@ -99,7 +99,7 @@ test_that("generate_report attempts PDF when pandoc available", {
 
   out_dir <- tempfile("seer-report-pdf-")
   dir.create(out_dir, recursive = TRUE)
-  generate_report(seer_pub_data, outputPath = out_dir, pdf = TRUE)
+  seermedicare::generate_report(seer_pub_data, outputPath = out_dir, pdf = TRUE)
 
-  expect_true(length(list.files(out_dir, pattern = "\\\\.pdf$")) > 0)
+  expect_true(length(list.files(out_dir, pattern = "pdf$")) > 0)
 })

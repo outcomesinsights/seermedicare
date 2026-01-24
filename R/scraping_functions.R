@@ -467,6 +467,7 @@ get_publication_data <- function(
       auth_token = auth_token,
       batch_size = batch_size
     )
+    return(publications)
   } else {
 
   # Functions to parse publication data results
@@ -613,6 +614,7 @@ get_seer_data <- function(
   }
   seer <- rbindlist(res, use.names = T, fill = T)
   .seer_scrape_summary(seer)
+  seer
 }
 
 #' Parse SEER Cancer Fact Page to get Latest Incidence, Prevalence, and Mortality Data
@@ -710,9 +712,23 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
     node <- html_node(page, selector)
     if (!is.null(node)) {
       text <- html_text(node)
-      number <- stringi::stri_extract_first_regex(text, "[0-9][0-9,]*")
-      if (!is.na(number)) {
-        return(as.numeric(gsub(",", "", number)))
+      numbers <- stringi::stri_extract_all_regex(text, "[0-9][0-9,]*")[[1]]
+      if (length(numbers)) {
+        if (length(numbers) == 1) {
+          num <- numbers[1]
+          if (nchar(num) > 4) {
+            year_prefix <- substr(num, 1, 4)
+            if (grepl("^(19|20)\\d{2}$", year_prefix)) {
+              remainder <- gsub("^,", "", substr(num, 5, nchar(num)))
+              if (nzchar(remainder)) {
+                return(as.numeric(gsub(",", "", remainder)))
+              }
+            }
+          }
+          return(as.numeric(gsub(",", "", num)))
+        }
+        # Prefer the last numeric token in case a year is included.
+        return(as.numeric(gsub(",", "", tail(numbers, 1))))
       }
     }
   }

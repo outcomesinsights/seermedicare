@@ -77,6 +77,10 @@ doc_add_paragraphs <- function(doc, text, style = "Normal") {
 #' @return doc officer docx object
 doc_add_list <- function(doc, items, ordered = FALSE, level = 1) {
   style <- list_style(level, ordered = ordered)
+  available <- officer::styles_info(doc, type = "paragraph")$style_name
+  if (!style %in% available) {
+    style <- "Normal"
+  }
   for (item in items) {
     doc <- officer::body_add_par(doc, value = item, style = style)
   }
@@ -93,11 +97,11 @@ doc_add_list <- function(doc, items, ordered = FALSE, level = 1) {
 doc_add_title <- function(doc, text, level = 1) {
   style <- switch(
     as.character(level),
-    "1" = "Heading1",
-    "2" = "Heading2",
-    "3" = "Title",
-    "4" = "Subtitle",
-    "Heading1"
+    "1" = "heading 1",
+    "2" = "heading 2",
+    "3" = "heading 3",
+    "4" = "Title",
+    "heading 1"
   )
   officer::body_add_par(doc, value = text, style = style)
 }
@@ -111,7 +115,14 @@ doc_add_title <- function(doc, text, level = 1) {
 #'
 #' @return doc officer docx object
 doc_add_hyperlink <- function(doc, text, url, style = "Normal") {
-  fp <- officer::fpar(officer::hyperlink_ftext(text, url))
+  available <- officer::styles_info(doc, type = "paragraph")$style_name
+  if (!style %in% available) {
+    style <- "Normal"
+  }
+  if (is.null(url) || !nzchar(url)) {
+    return(officer::body_add_par(doc, value = text, style = style))
+  }
+  fp <- officer::fpar(officer::hyperlink_ftext(text = text, href = url))
   officer::body_add_fpar(doc, value = fp, style = style)
 }
 
@@ -131,11 +142,13 @@ doc_add_hyperlink <- function(doc, text, url, style = "Normal") {
 
   accessyear <- lubridate::year(accessdate)
   maxyear <- max(yeardata$year) %>% as.numeric
+  ay <- NA
+  py <- NA
   if(accessyear - maxyear < 2){
     ay <- ifelse(accessyear <= maxyear, maxyear, NA)
     py <- ifelse(lubridate::month(accessdate) < 4, accessyear - 1, NA)
   }
-  if(py | ay){
+  if(!is.na(py) || !is.na(ay)){
     urep <- c(py, ay) %>% na.omit %>% paste(., collapse = " and ")
     urep <- paste(" - articles published in", urep, "may be underrepresented due to reporting lag")
   }else{
