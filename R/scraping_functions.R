@@ -120,6 +120,142 @@ scrape_all_data <- function(
 }
 
 
+#' Assemble seermedicare object from pre-fetched data components
+#'
+#' This function is useful for workflows using the targets package, where
+#' each data source (publications, CDC, SEER) is cached independently.
+#' It performs the same processing as \code{\link{scrape_all_data}} but accepts
+#' pre-fetched data rather than fetching it directly.
+#'
+#' @param publications \code{data.table} from \code{\link{get_publication_data}}
+#' @param cdc \code{data.table} from \code{\link{get_cdc_data}}
+#' @param seer \code{data.table} from \code{\link{get_seer_data}}
+#' @param cdc_year \code{character} Year used for CDC data. If NULL, will attempt
+#'   to infer from the cdc data.
+#' @param nci_url \code{character} URL for NCI publications (for metadata).
+#'   Default is the public-facing publications page.
+#' @param cdc_wonder_request_xml \code{character} Path to CDC WONDER XML file
+#'   used to fetch data (for metadata/citation). If NULL, a generic citation is used.
+#' @param seer_url \code{character} URL for SEER cancer statistics (for metadata).
+#' @param seer_citation \code{character} Optional pre-fetched SEER citation. If NULL,
+#'   the function will attempt to fetch it from the SEER website.
+#'
+#' @return Object of class \code{seermedicare} containing publications, seer, cdc,
+#'   site_summary, and metadata
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # For use with targets package:
+#' xml_path <- system.file("extdata", "cdc_wonder_request.xml",
+#'                         package = "seermedicare", mustWork = TRUE)
+#'
+#' # Fetch data independently (these can be cached by targets)
+#' publications <- get_publication_data()
+#' cdc <- get_cdc_data(wonder_request_xml = xml_path, year = "2022")
+#' seer <- get_seer_data()
+#'
+#' # Assemble into seermedicare object
+#' seer_pub_data <- assemble_seermedicare(
+#'   publications, cdc, seer,
+#'   cdc_year = "2022",
+#'   cdc_wonder_request_xml = xml_path
+#' )
+#'
+#' # Generate report
+#' generate_report(seer_pub_data, outputPath = "output")
+#' }
+assemble_seermedicare <- function(
+    publications,
+    cdc,
+    seer,
+    cdc_year = NULL,
+    nci_url = "https://healthcaredelivery.cancer.gov/publications/",
+    cdc_wonder_request_xml = NULL,
+    seer_url = "http://seer.cancer.gov/statfacts/more.html",
+    seer_citation = NULL
+) {
+
+  message("Assembling seermedicare object from pre-fetched data")
+
+
+  # Infer cdc_year from data if not provided
+  if (is.null(cdc_year) || !nzchar(cdc_year)) {
+    cdc_year <- cdc[nchar(year) > 4, unique(year)]
+    if (!length(cdc_year)) {
+      cdc_year <- as.character(suppressWarnings(max(as.numeric(cdc$year), na.rm = TRUE)))
+    }
+    message(sprintf("CDC year inferred from data: %s", cdc_year))
+  }
+
+  # Create site mapping
+  message("Mapping CDC and SEER sites to publication sites")
+  site_mapping <- create_std_site_lookup(publications, seer, cdc)
+
+  # Add publication standardized sites to cdc and seer data
+  # Make copies to avoid modifying the original cached data
+  cdc <- data.table::copy(cdc)
+  seer <- data.table::copy(seer)
+  cdc[site_mapping, site_std := site_std, on = .(site)]
+  seer[site_mapping, site_std := site_std, on = .(site)]
+
+  # Create summary data
+  message("Creating site summary data")
+  sites <- summarize_site_data(publications, seer, cdc, cdc_year = cdc_year)
+
+  # ----- METADATA -----
+  message("Generating metadata")
+
+  # Incidence, prevalence, and death data years from seer
+  seeryears <- unique(seer[, c("x", "year")])
+  metadata <- setNames(as.list(seeryears$year), paste0(seeryears$x, "_year"))
+
+  # CDC age data year
+  metadata[["cdc_year"]] <- cdc_year
+
+  # Citations
+  if (!is.null(cdc_wonder_request_xml)) {
+    metadata[["cdc_citation"]] <- sprintf("CDC WONDER request XML: %s", basename(cdc_wonder_request_xml))
+  } else {
+    metadata[["cdc_citation"]] <- "Data collected from CDC cancer statistics"
+  }
+
+  # SEER citation - use provided or attempt to fetch
+  if (!is.null(seer_citation)) {
+    metadata[["seer_citation"]] <- seer_citation
+  } else {
+    metadata[["seer_citation"]] <- tryCatch({
+      html_session(seer_url) %>%
+        follow_link("Cancer Statistics Review") %>%
+        html_node("h2+ p") %>%
+        html_text()
+    }, error = function(e) {
+      warning("Could not fetch SEER citation from website: ", e$message)
+      sprintf("SEER Cancer Statistics: %s", seer_url)
+    })
+  }
+
+  # Data access info
+  metadata[["nci_url"]] <- nci_url
+  metadata[["access_date"]] <- Sys.Date()
+
+  # rvest version
+  metadata[["rvestvers"]] <- packageVersion("rvest")
+
+  structure(
+    list(
+      publications = publications,
+      seer = seer,
+      cdc = cdc,
+      site_summary = sites,
+      metadata = metadata
+    ),
+    class = "seermedicare"
+  )
+}
+
+
 #' Create lookup from publication site to SEER and CDC site
 #'
 #' Used to make sure a match between the SEER or CDC tumor site data and the publication data can be found.
