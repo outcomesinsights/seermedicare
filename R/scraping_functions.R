@@ -387,8 +387,8 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
     trimws(vals)
   })
 
-  param_list <- split(values_list, names_vec)
-  param_list <- lapply(param_list, function(values) unlist(values, use.names = FALSE))
+  # Use setNames to create named list directly (split doesn't handle lists of lists well)
+  param_list <- setNames(values_list, names_vec)
 
   if (!is.null(year)) {
     param_list[["V_D205.V1"]] <- as.character(year)
