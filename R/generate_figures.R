@@ -6,7 +6,7 @@
 #'
 #' @return doc Object of class \code{\link{docx}} or \code{\link{bsdoc}} containing SEER-Medicare report
 #'
-#' @import XLConnect
+#' @import openxlsx
 #' @export
 generate_figures <- function(seer_pub_data, outputPath = "."){
 
@@ -26,6 +26,16 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
 
   # XLSX File Path
   doc <- file.path(outputPath, sprintf("SEER_Medicare_Data_Tables_%s.xlsx",metadata$access_date))
+  wb <- openxlsx::createWorkbook()
+  sheet_names <- character()
+  add_sheet <- function(name, data) {
+    if (name %in% sheet_names) {
+      name <- paste0(name, "_", length(sheet_names) + 1)
+    }
+    openxlsx::addWorksheet(wb, name)
+    openxlsx::writeData(wb, name, data)
+    sheet_names <<- c(sheet_names, name)
+  }
 
   ## Get last 7 years not including the most recent year as there is a lag
   last_reporting_year = metadata$prevalence_year-1
@@ -51,7 +61,8 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
     png_bar(dt1)
     png_bar(dt2)
 
-    writeWorksheetToFile(doc, data = dt, sheet = tools::toTitleCase(label))
+    sheet <- tools::toTitleCase(label)
+    add_sheet(sheet, dt)
   }
 
   message("Generate Figures and Tables")
@@ -63,7 +74,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   
   year_data[, Year := as.numeric(levels(Year))]
   
-  writeWorksheetToFile(doc, data = year_data[order(-Year)], sheet = "Year")
+  add_sheet("Year", year_data[order(-Year)])
 
   # Output Publication By Year Chart
   png(filename = paste0(figure_path,"/publications_by_year.png"), width = 650, height = 400)
@@ -72,7 +83,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
 
   dt <- get_data("sites", publications)[, count(values), by = "year"] %>% .[x %in% levels(x)[1:4]] %>% dcast(year~x, value.var = "freq") %>% setnames(c("Year", paste("Publications:", colnames(.)[-1])))
 
-  writeWorksheetToFile(doc, data = dt, sheet = "Year and Top Tumor Site")
+  add_sheet("Year and Top Tumor Site", dt)
 
   png(filename = file.path(figure_path, "publications_by_year_and_tumor_site.png"), width = 650, height = 400)
   print(line_plot(publications, "sites", "tumor site"))
@@ -85,7 +96,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   dt <- scale_seer(sites)[, -c("allages", "min65")] %>%
     setnames(c("Tumor Site", "Publications", sapply(seer_cols(), .seer_label, sites, metadata)))
 
-  writeWorksheetToFile(doc, data = dt, sheet = "Incidence Prevalence Deaths")
+  add_sheet("Incidence Prevalence Deaths", dt)
 
   write_seer <- function(x){
     png(filename = file.path(figure_path, sprintf("publications_and_%s.png", x)), width = 650, height = 400)
@@ -94,6 +105,13 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   }
 
   lapply(seer_cols(), write_seer)
+
+  if (length(sheet_names)) {
+    message("Writing Excel file to ", doc)
+    openxlsx::saveWorkbook(wb, doc, overwrite = TRUE)
+  } else {
+    message("No worksheets created for Excel output.")
+  }
 
   message("Writing Figures zip file to ", figure_path)
   files <- dir(figure_path, full.names = TRUE)

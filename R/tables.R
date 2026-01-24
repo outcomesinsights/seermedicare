@@ -1,4 +1,4 @@
-#' Format SEER Tables Using ReporteRs FlexTable
+#' Format SEER Tables Using flextable
 #'
 #' @param dt data.table to use as FlexTable data
 #' @param title String to use as table title
@@ -6,22 +6,40 @@
 #' @param less_than numeric value to use as threshold for cell colors (cells with values less than this parameter are colored orange) -
 #' if NULL, table has banded rows
 #'
-#' @return ReporteRs package FlexTable
-#' @import data.table magrittr ReporteRs
+#' @return flextable object
+#' @import data.table magrittr flextable
 #' @export
 #'
 #' @examples \dontrun{}
 .format_table <- function(dt, title = "", footnote = "", less_than = NULL) {
-  table = FlexTable(data = dt, header.cell.props = cellProperties(text.direction = "btlr", background.color = palette()[1]),
-                    header.par.props = parCenter(), header.text.props = textProperties(color = "white", font.size = 10),
-                    body.text.props = textProperties(font.size = 10), body.par.props = parCenter(padding.left = 0, padding.right = 0))
+  table <- flextable::flextable(dt)
+  table <- flextable::align(table, align = "center", part = "all")
+  table <- flextable::fontsize(table, size = 10, part = "body")
+  table <- flextable::bg(table, part = "header", bg = palette()[1])
+  table <- flextable::color(table, part = "header", color = "white")
+  table <- flextable::bold(table, part = "header")
+  table <- flextable::add_header_row(table, values = title, colwidths = ncol(dt))
+
   if (is.null(less_than)) {
-    setZebraStyle(table, odd = "lightsteelblue", even = "gainsboro")
-  } else { # color cells that are less than less_than parameter
-    invisible(suppressWarnings(sapply(1:ncol(dt), function(x){setFlexTableBackgroundColors(table, j = x, colors = ifelse(!is.na(as.numeric(dt[[x]])), ifelse(as.numeric(dt[[x]]) < less_than, "sandybrown", "gainsboro"), "gainsboro"))})))
+    table <- flextable::theme_zebra(table)
+  } else {
+    for (col in seq_len(ncol(dt))) {
+      values <- suppressWarnings(as.numeric(dt[[col]]))
+      if (!all(is.na(values))) {
+        table <- flextable::bg(
+          table,
+          j = col,
+          bg = ifelse(values < less_than, "sandybrown", "gainsboro"),
+          part = "body"
+        )
+      }
+    }
   }
-  addHeaderRow(table, title, ncol(dt), textProperties(font.size = 12, font.weight = "bold"), cell.properties = cellProperties(border.style = "none", padding.bottom = 12), first = T)
-  addFooterRow(table, footnote, ncol(dt), textProperties(font.size = 10), parLeft(), cellProperties(border.style = "none", padding.top = 6))
+
+  if (nzchar(footnote)) {
+    table <- flextable::add_footer_lines(table, values = footnote)
+  }
+  table
 }
 
 #' Scale Publications to Incidence, Prevalence, and Deaths Data
@@ -42,7 +60,7 @@ scale_seer <- function(sites) {
 #' @param standardize Logical value - if TRUE, standardizes publications ratios to median
 #' @param ... Further arguments passed to .format_table()
 #'
-#' @return ReporteRs package FlexTable containing total publications, % incident patients age 65 or older, publications to incidence ratios,
+#' @return flextable object containing total publications, % incident patients age 65 or older, publications to incidence ratios,
 #' publications to prevalence ratios, and publications to deaths ratios for each tumor site
 #' @import data.table magrittr
 #' @export

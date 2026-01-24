@@ -10,13 +10,13 @@ level(n)
 \item{n}{Integer representing unordered list level}
 }
 \value{
-parProperties object containing unordered list level
+style name
 }
 \description{
 Set Unordered List Level
 }
 \examples{
 \dontrun{
-ReporteRs::addParagraph("mytext", par.properties = level(1))
+level(1)
 }
 }

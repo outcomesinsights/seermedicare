@@ -11,7 +11,7 @@
 #'
 #' @return \code{seermedicare} obj
 #'
-#' @import rvest xml2 stringi plyr
+#' @import rvest xml2 stringi
 #' @export
 scrape_all_data <- function(
   nci_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",

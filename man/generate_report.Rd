@@ -4,17 +4,19 @@
 \alias{generate_report}
 \title{Generate Full Report: Overview of All SEER-Medicare Publications}
 \usage{
-generate_report(seer_pub_data, outputPath = ".", html = FALSE)
+generate_report(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE)
 }
 \arguments{
 \item{seer_pub_data}{Result of running scrape_all_data.  Should have class "scrape_all_data"}
 
 \item{outputPath}{Path to directory where report will be generated. Default is working directory}
 
-\item{html}{Logical value - if TRUE, will generate html file; if FALSE, will generate Microsoft Word file}
+\item{html}{Logical value - deprecated, retained for compatibility}
+
+\item{pdf}{Logical value - if TRUE, will generate a PDF file}
 }
 \value{
-doc Object of class \code{\link{docx}} or \code{\link{bsdoc}} containing SEER-Medicare report
+doc Object of class \code{\link{rdocx}} containing SEER-Medicare report
 }
 \description{
 Generate Full Report: Overview of All SEER-Medicare Publications

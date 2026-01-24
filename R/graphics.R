@@ -38,7 +38,7 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #'
 #' @examples \dontrun{}
 .format_plot <- function(plot, x_label, y_label = "Publications", title = "") {
-  top <- plyr::round_any(max(unlist(lapply(ggplot_build(plot)$data, function(x){x[["y"]]})), na.rm = T), 50, f = ceiling)
+  top <- ceiling(max(unlist(lapply(ggplot_build(plot)$data, function(x){x[["y"]]})), na.rm = T) / 50) * 50
   plot <- plot + .theme_seermedicare() + scale_y_continuous(breaks = seq(0, top, top / 10), limits = c(0, top + 5), expand = c(0, 0))
 
   # add plot title and labels

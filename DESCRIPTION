@@ -9,15 +9,15 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     data.table,
+    flextable,
     ggplot2,
     httr,
     jsonlite,
     lubridate,
     magrittr,
-    plyr,
-    ReporteRs,
-    ReporteRsjars,
-    rJava,
+    officer,
+    openxlsx,
+    rmarkdown,
     tools
 Suggests:
     testthat (>= 3.0.0)
