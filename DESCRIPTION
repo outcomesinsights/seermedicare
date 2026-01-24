@@ -11,6 +11,7 @@ Imports:
     data.table,
     ggplot2,
     httr,
+    jsonlite,
     lubridate,
     magrittr,
     plyr,

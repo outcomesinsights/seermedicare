@@ -14,7 +14,7 @@
 #' @import rvest xml2 stringi plyr
 #' @export
 scrape_all_data <- function(
-  nci_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM",
+  nci_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
   cdc_wonder_request_xml = NULL,
   cdc_year = NULL,
   cdc_cancer_stat_url = "https://www.cdc.gov/cancer/uscs/USCS-1999-2017-ASCII.zip", # https://www.cdc.gov/cancer/uscs/dataviz/download_data.htm for all years
@@ -85,7 +85,11 @@ scrape_all_data <- function(
   metadata[["seer_citation"]] <- html_session(seer_url) %>% follow_link("Cancer Statistics Review") %>% html_node("h2+ p") %>% html_text
 
   # data access
-  metadata[["nci_url"]] <- nci_url
+  if (.is_pubsearch_api_url(nci_url)) {
+    metadata[["nci_url"]] <- "https://healthcaredelivery.cancer.gov/publications/"
+  } else {
+    metadata[["nci_url"]] <- nci_url
+  }
   metadata[["access_date"]] <- Sys.Date()
 
   # rvest version
@@ -293,17 +297,177 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
   dt
 }
 
+.is_pubsearch_api_url <- function(url) {
+  grepl("pubsearch-api", url, fixed = TRUE)
+}
+
+.fetch_pubsearch_publications <- function(api_url, data_source, auth_token, batch_size = 1000) {
+  token <- auth_token
+  if (is.null(token) || !nzchar(token)) {
+    message("Fetching publications API token")
+    token <- .fetch_pubsearch_token()
+  }
+
+  b_start <- 0
+  numresults <- NULL
+  publications <- list()
+
+  repeat {
+    params <- list(
+      data_source = data_source,
+      b_start = b_start,
+      b_size = batch_size,
+      sort_on = "date_author"
+    )
+    resp <- .pubsearch_get(api_url, token, params)
+    status <- httr::status_code(resp)
+    if (status %in% c(401, 403)) {
+      message("Refreshing publications API token")
+      token <- .fetch_pubsearch_token()
+      resp <- .pubsearch_get(api_url, token, params)
+      httr::stop_for_status(resp)
+    } else {
+      httr::stop_for_status(resp)
+    }
+    body <- httr::content(resp, as = "text", encoding = "UTF-8")
+    payload <- jsonlite::fromJSON(body, simplifyVector = FALSE)
+
+    if (is.null(numresults)) {
+      numresults <- payload$metadata$numresults
+    }
+
+    batch <- payload$publications
+    if (is.null(batch) || !length(batch)) {
+      break
+    }
+    publications <- c(publications, batch)
+    b_start <- b_start + length(batch)
+
+    if (!is.null(numresults) && b_start >= numresults) {
+      break
+    }
+  }
+
+  .normalize_pubsearch_publications(publications)
+}
+
+.pubsearch_get <- function(api_url, token, params) {
+  headers <- httr::add_headers(
+    Authorization = token,
+    `User-Agent` = "Mozilla/5.0",
+    Accept = "application/json",
+    Referer = "https://healthcaredelivery.cancer.gov/publications/"
+  )
+  httr::GET(api_url, headers, query = params)
+}
+
+.fetch_pubsearch_token <- function() {
+  main_page <- httr::GET("https://healthcaredelivery.cancer.gov/publications/")
+  httr::stop_for_status(main_page)
+  html <- httr::content(main_page, as = "text", encoding = "UTF-8")
+
+  script_paths <- regmatches(html, gregexpr("/vue-apps/assets/main-[^\"']+\\.js", html))
+  if (!length(script_paths[[1]])) {
+    stop("Could not locate publications main JS bundle to extract token.")
+  }
+  script_url <- paste0("https://healthcaredelivery.cancer.gov", script_paths[[1]][1])
+
+  script_resp <- httr::GET(script_url)
+  httr::stop_for_status(script_resp)
+  js <- httr::content(script_resp, as = "text", encoding = "UTF-8")
+
+  token_match <- regmatches(js, regexpr("Token [a-f0-9]{40}", js))
+  if (!length(token_match) || !nzchar(token_match)) {
+    stop("Could not extract publications API token from JS bundle.")
+  }
+  token_match
+}
+
+.normalize_pubsearch_publications <- function(publications) {
+  collapse_field <- function(value, sep = "; ") {
+    if (is.null(value)) {
+      return(NA_character_)
+    }
+    if (is.list(value)) {
+      value <- unlist(value, use.names = FALSE)
+    }
+    value <- value[!is.na(value) & nzchar(value)]
+    if (!length(value)) {
+      return(NA_character_)
+    }
+    paste(value, collapse = sep)
+  }
+
+  build_link <- function(pub) {
+    if (!is.null(pub$pmid) && nzchar(pub$pmid)) {
+      return(paste0("https://pubmed.ncbi.nlm.nih.gov/", pub$pmid, "/"))
+    }
+    if (!is.null(pub$weburl) && nzchar(pub$weburl)) {
+      return(pub$weburl)
+    }
+    if (!is.null(pub$linktofulltext) && nzchar(pub$linktofulltext)) {
+      return(pub$linktofulltext)
+    }
+    if (!is.null(pub$linktopdf) && nzchar(pub$linktopdf)) {
+      return(pub$linktopdf)
+    }
+    NA_character_
+  }
+
+  data.table::rbindlist(lapply(publications, function(pub) {
+    authors_val <- collapse_field(pub$authors_formatted, sep = ", ")
+    if (is.na(authors_val)) {
+      authors_val <- collapse_field(pub$authors, sep = ", ")
+    }
+    topics_val <- collapse_field(pub$medicare_topics, sep = "; ")
+    if (is.na(topics_val)) {
+      topics_val <- "Unknown"
+    }
+    sites_val <- collapse_field(pub$tumorsite, sep = "; ")
+
+    list(
+      authors = authors_val,
+      date = pub$pubdate,
+      journal = pub$journal,
+      topics = topics_val,
+      sites = sites_val,
+      link = build_link(pub),
+      title = pub$Title,
+      pmid = pub$pmid
+    )
+  }), fill = TRUE)
+}
+
 #' Get SEER Medicare based Publications data
 #'
-#' Searches https://healthcaredelivery.cancer.gov/publications/ for all SEER-Medicare Publications (Data Source/Project/Initiative = "SEER-Medicare Linked Database) and returns data.table with information about each publication
+#' Searches https://healthcaredelivery.cancer.gov/publications/ for SEER-CMS Linkages publications
+#' and returns data.table with information about each publication
 #'
-#' @param nci_search_url \code{character} URL that searches NCI publications for all SEER Medicare publications
+#' @param nci_search_url \code{character} URL that searches NCI publications
 #' @param table_results_css_selector \code{character} CSS selector to select main result table
+#' @param data_source \code{character} Data source filter (e.g. "SEERM" for SEER-Medicare)
+#' @param auth_token \code{character} Authorization token for the publications API.
+#' If NULL, the token will be fetched from the publications site.
+#' @param batch_size \code{numeric} Number of records to request per batch
 #'
 #' @importFrom tools toTitleCase
 #'
 #' @return \code{\link{data.table}}
-get_publication_data <- function(nci_search_url = "http://healthcaredelivery.cancer.gov/cgi-bin-pubsearch/pubsearch/index.pl?simple_search=&searchOpt=and&initiative=SEERM", table_results_css_selector = "table.pubsearch-results" ) {
+get_publication_data <- function(
+  nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
+  table_results_css_selector = "table.pubsearch-results",
+  data_source = "SEERM",
+  auth_token = "Token adce2118f5d880436bd5f603369fa9f19e5f24ea",
+  batch_size = 1000
+) {
+  if (.is_pubsearch_api_url(nci_search_url)) {
+    publications <- .fetch_pubsearch_publications(
+      api_url = nci_search_url,
+      data_source = data_source,
+      auth_token = auth_token,
+      batch_size = batch_size
+    )
+  } else {
 
   # Functions to parse publication data results
   parserow <- function(row) {
@@ -334,7 +498,8 @@ get_publication_data <- function(nci_search_url = "http://healthcaredelivery.can
   # extract each table on webpage, parse, and combine to create full dataset
   nci_url <- nci_search_url
 
-  publications <- read_html(nci_url) %>% html_nodes(table_results_css_selector) %>% parsetables
+    publications <- read_html(nci_url) %>% html_nodes(table_results_css_selector) %>% parsetables
+  }
 
   ## FORMAT PUBLICATIONS DATA
 
@@ -342,7 +507,8 @@ get_publication_data <- function(nci_search_url = "http://healthcaredelivery.can
   setnames(publications, sub("(s)", "s", names(publications), fixed = T)) %>% setnames("tumor sites", "sites")
 
   # set blank cells to NA and remove rows with any critical fields missing - note that reports are dropped
-  publications <- publications[, lapply(.SD, function(x){ifelse(x == "", NA, x)})] %>% na.omit(cols = c("authors", "date", "journal", "topics", "sites"))
+  publications <- publications[, lapply(.SD, function(x){ifelse(x == "", NA, x)})] %>%
+    na.omit(cols = c("authors", "date", "journal", "topics", "sites"))
 
   # create and clean columns
   generateids <- function(n) {

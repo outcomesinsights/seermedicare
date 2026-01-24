@@ -61,7 +61,7 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE){
     addTitle("Overview") %>%
     addParagraph("Information was extracted from the National Cancer Institute (NCI) online reference database for \"SEER-Medicare\" publications", par.properties = level(1)) %>%
     addParagraph(set_of_paragraphs(
-      pot("http://healthcaredelivery.cancer.gov/seermedicare/overview/pubsearch.html",
+      pot("https://healthcaredelivery.cancer.gov/publications/",
           hyperlink = metadata$nci_url,
           format = textProperties(underlined = T)),
       paste0(format(metadata$access_date, "Data accessed %B %d, %Y"), .underrepresented(seer_pub_data) ),
