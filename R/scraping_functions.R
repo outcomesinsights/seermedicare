@@ -927,18 +927,8 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
       ".glanceBox.mortality"
     ))
 
-    # Get prevalence from main text
-    ## Main selector
-    main_selector <- ".factSheet .tog-content div.row p:nth-child(3)"
-    ## Some pages dont have an inner div.row
-    non_inner_row_selector <- ".factSheet .tog-content .glance-factSheet ~ p:nth-of-type(3)"
-    prev_text <- .seer_extract_text(page, c(
-      main_selector,
-      non_inner_row_selector,
-      ".factSheet .tog-content p"
-    ))
-    
-    prevalence <- .seer_extract_prevalence(prev_text)
+    # Get prevalence from main text - search all paragraphs for "Prevalence" or "living with"
+    prevalence <- .seer_extract_prevalence_from_page(page)
 
     dt <- data.table(site=site, year = year,
                      x = c("incidence", "prevalence", "deaths"),
@@ -983,31 +973,76 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
 }
 
 .seer_extract_numeric <- function(page, selectors) {
-  for (selector in selectors) {
+ for (selector in selectors) {
     node <- html_node(page, selector)
     if (!is.null(node)) {
+      # Look for the first <p> containing "Estimated" to get the count row
+      p_nodes <- html_nodes(node, "p")
+      for (p_node in p_nodes) {
+        p_text <- html_text(p_node)
+        if (grepl("Estimated", p_text, ignore.case = TRUE)) {
+          # Extract just from this paragraph
+          numbers <- stringi::stri_extract_all_regex(p_text, "[0-9][0-9,]*")[[1]]
+          if (length(numbers) >= 2) {
+            # First number is year, second is the count
+            count_str <- numbers[2]
+            return(as.numeric(gsub(",", "", count_str)))
+          }
+        }
+      }
+      
+      # Fallback: try to find a large number (count with comma) in the full text
       text <- html_text(node)
+      # Look for numbers with commas (likely counts, not percentages)
+      large_numbers <- stringi::stri_extract_all_regex(text, "[0-9]{1,3}(?:,[0-9]{3})+")[[1]]
+      if (length(large_numbers)) {
+        return(as.numeric(gsub(",", "", large_numbers[1])))
+      }
+      
+      # Final fallback: original logic
       numbers <- stringi::stri_extract_all_regex(text, "[0-9][0-9,]*")[[1]]
       if (length(numbers)) {
-        if (length(numbers) == 1) {
-          num <- numbers[1]
-          if (nchar(num) > 4) {
-            year_prefix <- substr(num, 1, 4)
-            if (grepl("^(19|20)\\d{2}$", year_prefix)) {
-              remainder <- gsub("^,", "", substr(num, 5, nchar(num)))
-              if (nzchar(remainder)) {
-                return(as.numeric(gsub(",", "", remainder)))
-              }
-            }
-          }
-          return(as.numeric(gsub(",", "", num)))
+        # Filter out likely years (4 digits starting with 19 or 20) and small percentages
+        counts <- numbers[!grepl("^(19|20)\\d{2}$", numbers) & nchar(gsub(",", "", numbers)) > 2]
+        if (length(counts)) {
+          return(as.numeric(gsub(",", "", counts[1])))
         }
-        # Prefer the last numeric token in case a year is included.
-        return(as.numeric(gsub(",", "", tail(numbers, 1))))
       }
     }
   }
   NA_real_
+}
+
+.seer_extract_prevalence_from_page <- function(page) {
+  # Search all paragraphs for prevalence-related text
+  p_nodes <- html_nodes(page, ".factSheet p, .tog-content p")
+  
+  for (p_node in p_nodes) {
+    text <- html_text(p_node)
+    # Look for paragraphs mentioning prevalence or "living with"
+    if (grepl("Prevalence|living with", text, ignore.case = TRUE)) {
+      # Extract large numbers (with commas) - these are the counts
+      large_numbers <- stringi::stri_extract_all_regex(text, "[0-9]{1,3}(?:,[0-9]{3})+")[[1]]
+      if (length(large_numbers)) {
+        return(as.numeric(gsub(",", "", large_numbers[1])))
+      }
+      # Fallback: look for "estimated N" pattern
+      match <- stringi::stri_match_first_regex(text, "(?i)estimated\\s+([0-9][0-9,]*)")
+      if (!is.na(match[, 2])) {
+        return(as.numeric(gsub(",", "", match[, 2])))
+      }
+    }
+  }
+  
+  # Final fallback: original approach with selectors
+  main_selector <- ".factSheet .tog-content div.row p:nth-child(3)"
+  non_inner_row_selector <- ".factSheet .tog-content .glance-factSheet ~ p:nth-of-type(3)"
+  prev_text <- .seer_extract_text(page, c(
+    main_selector,
+    non_inner_row_selector,
+    ".factSheet .tog-content p"
+  ))
+  .seer_extract_prevalence(prev_text)
 }
 
 .seer_extract_prevalence <- function(text) {
@@ -1017,6 +1052,11 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
   match <- stringi::stri_match_first_regex(text, "(?i)estimated\\s+([0-9][0-9,]*)")
   if (!is.na(match[, 2])) {
     return(as.numeric(gsub(",", "", match[, 2])))
+  }
+  # Look for large numbers with commas
+  large_numbers <- stringi::stri_extract_all_regex(text, "[0-9]{1,3}(?:,[0-9]{3})+")[[1]]
+  if (length(large_numbers)) {
+    return(as.numeric(gsub(",", "", large_numbers[1])))
   }
   fallback <- stringi::stri_extract_first_regex(text, "[0-9][0-9,]*")
   if (!is.na(fallback)) {
