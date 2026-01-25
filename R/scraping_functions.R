@@ -535,7 +535,7 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
   "SKIN" = "Skin",
   "TESTIS" = "Testis",
   "UB" = "Urinary Bladder",
-  "OTHER" = "Other"
+  "OTHER" = "Not Specified"
 )
 
 #' Map publication site codes to full names
@@ -808,11 +808,16 @@ get_publication_data <- function(
   # Map publication site codes to full names (for API data which uses abbreviated codes)
   publications[, sites := lapply(sites, .map_pub_site_codes)]
 
-  # Remove "Other" sites as they don't map to specific cancer types
-  publications[, sites := lapply(sites, function(x) x[x != "Other"])]
+  # Convert "Other" to "Not Specified" for publications without specific cancer types
+  publications[, sites := lapply(sites, function(x) {
+    x[x == "Other"] <- "Not Specified"
+    x
+  })]
 
-  # Remove journals with no site information
-  publications <- publications[sapply(sites, function(x) length(x)!=0)]
+  # For publications with no site information, assign "Not Specified"
+  publications[, sites := lapply(sites, function(x) {
+    if (length(x) == 0) "Not Specified" else x
+  })]
 
   # for uniform formatting, remove author middle initials unless they distinguish two authors with same first and last name
   remove_middle_init <- function(x) {
