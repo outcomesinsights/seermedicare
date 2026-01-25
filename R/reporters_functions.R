@@ -1,14 +1,28 @@
 
 #' Add Plot to Document suppressing warnings
 #'
+#' Uses grDevices::png() with pixel dimensions to avoid rendering issues
+#' with certain ggplot configurations (e.g., bar plots with factors having many levels).
+#'
 #' @param doc officer docx object where plot should be added
 #' @param plot plot to be added to the document
+#' @param width plot width in inches
+#' @param height plot height in inches
+#' @param res plot resolution in DPI (used to calculate pixel dimensions)
 #'
 #' @return doc officer docx object
+#' @importFrom grDevices png dev.off
 #' @export
-myAddPlot <- function(doc, plot) {
-  doc <- suppressWarnings(officer::body_add_gg(doc, value = plot, width = 6.5, height = 4))
-  doc
+myAddPlot <- function(doc, plot, width = 6.5, height = 4, res = 100) {
+  # Use pixel dimensions instead of units="in" to avoid rendering issues
+  file <- tempfile(fileext = ".png")
+  width_px <- round(width * res)
+  height_px <- round(height * res)
+  grDevices::png(filename = file, width = width_px, height = height_px)
+  print(plot)
+  grDevices::dev.off()
+  on.exit(unlink(file))
+  officer::body_add_img(doc, src = file, width = width, height = height)
 }
 
 #' Add Blank Line to Report

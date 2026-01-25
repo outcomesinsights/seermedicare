@@ -1,4 +1,4 @@
-utils::globalVariables(c("values", "."))
+utils::globalVariables(c("values", ".", "label"))
 
 #' Create Publications Bar Charts (i.e., Publications by Tumor Site, Author, or Journal)
 #'
@@ -23,9 +23,24 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
   data <- get_data(x, dataset = publications[year %in% years])
   if(!is.null(display)) data <- data[values %in% levels(values)[1:display]]
 
-  # create bar plot
-  bp <- ggplot(data, aes_string("values")) + geom_bar(fill = seer_palette()[1])
-  .format_plot(bp, x_label, title = sprintf("Publications by %s: %s-%s%s", x_label, min(data$year), max(data$year), ifelse(is.null(display), "", sprintf(" (top %d)", display))))
+  # Pre-compute counts for reliable rendering with ggsave/officer
+  year_range <- range(data$year)
+  counts <- data[, .(count = .N), by = values]
+  
+  # Truncate very long labels (>60 chars) to avoid rendering issues with png()
+  truncate_label <- function(x, max_len = 60) {
+    ifelse(nchar(x) > max_len, paste0(substr(x, 1, max_len - 3), "..."), x)
+  }
+  counts[, label := truncate_label(as.character(values))]
+  
+  # Set factor levels in order matching the original data levels
+  orig_order <- unique(truncate_label(levels(data$values)))
+  counts[, label := factor(label, levels = orig_order[orig_order %in% label])]
+  
+  # create bar plot with pre-computed counts using truncated labels
+  bp <- ggplot(counts, aes(x = label, y = count)) + 
+    geom_bar(stat = "identity", fill = seer_palette()[1])
+  .format_plot(bp, x_label, title = sprintf("Publications by %s: %s-%s%s", x_label, year_range[1], year_range[2], ifelse(is.null(display), "", sprintf(" (top %d)", display))))
 }
 
 #' Format ggplot2 Plots With Minimalist Theme, Title, and Labels
@@ -67,9 +82,10 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #' }
 line_plot <- function(publications, by = NULL, by_label = by) {
   if(is.null(by)) {
-    lp <- ggplot(publications, aes(factor(year), group = 1)) + geom_line(color = seer_palette()[1], linewidth = 1, stat = "count")
+    lp <- ggplot(publications, aes(x = factor(year), group = 1)) + geom_line(color = seer_palette()[1], linewidth = 1, stat = "count")
   } else {
-    lp <- ggplot(get_data(by, publications)[values %in% levels(values)[1:4]], aes(factor(year), group = values, color = values, linetype = values)) + geom_line(linewidth = 1, stat = "count") +
+    plot_data <- get_data(by, publications)[values %in% levels(values)[1:4]]
+    lp <- ggplot(plot_data, aes(x = factor(year), group = values, color = values, linetype = values)) + geom_line(linewidth = 1, stat = "count") +
       scale_color_manual(values = seer_palette()) + scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted"))
   }
   .format_plot(lp, x_label = "year", title = sprintf("Publications by year%s", ifelse(is.null(by), "", sprintf(" and top 4 %ss", by_label))))
@@ -103,11 +119,11 @@ seer_plot <- function(x, seer_pub_data) {
   data <- data.table(melt(sites, id.vars = "site", value.name = "values"), key = "variable") %>% .["publications", ("label") := "Total Publications"]
   data[x, `:=`(values = values / get_scale(values), label = .seer_label(x, sites, metadata))]
 
-  # create plot
-  sp <- ggplot(data, aes_string("site", "values", color = "label", fill = "label")) +
+  # create plot using aes() with .data pronoun (aes_string is deprecated)
+  sp <- ggplot(data, aes(x = .data[["site"]], y = .data[["values"]], color = .data[["label"]], fill = .data[["label"]])) +
           geom_bar(data = data[x], position = "dodge", stat = "identity") +
-          geom_line(aes_string(group = "label"), data["publications"], linetype = "dashed") +
-          geom_point(aes_string(group = "label"), data["publications"], size = 3, shape = 22) +
+          geom_line(aes(group = .data[["label"]]), data = data["publications"], linetype = "dashed") +
+          geom_point(aes(group = .data[["label"]]), data = data["publications"], size = 3, shape = 22) +
           scale_fill_manual(values = seer_palette()[1:2]) + scale_color_manual(values = seer_palette()[1:2])
   .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x))
 }
