@@ -27,9 +27,13 @@
 #' }
 get_data <- function(x, dataset = publications) {
   .arg_error(x, dataset)
-  # Use unique() to avoid duplicate columns when x == "year"
-  cols <- unique(c(x, "year"))
-  data <- dataset[, lapply(.SD, unlist), by = "id", .SDcols = cols] %>% setnames(x, "values")
+  if (x == "year") {
+    # Special case: when x is "year", we need both a "values" column and keep "year"
+    data <- dataset[, lapply(.SD, unlist), by = "id", .SDcols = "year"]
+    data[, values := year]
+  } else {
+    data <- dataset[, lapply(.SD, unlist), by = "id", .SDcols = c(x, "year")] %>% setnames(x, "values")
+  }
   data[, `:=`(values = factor(values, levels = names(sort(table(values), decreasing = T))))]
 }
 
