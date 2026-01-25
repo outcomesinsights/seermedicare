@@ -61,7 +61,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
     dt <- merge(count_pubs(dt1), count_pubs(dt2), by = "x", all = T) %>% setnames("x", tools::toTitleCase(label))
 
     png_bar <- function(dt){
-      png(filename = paste0(figure_path, sprintf("/publications_by_%s_%s-%s.png", gsub("\\s", "_", label), min(dt$year), max(dt$year))), width = 650, height = 400)
+      png(filename = paste0(figure_path, sprintf("/publications_by_%s_%s-%s.png", gsub("\\s", "_", label), min(dt$year), max(dt$year))), width = 1125, height = 900)
       print(bar_plot(x = x, publications, x_label = label, years = c(min(dt$year):max(dt$year)), ...))
       dev.off()
     }
@@ -85,7 +85,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   add_sheet("Year", year_data[order(-Year)])
 
   # Output Publication By Year Chart
-  png(filename = paste0(figure_path,"/publications_by_year.png"), width = 650, height = 400)
+  png(filename = paste0(figure_path,"/publications_by_year.png"), width = 1125, height = 900)
   print(line_plot(publications))
   dev.off()
 
@@ -93,7 +93,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
 
   add_sheet("Year and Top Tumor Site", dt)
 
-  png(filename = file.path(figure_path, "publications_by_year_and_tumor_site.png"), width = 650, height = 400)
+  png(filename = file.path(figure_path, "publications_by_year_and_tumor_site.png"), width = 1125, height = 900)
   print(line_plot(publications, "sites", "tumor site"))
   dev.off()
 
@@ -107,7 +107,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   add_sheet("Incidence Prevalence Deaths", dt)
 
   write_seer <- function(x){
-    png(filename = file.path(figure_path, sprintf("publications_and_%s.png", x)), width = 650, height = 400)
+    png(filename = file.path(figure_path, sprintf("publications_and_%s.png", x)), width = 1125, height = 900)
     print(seer_plot(x, seer_pub_data))
     dev.off()
   }
