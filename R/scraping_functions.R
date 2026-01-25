@@ -695,10 +695,17 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
       as.character(pub$pmid)
     }
     
+    # Handle journal - convert NULL/empty to NA
+    journal_val <- if (is.null(pub$journal) || !length(pub$journal) || !nzchar(pub$journal)) {
+      NA_character_
+    } else {
+      as.character(pub$journal)
+    }
+    
     list(
       authors = authors_val,
       date = pub$pubdate,
-      journal = pub$journal,
+      journal = journal_val,
       topics = topics_val,
       sites = sites_val,
       link = build_link(pub),
