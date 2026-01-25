@@ -58,10 +58,17 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
   y_vals <- y_vals[is.finite(y_vals)]
   top <- if (length(y_vals) > 0) ceiling(max(y_vals) / 50) * 50 else 50
   if (top <= 0) top <- 50  # Ensure valid positive value
-  plot <- plot + .theme_seermedicare() + scale_y_continuous(breaks = seq(0, top, top / 10), limits = c(0, top + 5), expand = c(0, 0))
+  
+  # Apply theme and y-axis scale with subtle gridlines at major breaks only
+  plot <- plot + .theme_seermedicare() + 
+    scale_y_continuous(
+      breaks = seq(0, top, top / 5),  # Fewer breaks for cleaner look
+      limits = c(0, top * 1.05),
+      expand = c(0, 0)
+    )
 
   # add plot title and labels
-  plot + ggtitle(sprintf("%s\u000A", title)) + xlab(tools::toTitleCase(x_label)) + ylab(y_label)
+  plot + ggtitle(title) + xlab(tools::toTitleCase(x_label)) + ylab(y_label)
 }
 
 #' Create Publications by Year Plots
@@ -134,8 +141,27 @@ seer_plot <- function(x, seer_pub_data) {
 #' @import ggplot2
 #' @export
 .theme_seermedicare <- function() {
-  theme_classic() + theme(text = element_text(family = "serif"), plot.title = element_text(face = "bold", hjust = 0.5, size = 12),
-                          axis.text = element_text(size = 10), axis.text.x = element_text(angle = 40, hjust = 1),
-                          axis.title = element_text(face = "bold", vjust = 1.25), panel.grid.major.y = element_line(linetype = "dashed"),
-                          axis.ticks = element_blank(), legend.title = element_blank(),legend.position = c(.5, .82))
+  theme_classic() + theme(
+    # Use clean sans-serif font for better readability
+    text = element_text(family = "sans"),
+    # Larger, bold title for bigger figures
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 16, margin = margin(b = 15)),
+    # Larger axis text for readability
+    axis.text = element_text(size = 11, color = "gray30"),
+    axis.text.x = element_text(angle = 40, hjust = 1),
+    axis.title = element_text(face = "bold", size = 13, vjust = 1.25),
+    # Remove gridlines for cleaner look
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    # Clean axis styling
+    axis.ticks = element_blank(),
+    axis.line = element_line(color = "gray70", linewidth = 0.5),
+    # Legend styling - position at bottom to avoid overlap
+    legend.title = element_blank(),
+    legend.position = "bottom",
+    legend.text = element_text(size = 11),
+    legend.key.size = unit(1.2, "lines"),
+    # Add margins for breathing room
+    plot.margin = margin(t = 20, r = 20, b = 10, l = 10)
+  )
 }

@@ -6,14 +6,14 @@
 #'
 #' @param doc officer docx object where plot should be added
 #' @param plot plot to be added to the document
-#' @param width plot width in inches
-#' @param height plot height in inches
-#' @param res plot resolution in DPI (used to calculate pixel dimensions)
+#' @param width plot width in inches (default 7 for near full-page width)
+#' @param height plot height in inches (default 5.5 for good proportions)
+#' @param res plot resolution in DPI (default 150 for sharper images)
 #'
 #' @return doc officer docx object
 #' @importFrom grDevices png dev.off
 #' @export
-myAddPlot <- function(doc, plot, width = 6.5, height = 4, res = 100) {
+myAddPlot <- function(doc, plot, width = 7, height = 5.5, res = 150) {
   # Use pixel dimensions instead of units="in" to avoid rendering issues
   file <- tempfile(fileext = ".png")
   width_px <- round(width * res)
