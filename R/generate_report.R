@@ -39,7 +39,7 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
   doc <- doc_add_title(doc, "Outcomes Insights, Inc.", 4)
   doc <- nline(doc)
   doc <- doc_add_title(doc, "Mark D. Danese, MHS, PhD", 4)
-  doc <- doc_add_title(doc, "Marc Halperin", 4)
+ 
   doc <- nline(doc)
   doc <- doc_add_title(doc, format(Sys.Date(), "%B %d, %Y"), 4)
   doc <- officer::body_add_break(doc)
@@ -145,7 +145,7 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
 
   doc <- doc_add_title(doc, "Conclusions")
   doc <- doc_add_list(doc, c(
-    "There has been steady growth in the number of publications over time using the SEER-Medicare data",
+    "There was steady growth followed by a decline in the number of publications over time using the SEER-Medicare data",
     sprintf("%s, and %s are the tumor sites with the highest number of publications", paste(c(all_sites[1], tolower(all_sites[2:3])), collapse = ", "), tolower(all_sites[4]))
   ), level = 1)
   doc <- doc_add_list(doc, c(
@@ -185,8 +185,8 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
   doc <- doc_add_paragraphs(doc, c(
     "Mark D. Danese",
     "Outcomes Insights, Inc.",
-    "30200 Agoura Road, Suite 230",
-    "Agoura Hills, CA 91302",
+    "4500 Park Granada Suite 202",
+    "Calabasas, CA 91302",
     "805-498-0034",
     "mark@outins.com"
   ))
