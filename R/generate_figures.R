@@ -25,8 +25,10 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   dir.create(figure_path, showWarnings = FALSE, recursive = TRUE)
   
 
-  # XLSX File Path
-  doc <- file.path(outputPath, "SEER_Medicare_Data_Tables.xlsx")
+  # XLSX File Path - save to excel subfolder
+  excelPath <- file.path(dirname(outputPath), "excel")
+  dir.create(excelPath, showWarnings = FALSE, recursive = TRUE)
+  doc <- file.path(excelPath, "SEER_Medicare_Data_Tables.xlsx")
   wb <- openxlsx::createWorkbook()
   sheet_names <- character()
   add_sheet <- function(name, data) {
