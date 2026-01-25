@@ -124,5 +124,10 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   message("Writing Figures zip file to ", figure_path)
   files <- dir(figure_path, full.names = TRUE)
   zip(zipfile = file.path(outputPath, sprintf("SEER_Medicare_Figures_%s", metadata$access_date)), files = files)
+  
+  # Also copy individual PNG files to output folder
+  message("Copying individual figure files to ", outputPath)
+  file.copy(files, outputPath, overwrite = TRUE)
+  
   setwd(curr_wd)
 }
