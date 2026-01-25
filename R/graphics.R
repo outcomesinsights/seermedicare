@@ -145,11 +145,11 @@ seer_plot <- function(x, seer_pub_data) {
     # Use clean sans-serif font for better readability
     text = element_text(family = "sans"),
     # Larger, bold title for bigger figures
-    plot.title = element_text(face = "bold", hjust = 0.5, size = 16, margin = margin(b = 15)),
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 18, margin = margin(b = 15)),
     # Larger axis text for readability
-    axis.text = element_text(size = 11, color = "gray30"),
-    axis.text.x = element_text(angle = 40, hjust = 1),
-    axis.title = element_text(face = "bold", size = 13, vjust = 1.25),
+    axis.text = element_text(size = 13, color = "gray30"),
+    axis.text.x = element_text(angle = 40, hjust = 1, size = 12),
+    axis.title = element_text(face = "bold", size = 15, vjust = 1.25),
     # Remove gridlines for cleaner look
     panel.grid.major.y = element_blank(),
     panel.grid.minor = element_blank(),
@@ -159,8 +159,8 @@ seer_plot <- function(x, seer_pub_data) {
     # Legend styling - position at bottom to avoid overlap
     legend.title = element_blank(),
     legend.position = "bottom",
-    legend.text = element_text(size = 11),
-    legend.key.size = unit(1.2, "lines"),
+    legend.text = element_text(size = 13),
+    legend.key.size = unit(1.5, "lines"),
     # Add margins for breathing room
     plot.margin = margin(t = 20, r = 20, b = 10, l = 10)
   )

@@ -132,13 +132,13 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
   doc <- myAddPlot(doc, seer_plot("prevalence", seer_pub_data))
   doc <- myAddPlot(doc, seer_plot("deaths", seer_pub_data))
 
-  doc <- officer::body_end_section_landscape(doc)
+  doc <- officer::body_end_section_portrait(doc)
 
   message("...Tables")
   doc <- flextable::body_add_flextable(doc, value = seer_table(seer_pub_data, footnote = "Notes: Higher numbers indicate more publications per patient (see next table for comparisons to the median ratios)"))
   doc <- officer::body_add_break(doc)
   doc <- flextable::body_add_flextable(doc, value = seer_table(seer_pub_data, standardize = T, less_than = 1, footnote = "Notes: Ratios reflect the tumor-specific publication ratio relative to median publication ratio (see previous table for non-standardized ratios)\u000AValues above 1.0 indicate ratios higher than the median, and values below 1.0 indicate ratios below the median (shaded orange)"))
-  doc <- officer::body_end_section_portrait(doc)
+  doc <- officer::body_end_section_landscape(doc)
 
   # Conclusions
   message("Generating Conclusions")

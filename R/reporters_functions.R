@@ -13,7 +13,7 @@
 #' @return doc officer docx object
 #' @importFrom grDevices png dev.off
 #' @export
-myAddPlot <- function(doc, plot, width = 7, height = 5.5, res = 150) {
+myAddPlot <- function(doc, plot, width = 7.5, height = 6, res = 150) {
   # Use pixel dimensions instead of units="in" to avoid rendering issues
   file <- tempfile(fileext = ".png")
   width_px <- round(width * res)
