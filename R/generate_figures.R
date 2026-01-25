@@ -26,7 +26,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   
 
   # XLSX File Path
-  doc <- file.path(outputPath, sprintf("SEER_Medicare_Data_Tables_%s.xlsx",metadata$access_date))
+  doc <- file.path(outputPath, "SEER_Medicare_Data_Tables.xlsx")
   wb <- openxlsx::createWorkbook()
   sheet_names <- character()
   add_sheet <- function(name, data) {
@@ -123,7 +123,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
 
   message("Writing Figures zip file to ", figure_path)
   files <- dir(figure_path, full.names = TRUE)
-  zip(zipfile = file.path(outputPath, sprintf("SEER_Medicare_Figures_%s", metadata$access_date)), files = files)
+  zip(zipfile = file.path(outputPath, "SEER_Medicare_Figures"), files = files)
   
   # Also copy individual PNG files to output folder
   message("Copying individual figure files to ", outputPath)
