@@ -27,7 +27,9 @@
 #' }
 get_data <- function(x, dataset = publications) {
   .arg_error(x, dataset)
-  data <- dataset[, lapply(.SD, unlist), by = "id", .SDcols = c(x, "year")] %>% setnames(x, "values")
+  # Use unique() to avoid duplicate columns when x == "year"
+  cols <- unique(c(x, "year"))
+  data <- dataset[, lapply(.SD, unlist), by = "id", .SDcols = cols] %>% setnames(x, "values")
   data[, `:=`(values = factor(values, levels = names(sort(table(values), decreasing = T))))]
 }
 
