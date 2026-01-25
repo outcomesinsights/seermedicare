@@ -94,7 +94,7 @@ scrape_all_data <- function(
   } else {
     metadata[["cdc_citation"]] <- sprintf("Data collected from CDC website: %s", cdc_cancer_stat_url)
   }
-  metadata[["seer_citation"]] <- session(seer_url) %>% session_follow_link("Cancer Statistics Review") %>% html_node("h2+ p") %>% html_text
+  metadata[["seer_citation"]] <- session(seer_url) %>% session_follow_link("Cancer Statistics Review") %>% html_element("h2+ p") %>% html_text
 
   # data access
   if (.is_pubsearch_api_url(nci_url)) {
@@ -229,7 +229,7 @@ assemble_seermedicare <- function(
     metadata[["seer_citation"]] <- tryCatch({
       session(seer_url) %>%
         session_follow_link("Cancer Statistics Review") %>%
-        html_node("h2+ p") %>%
+        html_element("h2+ p") %>%
         html_text()
     }, error = function(e) {
       warning("Could not fetch SEER citation from website: ", e$message)
@@ -736,17 +736,17 @@ get_publication_data <- function(
 
   # Functions to parse publication data results
   parserow <- function(row) {
-    setNames(row %>% html_nodes("td") %>% html_text(trim = T) %>% .[length(.)], # extract table data ("td") into vector and take last (some return more than 1 row)
-             row %>% html_node("th") %>% html_text(trim = T) %>% tolower %>% gsub(":", "", .)) # extract table headings ("th") and use for vector names
+    setNames(row %>% html_elements("td") %>% html_text(trim = T) %>% .[length(.)], # extract table data ("td") into vector and take last (some return more than 1 row)
+             row %>% html_element("th") %>% html_text(trim = T) %>% tolower %>% gsub(":", "", .)) # extract table headings ("th") and use for vector names
   }
 
   # get href for pubmed id link
   parselink <- function(table) {
-    setNames(table %>% html_nodes("tr:last-child a:nth-child(1)") %>% html_attr("href", default = "NR"), "link")
+    setNames(table %>% html_elements("tr:last-child a:nth-child(1)") %>% html_attr("href", default = "NR"), "link")
   }
 
   parserows <- function(table) {
-    rows <- table %>% html_nodes("tr") %>% .[-c(9,10)] # take table and parse into rows ("tr") (exclude abstract links)
+    rows <- table %>% html_elements("tr") %>% .[-c(9,10)] # take table and parse into rows ("tr") (exclude abstract links)
     
     data <- sapply(rows, parserow)
     link <- tryCatch( parselink(table), error = function(e) {
@@ -763,7 +763,7 @@ get_publication_data <- function(
   # extract each table on webpage, parse, and combine to create full dataset
   nci_url <- nci_search_url
 
-    publications <- read_html(nci_url) %>% html_nodes(table_results_css_selector) %>% parsetables
+    publications <- read_html(nci_url) %>% html_elements(table_results_css_selector) %>% parsetables
   }
 
   ## FORMAT PUBLICATIONS DATA
@@ -856,7 +856,7 @@ get_seer_data <- function(
 
   # get hyperlinks for each cancer type from seer statfacts homepage
   seer_index <- .seer_fetch_html(seer_url, retries = retries, user_agent = user_agent)
-  links <- seer_index %>% html_nodes(link_css_selector)
+  links <- seer_index %>% html_elements(link_css_selector)
   if (!length(links)) {
     warning("No SEER site links found. Check link_css_selector or page structure.")
   }
@@ -961,7 +961,7 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
 
 .seer_extract_text <- function(page, selectors) {
   for (selector in selectors) {
-    node <- html_node(page, selector)
+    node <- html_element(page, selector)
     if (!is.null(node)) {
       text <- html_text(node)
       if (!is.na(text) && nzchar(trimws(text))) {
@@ -974,10 +974,10 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
 
 .seer_extract_numeric <- function(page, selectors) {
  for (selector in selectors) {
-    node <- html_node(page, selector)
+    node <- html_element(page, selector)
     if (!is.null(node)) {
       # Look for the first <p> containing "Estimated" to get the count row
-      p_nodes <- html_nodes(node, "p")
+      p_nodes <- html_elements(node, "p")
       for (p_node in p_nodes) {
         p_text <- html_text(p_node)
         if (grepl("Estimated", p_text, ignore.case = TRUE)) {
@@ -1015,7 +1015,7 @@ parse_seer_cancer_fact_page <- function(link, retries = 3, user_agent = "Mozilla
 
 .seer_extract_prevalence_from_page <- function(page) {
   # Search all paragraphs for prevalence-related text
-  p_nodes <- html_nodes(page, ".factSheet p, .tog-content p")
+  p_nodes <- html_elements(page, ".factSheet p, .tog-content p")
   
   for (p_node in p_nodes) {
     text <- html_text(p_node)
