@@ -1,4 +1,4 @@
-utils::globalVariables(c("values", ".", "label"))
+utils::globalVariables(c("values", ".", "label", "year_num"))
 
 #' Create Publications Bar Charts (i.e., Publications by Tumor Site, Author, or Journal)
 #'
@@ -89,10 +89,13 @@ bar_plot <- function(x, publications, years = publications$year, display = NULL,
 #' }
 line_plot <- function(publications, by = NULL, by_label = by) {
   if(is.null(by)) {
-    # Use get_data for consistency with Excel output
+    # Use get_data for consistency with Excel output - group by values (same as Excel)
     plot_data <- get_data("year", publications)
-    year_counts <- plot_data[, .(count = .N), by = .(year)]
-    lp <- ggplot(year_counts, aes(x = factor(year), y = count, group = 1)) + 
+    year_counts <- plot_data[, .(count = .N), by = .(values)]
+    # Convert factor to numeric for proper chronological ordering
+    year_counts[, year_num := as.numeric(as.character(values))]
+    setorder(year_counts, year_num)
+    lp <- ggplot(year_counts, aes(x = factor(year_num), y = count, group = 1)) + 
       geom_line(color = seer_palette()[1], linewidth = 1)
   } else {
     plot_data <- get_data(by, publications)[values %in% levels(values)[1:4]]
