@@ -132,7 +132,10 @@ seer_plot <- function(x, seer_pub_data) {
           geom_line(aes(group = .data[["label"]]), data = data["publications"], linetype = "dashed") +
           geom_point(aes(group = .data[["label"]]), data = data["publications"], size = 3, shape = 22) +
           scale_fill_manual(values = seer_palette()[1:2]) + scale_color_manual(values = seer_palette()[1:2])
-  .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x))
+  # Format plot and move legend to top right for these specific plots
+  .format_plot(sp, x_label = "Tumor Site", y_label = "Frequency", title = sprintf("Publications relative to %s", x)) +
+    theme(legend.position = c(0.98, 0.98), legend.justification = c(1, 1),
+          legend.background = element_rect(fill = "white", color = NA))
 }
 
 #' ggplot2 Theme for SEER-Medicare Plots
