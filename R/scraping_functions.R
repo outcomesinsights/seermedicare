@@ -688,6 +688,13 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
     }
     sites_val <- collapse_field(pub$tumorsite, sep = "; ")
 
+    # Handle pmid - convert NULL/empty to NA
+    pmid_val <- if (is.null(pub$pmid) || !length(pub$pmid) || !nzchar(pub$pmid)) {
+      NA_character_
+    } else {
+      as.character(pub$pmid)
+    }
+    
     list(
       authors = authors_val,
       date = pub$pubdate,
@@ -696,7 +703,7 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
       sites = sites_val,
       link = build_link(pub),
       title = pub$Title,
-      pmid = pub$pmid
+      pmid = pmid_val
     )
   }), fill = TRUE)
 }
