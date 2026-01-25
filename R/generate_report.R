@@ -4,6 +4,7 @@
 #' @param outputPath Path to directory where report will be generated. Default is working directory
 #' @param html Logical value - deprecated, retained for compatibility
 #' @param pdf Logical value - if TRUE, will generate a PDF file
+#' @param report_data Optional pre-computed data from prepare_report_data(). If NULL, will compute internally.
 #'
 #' @return Invisibly returns an officer rdocx object containing the SEER-Medicare report
 #' @import magrittr officer rmarkdown flextable
@@ -12,26 +13,33 @@
 #' @examples
 #' \dontrun{
 #' seer_pub_data <- scrape_all_data()
-#' generate_report(seer_pub_data, outputPath = "output")
-#' generate_report(seer_pub_data, outputPath = "output", pdf = TRUE)
+#' report_data <- prepare_report_data(seer_pub_data)
+#' generate_report(seer_pub_data, outputPath = "output", report_data = report_data)
+#' generate_figures(seer_pub_data, outputPath = "output/figures", report_data = report_data)
 #' }
-generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE){
+generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE, report_data = NULL){
 
   if(!inherits(seer_pub_data, "seermedicare")) {
     stop("seer_pub_data argument must be of class seermedicare")
   }
 
-  metadata <- seer_pub_data$metadata
-  publications <- seer_pub_data$publications
-  sites <- seer_pub_data$site_summary
+  # Use pre-computed data if provided, otherwise compute it
+  if (is.null(report_data)) {
+    report_data <- prepare_report_data(seer_pub_data)
+  }
+
+  # Extract commonly used items from report_data
+  metadata <- report_data$metadata
+  publications <- report_data$publications
+  sites <- report_data$sites
+  all_sites <- report_data$all_sites
+  period <- report_data$period
 
   if (html) {
     warning("html output is deprecated; generating Word/PDF output instead.")
   }
 
   doc <- officer::read_docx(path = system.file("extdata", "ReportTemplate.docx", package = "seermedicare", mustWork = TRUE))
-
-  all_sites <- get_data("sites", publications)$values %>% levels
 
   message("Generating Title")
 
@@ -77,33 +85,64 @@ generate_report <- function(seer_pub_data, outputPath = ".", html = FALSE, pdf =
   # Summary of Publications
   message("Generating Summary of Publications")
 
-  ## Get last 7 years not including the most recent year as there is a lag
-  last_reporting_year <- metadata$prevalence_year
-  if (is.null(last_reporting_year) || is.na(last_reporting_year)) {
-    # Fallback to current year - 1 if prevalence_year is missing
-    last_reporting_year <- as.numeric(format(Sys.Date(), "%Y")) - 1
-  } else {
-    last_reporting_year <- as.numeric(last_reporting_year) - 1
+  # Helper function to create bar plot from report_data counts
+  create_report_bar_plot <- function(data_item, x_label, display = NULL) {
+    counts <- copy(data_item$counts)
+    year_min <- data_item$year_min
+    year_max <- data_item$year_max
+    
+    # Truncate long labels
+    truncate_label <- function(x, max_len = 60) {
+      ifelse(nchar(x) > max_len, paste0(substr(x, 1, max_len - 3), "..."), x)
+    }
+    counts[, label := truncate_label(as.character(values))]
+    orig_order <- unique(truncate_label(levels(counts$values)))
+    counts[, label := factor(label, levels = orig_order[orig_order %in% label])]
+    
+    bp <- ggplot(counts, aes(x = label, y = count)) + 
+      geom_bar(stat = "identity", fill = seer_palette()[1])
+    title <- sprintf("Publications by %s: %s-%s%s", x_label, year_min, year_max, 
+                     ifelse(is.null(display), "", sprintf(" (top %d)", display)))
+    .format_plot(bp, x_label, title = title)
   }
-  time_period <- seq(from=last_reporting_year-6, to=last_reporting_year)
 
   doc <- doc_add_title(doc, "Summary of Publications")
-  doc <- myAddPlot(doc, bar_plot("sites", publications, x_label = "tumor site"))
+  
+  # Tumor site plots - from report_data
+  doc <- myAddPlot(doc, create_report_bar_plot(report_data$site_all, "tumor site"))
   doc <- nline(doc)
   doc <- nline(doc)
-  doc <- myAddPlot(doc, bar_plot("sites", publications, years = time_period, x_label = "tumor site"))
-  doc <- myAddPlot(doc, line_plot(publications))
+  doc <- myAddPlot(doc, create_report_bar_plot(report_data$site_recent, "tumor site"))
+  
+  # Year plot - from report_data
+  year_counts <- report_data$year$counts
+  lp_year <- ggplot(year_counts, aes(x = factor(year_num), y = count, group = 1)) + 
+    geom_line(color = seer_palette()[1], linewidth = 1)
+  lp_year <- .format_plot(lp_year, x_label = "year", title = "Publications by year")
+  doc <- myAddPlot(doc, lp_year)
   doc <- nline(doc)
   doc <- nline(doc)
-  doc <- myAddPlot(doc, line_plot(publications, "sites", by_label = "tumor site"))
-  doc <- myAddPlot(doc, bar_plot("journal", publications, display = 10))
+  
+  # Year by site plot - from report_data
+  year_by_site <- report_data$year_by_site$counts
+  lp_site <- ggplot(year_by_site, aes(x = factor(year), y = count, group = values, color = values, linetype = values)) + 
+    geom_line(linewidth = 1) +
+    scale_color_manual(values = seer_palette()) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted"))
+  lp_site <- .format_plot(lp_site, x_label = "year", title = "Publications by year and top 4 tumor sites")
+  doc <- myAddPlot(doc, lp_site)
+  
+  # Journal plots - from report_data
+  doc <- myAddPlot(doc, create_report_bar_plot(report_data$journal_all, "journal", display = 10))
   doc <- nline(doc)
   doc <- nline(doc)
-  doc <- myAddPlot(doc, bar_plot("journal", publications, years = time_period, display = 10))
-  doc <- myAddPlot(doc, bar_plot("authors", publications, x_label = "author", display = 10))
+  doc <- myAddPlot(doc, create_report_bar_plot(report_data$journal_recent, "journal", display = 10))
+  
+  # Author plots - from report_data
+  doc <- myAddPlot(doc, create_report_bar_plot(report_data$author_all, "author", display = 10))
   doc <- nline(doc)
   doc <- nline(doc)
-  doc <- myAddPlot(doc, bar_plot("authors", publications, x_label = "author", years = time_period, display = 10))
+  doc <- myAddPlot(doc, create_report_bar_plot(report_data$author_recent, "author", display = 10))
 
   doc <- officer::body_add_break(doc)
 

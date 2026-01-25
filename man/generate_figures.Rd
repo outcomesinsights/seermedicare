@@ -4,12 +4,14 @@
 \alias{generate_figures}
 \title{Generate Figures and Excel Data Tables}
 \usage{
-generate_figures(seer_pub_data, outputPath = ".")
+generate_figures(seer_pub_data, outputPath = ".", report_data = NULL)
 }
 \arguments{
 \item{seer_pub_data}{Result of running scrape_all_data. Should have class "seermedicare"}
 
 \item{outputPath}{Path to directory where figures will be generated. Default is working directory}
+
+\item{report_data}{Optional pre-computed data from prepare_report_data(). If NULL, will compute internally.}
 }
 \value{
 Invisibly returns NULL. Side effect: writes PNG figures and Excel file to outputPath

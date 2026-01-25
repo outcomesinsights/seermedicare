@@ -4,16 +4,23 @@
 \alias{myAddPlot}
 \title{Add Plot to Document suppressing warnings}
 \usage{
-myAddPlot(doc, plot)
+myAddPlot(doc, plot, width = 7.5, height = 6, res = 150)
 }
 \arguments{
 \item{doc}{officer docx object where plot should be added}
 
 \item{plot}{plot to be added to the document}
+
+\item{width}{plot width in inches (default 7 for near full-page width)}
+
+\item{height}{plot height in inches (default 5.5 for good proportions)}
+
+\item{res}{plot resolution in DPI (default 150 for sharper images)}
 }
 \value{
 doc officer docx object
 }
 \description{
-Add Plot to Document suppressing warnings
+Uses grDevices::png() with pixel dimensions to avoid rendering issues
+with certain ggplot configurations (e.g., bar plots with factors having many levels).
 }

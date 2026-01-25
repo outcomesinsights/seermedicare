@@ -4,7 +4,13 @@
 \alias{generate_report}
 \title{Generate Full Report: Overview of All SEER-Medicare Publications}
 \usage{
-generate_report(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE)
+generate_report(
+  seer_pub_data,
+  outputPath = ".",
+  html = FALSE,
+  pdf = FALSE,
+  report_data = NULL
+)
 }
 \arguments{
 \item{seer_pub_data}{Result of running scrape_all_data.  Should have class "seermedicare"}
@@ -14,6 +20,8 @@ generate_report(seer_pub_data, outputPath = ".", html = FALSE, pdf = FALSE)
 \item{html}{Logical value - deprecated, retained for compatibility}
 
 \item{pdf}{Logical value - if TRUE, will generate a PDF file}
+
+\item{report_data}{Optional pre-computed data from prepare_report_data(). If NULL, will compute internally.}
 }
 \value{
 Invisibly returns an officer rdocx object containing the SEER-Medicare report
@@ -24,7 +32,8 @@ Generate Full Report: Overview of All SEER-Medicare Publications
 \examples{
 \dontrun{
 seer_pub_data <- scrape_all_data()
-generate_report(seer_pub_data, outputPath = "output")
-generate_report(seer_pub_data, outputPath = "output", pdf = TRUE)
+report_data <- prepare_report_data(seer_pub_data)
+generate_report(seer_pub_data, outputPath = "output", report_data = report_data)
+generate_figures(seer_pub_data, outputPath = "output/figures", report_data = report_data)
 }
 }

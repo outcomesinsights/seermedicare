@@ -2,6 +2,7 @@
 #'
 #' @param seer_pub_data Result of running scrape_all_data. Should have class "seermedicare"
 #' @param outputPath Path to directory where figures will be generated. Default is working directory
+#' @param report_data Optional pre-computed data from prepare_report_data(). If NULL, will compute internally.
 #'
 #' @return Invisibly returns NULL. Side effect: writes PNG figures and Excel file to outputPath
 #'
@@ -9,92 +10,21 @@
 #' @importFrom grDevices dev.off png
 #' @importFrom utils zip
 #' @export
-generate_figures <- function(seer_pub_data, outputPath = "."){
+generate_figures <- function(seer_pub_data, outputPath = ".", report_data = NULL){
 
-  publications <- seer_pub_data$publications
-  metadata <- seer_pub_data$metadata
-  sites <- seer_pub_data$site_summary
+  # Use pre-computed data if provided, otherwise compute it
+  if (is.null(report_data)) {
+    report_data <- prepare_report_data(seer_pub_data)
+  }
+  
+  # Extract commonly used items
+  metadata <- report_data$metadata
+  sites <- report_data$sites
   
   outputPath <- normalizePath(outputPath)
 
-  ## Get last 7 years not including the most recent year as there is a lag
-  last_reporting_year <- metadata$prevalence_year
-  if (is.null(last_reporting_year) || is.na(last_reporting_year)) {
-    last_reporting_year <- as.numeric(format(Sys.Date(), "%Y")) - 1
-  } else {
-    last_reporting_year <- as.numeric(last_reporting_year) - 1
-  }
-  period <- seq(from=last_reporting_year-6, to=last_reporting_year)
-
   # ============================================
-  # STEP 1: PREPARE ALL DATA IN A SINGLE LIST
-  # ============================================
-  message("Preparing data tables")
-  
-  # Master data list - this is the SINGLE source of truth for both figures and Excel
-  data_tables <- list()
-  
-  # Helper function to prepare count data from publications
-  prepare_counts <- function(x, pubs) {
-    dt <- get_data(x, pubs)
-    counts <- dt[, .(count = .N), by = .(values)]
-    # Preserve factor ordering from get_data (ordered by frequency)
-    counts[, values := factor(values, levels = levels(dt$values))]
-    year_range <- range(dt$year)
-    list(
-      counts = counts,
-      year_min = year_range[1],
-      year_max = year_range[2]
-    )
-  }
-  
-  # --- Tumor Site Data ---
-  data_tables$site_all <- prepare_counts("sites", publications)
-  data_tables$site_recent <- prepare_counts("sites", publications[year %in% period])
-  
-  # --- Year Data ---
-  year_raw <- prepare_counts("year", publications)
-  year_counts <- copy(year_raw$counts)
-  year_counts[, year_num := as.numeric(as.character(values))]
-  setorder(year_counts, year_num)
-  data_tables$year <- list(
-    counts = year_counts,
-    year_min = year_raw$year_min,
-    year_max = year_raw$year_max
-  )
-  
-  # --- Year by Top Tumor Site Data ---
-  site_data <- get_data("sites", publications)
-  top_sites <- levels(site_data$values)[1:4]
-  year_by_site <- site_data[values %in% top_sites, .(count = .N), by = .(year, values)]
-  data_tables$year_by_site <- list(
-    counts = year_by_site,
-    top_sites = top_sites
-  )
-  
-  # --- Author Data ---
-  author_all_raw <- prepare_counts("authors", publications)
-  author_all_raw$counts <- author_all_raw$counts[values %in% levels(values)[1:10]]
-  data_tables$author_all <- author_all_raw
-  
-  author_recent_raw <- prepare_counts("authors", publications[year %in% period])
-  author_recent_raw$counts <- author_recent_raw$counts[values %in% levels(values)[1:10]]
-  data_tables$author_recent <- author_recent_raw
-  
-  # --- Journal Data ---
-  journal_all_raw <- prepare_counts("journal", publications)
-  journal_all_raw$counts <- journal_all_raw$counts[values %in% levels(values)[1:10]]
-  data_tables$journal_all <- journal_all_raw
-  
-  journal_recent_raw <- prepare_counts("journal", publications[year %in% period])
-  journal_recent_raw$counts <- journal_recent_raw$counts[values %in% levels(values)[1:10]]
-  data_tables$journal_recent <- journal_recent_raw
-  
-  # --- SEER Data ---
-  data_tables$seer <- scale_seer(sites)
-
-  # ============================================
-  # STEP 2: SET UP OUTPUT PATHS
+  # SET UP OUTPUT PATHS
   # ============================================
   tmpdir <- tempdir()
   curr_wd <- getwd()
@@ -106,7 +36,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   dir.create(excelPath, showWarnings = FALSE, recursive = TRUE)
   
   # ============================================
-  # STEP 3: HELPER FUNCTIONS FOR OUTPUT
+  # HELPER FUNCTIONS
   # ============================================
   
   # Truncate long labels for display
@@ -139,29 +69,29 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   }
 
   # ============================================
-  # STEP 4: GENERATE FIGURES FROM data_tables
+  # GENERATE FIGURES FROM report_data
   # ============================================
   message("Generating figures")
   
   # Tumor site figures
   save_figure(
-    create_bar_plot(data_tables$site_all, "tumor site"),
-    sprintf("publications_by_tumor_site_%s-%s.png", data_tables$site_all$year_min, data_tables$site_all$year_max)
+    create_bar_plot(report_data$site_all, "tumor site"),
+    sprintf("publications_by_tumor_site_%s-%s.png", report_data$site_all$year_min, report_data$site_all$year_max)
   )
   save_figure(
-    create_bar_plot(data_tables$site_recent, "tumor site"),
-    sprintf("publications_by_tumor_site_%s-%s.png", data_tables$site_recent$year_min, data_tables$site_recent$year_max)
+    create_bar_plot(report_data$site_recent, "tumor site"),
+    sprintf("publications_by_tumor_site_%s-%s.png", report_data$site_recent$year_min, report_data$site_recent$year_max)
   )
   
-  # Year figure - uses data_tables$year$counts directly
-  year_counts <- data_tables$year$counts
+  # Year figure
+  year_counts <- report_data$year$counts
   lp_year <- ggplot(year_counts, aes(x = factor(year_num), y = count, group = 1)) + 
     geom_line(color = seer_palette()[1], linewidth = 1)
   lp_year <- .format_plot(lp_year, x_label = "year", title = "Publications by year")
   save_figure(lp_year, "publications_by_year.png")
   
-  # Year by tumor site figure - uses data_tables$year_by_site$counts directly
-  year_by_site <- data_tables$year_by_site$counts
+  # Year by tumor site figure
+  year_by_site <- report_data$year_by_site$counts
   lp_site <- ggplot(year_by_site, aes(x = factor(year), y = count, group = values, color = values, linetype = values)) + 
     geom_line(linewidth = 1) +
     scale_color_manual(values = seer_palette()) + 
@@ -171,22 +101,22 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   
   # Author figures
   save_figure(
-    create_bar_plot(data_tables$author_all, "author", display = 10),
-    sprintf("publications_by_author_%s-%s.png", data_tables$author_all$year_min, data_tables$author_all$year_max)
+    create_bar_plot(report_data$author_all, "author", display = 10),
+    sprintf("publications_by_author_%s-%s.png", report_data$author_all$year_min, report_data$author_all$year_max)
   )
   save_figure(
-    create_bar_plot(data_tables$author_recent, "author", display = 10),
-    sprintf("publications_by_author_%s-%s.png", data_tables$author_recent$year_min, data_tables$author_recent$year_max)
+    create_bar_plot(report_data$author_recent, "author", display = 10),
+    sprintf("publications_by_author_%s-%s.png", report_data$author_recent$year_min, report_data$author_recent$year_max)
   )
   
   # Journal figures
   save_figure(
-    create_bar_plot(data_tables$journal_all, "journal", display = 10),
-    sprintf("publications_by_journal_%s-%s.png", data_tables$journal_all$year_min, data_tables$journal_all$year_max)
+    create_bar_plot(report_data$journal_all, "journal", display = 10),
+    sprintf("publications_by_journal_%s-%s.png", report_data$journal_all$year_min, report_data$journal_all$year_max)
   )
   save_figure(
-    create_bar_plot(data_tables$journal_recent, "journal", display = 10),
-    sprintf("publications_by_journal_%s-%s.png", data_tables$journal_recent$year_min, data_tables$journal_recent$year_max)
+    create_bar_plot(report_data$journal_recent, "journal", display = 10),
+    sprintf("publications_by_journal_%s-%s.png", report_data$journal_recent$year_min, report_data$journal_recent$year_max)
   )
   
   # SEER figures
@@ -195,7 +125,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   }
 
   # ============================================
-  # STEP 5: GENERATE EXCEL FROM SAME data_tables
+  # GENERATE EXCEL FROM SAME report_data
   # ============================================
   message("Generating Excel file")
   
@@ -212,38 +142,38 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
     dt
   }
   
-  # Tumor Site sheet - from data_tables$site_all and data_tables$site_recent
-  site_excel <- format_paired_counts(data_tables$site_all, data_tables$site_recent, "Tumor Site")
+  # Tumor Site sheet
+  site_excel <- format_paired_counts(report_data$site_all, report_data$site_recent, "Tumor Site")
   openxlsx::addWorksheet(wb, "Tumor Site")
   openxlsx::writeData(wb, "Tumor Site", site_excel)
   
-  # Year sheet - from data_tables$year$counts
+  # Year sheet
   year_excel <- data.table(
-    Year = data_tables$year$counts$year_num, 
-    Publications = data_tables$year$counts$count
+    Year = report_data$year$counts$year_num, 
+    Publications = report_data$year$counts$count
   )
   setorder(year_excel, -Year)
   openxlsx::addWorksheet(wb, "Year")
   openxlsx::writeData(wb, "Year", year_excel)
   
-  # Year and Top Tumor Site sheet - from data_tables$year_by_site$counts
-  year_site_excel <- dcast(data_tables$year_by_site$counts, year ~ values, value.var = "count")
+  # Year and Top Tumor Site sheet
+  year_site_excel <- dcast(report_data$year_by_site$counts, year ~ values, value.var = "count")
   setnames(year_site_excel, c("Year", paste("Publications:", names(year_site_excel)[-1])))
   openxlsx::addWorksheet(wb, "Year and Top Tumor Site")
   openxlsx::writeData(wb, "Year and Top Tumor Site", year_site_excel)
   
-  # Author sheet - from data_tables$author_all and data_tables$author_recent
-  author_excel <- format_paired_counts(data_tables$author_all, data_tables$author_recent, "Author")
+  # Author sheet
+  author_excel <- format_paired_counts(report_data$author_all, report_data$author_recent, "Author")
   openxlsx::addWorksheet(wb, "Author")
   openxlsx::writeData(wb, "Author", author_excel)
   
-  # Journal sheet - from data_tables$journal_all and data_tables$journal_recent
-  journal_excel <- format_paired_counts(data_tables$journal_all, data_tables$journal_recent, "Journal")
+  # Journal sheet
+  journal_excel <- format_paired_counts(report_data$journal_all, report_data$journal_recent, "Journal")
   openxlsx::addWorksheet(wb, "Journal")
   openxlsx::writeData(wb, "Journal", journal_excel)
   
-  # Incidence Prevalence Deaths sheet - from data_tables$seer
-  seer_excel <- copy(data_tables$seer)[, -c("allages", "min65")]
+  # Incidence Prevalence Deaths sheet
+  seer_excel <- copy(report_data$seer)[, -c("allages", "min65")]
   setnames(seer_excel, c("Tumor Site", "Publications", sapply(seer_cols(), .seer_label, sites, metadata)))
   openxlsx::addWorksheet(wb, "Incidence Prevalence Deaths")
   openxlsx::writeData(wb, "Incidence Prevalence Deaths", seer_excel)
@@ -254,7 +184,7 @@ generate_figures <- function(seer_pub_data, outputPath = "."){
   openxlsx::saveWorkbook(wb, doc, overwrite = TRUE)
 
   # ============================================
-  # STEP 6: PACKAGE AND COPY FIGURES
+  # PACKAGE AND COPY FIGURES
   # ============================================
   message("Writing Figures zip file")
   files <- dir(figure_path, full.names = TRUE)
