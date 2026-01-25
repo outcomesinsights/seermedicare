@@ -774,8 +774,9 @@ get_publication_data <- function(
   }
 
   # set blank cells to NA and remove rows with any critical fields missing - note that reports are dropped
+  # Don't require sites - we'll assign "Not Specified" later for missing sites
   publications <- publications[, lapply(.SD, function(x){ifelse(x == "", NA, x)})] %>%
-    na.omit(cols = c("authors", "date", "journal", "topics", "sites"))
+    na.omit(cols = c("authors", "date", "journal", "topics"))
 
   # create and clean columns
   generateids <- function(n) {
