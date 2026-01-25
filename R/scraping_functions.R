@@ -773,10 +773,15 @@ get_publication_data <- function(
     setnames(publications, sub("(s)", "s", names(publications), fixed = T)) %>% setnames("tumor sites", "sites")
   }
 
-  # set blank cells to NA and remove rows with any critical fields missing - note that reports are dropped
-  # Don't require sites - we'll assign "Not Specified" later for missing sites
+  # set blank cells to NA and remove rows with critical fields missing
+  # Only require authors, date, and journal - sites get "Not Specified", topics get "Unknown"
   publications <- publications[, lapply(.SD, function(x){ifelse(x == "", NA, x)})] %>%
-    na.omit(cols = c("authors", "date", "journal", "topics"))
+    na.omit(cols = c("authors", "date", "journal"))
+  
+  # Fill missing topics with "Unknown"
+  if ("topics" %in% names(publications)) {
+    publications[is.na(topics), topics := "Unknown"]
+  }
 
   # create and clean columns
   generateids <- function(n) {
