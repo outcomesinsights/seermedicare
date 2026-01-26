@@ -646,6 +646,86 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
   token_match
 }
 
+#' Fetch journal abbreviations from PubMed E-utilities API
+#'
+#' Takes a vector of PMIDs and returns a data.table mapping PMID to ISO journal abbreviation.
+#' Batches requests to avoid rate limits (max 200 PMIDs per request).
+#'
+#' @param pmids Character vector of PubMed IDs
+#' @param batch_size Number of PMIDs to process per API request (default 200)
+#' @return data.table with columns: pmid, journal_abbrev
+#' @import httr
+.fetch_journal_abbreviations <- function(pmids, batch_size = 200) {
+  # Remove NA values
+  valid_pmids <- pmids[!is.na(pmids) & nzchar(pmids)]
+  if (length(valid_pmids) == 0) {
+    return(data.table::data.table(pmid = character(), journal_abbrev = character()))
+  }
+  
+  # Remove duplicates for efficiency
+  unique_pmids <- unique(valid_pmids)
+  message(sprintf("Fetching journal abbreviations for %d unique PMIDs", length(unique_pmids)))
+  
+  # Process in batches
+  results <- list()
+  n_batches <- ceiling(length(unique_pmids) / batch_size)
+  
+  for (i in seq_len(n_batches)) {
+    start_idx <- (i - 1) * batch_size + 1
+    end_idx <- min(i * batch_size, length(unique_pmids))
+    batch_pmids <- unique_pmids[start_idx:end_idx]
+    
+    # Build E-utilities URL
+    pmid_string <- paste(batch_pmids, collapse = ",")
+    url <- sprintf(
+      "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=%s&rettype=xml",
+      pmid_string
+    )
+    
+    # Make request with retry logic
+    resp <- tryCatch({
+      httr::GET(url, httr::timeout(60))
+    }, error = function(e) {
+      warning(sprintf("PubMed API request failed for batch %d: %s", i, e$message))
+      return(NULL)
+    })
+    
+    if (is.null(resp) || httr::status_code(resp) != 200) {
+      warning(sprintf("PubMed API returned non-200 status for batch %d", i))
+      next
+    }
+    
+    # Parse XML response
+    xml_text <- httr::content(resp, as = "text", encoding = "UTF-8")
+    
+    # Extract PMID and ISOAbbreviation pairs using regex (faster than full XML parsing)
+    # Pattern: <PMID...>12345</PMID> ... <ISOAbbreviation>J Name</ISOAbbreviation>
+    articles <- strsplit(xml_text, "<PubmedArticle>")[[1]][-1]  # Split by article, remove first empty
+    
+    for (article in articles) {
+      pmid_match <- regmatches(article, regexpr("<PMID[^>]*>([0-9]+)</PMID>", article))
+      iso_match <- regmatches(article, regexpr("<ISOAbbreviation>([^<]+)</ISOAbbreviation>", article))
+      
+      if (length(pmid_match) && length(iso_match)) {
+        pmid_val <- gsub("<PMID[^>]*>|</PMID>", "", pmid_match)
+        iso_val <- gsub("<ISOAbbreviation>|</ISOAbbreviation>", "", iso_match)
+        results[[length(results) + 1]] <- list(pmid = pmid_val, journal_abbrev = iso_val)
+      }
+    }
+    
+    # Rate limiting: NCBI allows 3 requests/second without API key
+    if (i < n_batches) {
+      Sys.sleep(0.4)  # ~2.5 requests/second to be safe
+    }
+  }
+  
+  if (length(results) == 0) {
+    return(data.table::data.table(pmid = character(), journal_abbrev = character()))
+  }
+  
+  data.table::rbindlist(results)
+}
+
 .normalize_pubsearch_publications <- function(publications) {
   collapse_field <- function(value, sep = "; ") {
     if (is.null(value)) {
@@ -806,6 +886,20 @@ get_publication_data <- function(
                      year = stringi::stri_extract_first_regex(date, "[[:digit:]]{4}"), # new column - publication year only
                      issue = journal, # new column - journal with volume and issue (because journal will be modified)
                      journal = stringi::stri_extract_all_regex(journal, "[[:alpha:]]+") %>% sapply(paste, collapse = " "))] %>% setkey(id)
+  
+  # Fetch ISO journal abbreviations from PubMed (if PMIDs available)
+  if ("pmid" %in% names(publications)) {
+    message("Fetching journal abbreviations from PubMed")
+    journal_abbrevs <- .fetch_journal_abbreviations(publications$pmid)
+    if (nrow(journal_abbrevs) > 0) {
+      # Merge abbreviations back to publications
+      publications <- merge(publications, journal_abbrevs, by = "pmid", all.x = TRUE)
+      # Use abbreviation if available, otherwise keep cleaned journal name
+      publications[!is.na(journal_abbrev), journal := journal_abbrev]
+      publications[, journal_abbrev := NULL]  # Remove temporary column
+      setkey(publications, id)
+    }
+  }
   # Note: sites are converted to full names via .map_pub_site_codes after listify
 
   # for columns with multiple pieces of data per cell, split pieces and convert to list

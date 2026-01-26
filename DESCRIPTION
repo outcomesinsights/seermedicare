@@ -9,14 +9,17 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     data.table,
+    DT,
     flextable,
     ggplot2,
+    htmltools,
     httr,
     jsonlite,
     lubridate,
     magrittr,
     officer,
     openxlsx,
+    plotly,
     rmarkdown,
     rvest,
     stringi,
