@@ -782,9 +782,34 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
       as.character(pub$journal)
     }
     
+    # Handle date fields - extract all three and create coalesced date
+    edate_val <- if (is.null(pub$edate) || !length(pub$edate) || !nzchar(pub$edate)) {
+      NA_character_
+    } else {
+      as.character(pub$edate)
+    }
+    
+    pubdate_val <- if (is.null(pub$pubdate) || !length(pub$pubdate) || !nzchar(pub$pubdate)) {
+      NA_character_
+    } else {
+      as.character(pub$pubdate)
+    }
+    
+    computed_date_val <- if (is.null(pub$computed_date) || !length(pub$computed_date) || !nzchar(pub$computed_date)) {
+      NA_character_
+    } else {
+      as.character(pub$computed_date)
+    }
+    
+    # Use edate (electronic) if available, otherwise pubdate (print)
+    date_val <- if (!is.na(edate_val)) edate_val else pubdate_val
+    
     list(
       authors = authors_val,
-      date = pub$pubdate,
+      edate = edate_val,
+      pubdate = pubdate_val,
+      computed_date = computed_date_val,
+      date = date_val,
       journal = journal_val,
       topics = topics_val,
       sites = sites_val,
