@@ -276,6 +276,48 @@ generate_web <- function(seer_pub_data, report_data = NULL, outputPath = ".") {
   openxlsx::addWorksheet(wb, "SEER Standardized Ratios")
   openxlsx::writeData(wb, "SEER Standardized Ratios", seer_std_table)
   
+  # About tab with methodology and extraction details
+  about_data <- data.table::data.table(
+    Field = c(
+      "Data Source",
+      "Source URL",
+      "Data Extraction Date",
+      "Total Publications",
+      "R Package",
+      "",
+      "METHODOLOGY",
+      "Publication Year",
+      "Journal Names",
+      "SEER Statistics",
+      "CDC Data",
+      "",
+      "NOTES",
+      "Date Handling",
+      "",
+      "Missing Data"
+    ),
+    Value = c(
+      "NCI Healthcare Delivery Research Program Publications API",
+      "https://healthcaredelivery.cancer.gov/publications/",
+      format(as.Date(metadata$access_date), "%B %d, %Y"),
+      as.character(total_pubs),
+      "seermedicare (https://github.com/outcomesinsights/seermedicare)",
+      "",
+      "",
+      "Determined by electronic publication date (edate) when available; otherwise print publication date (pubdate)",
+      "ISO abbreviations retrieved from PubMed E-utilities API using PMIDs",
+      "Scraped from SEER Cancer Statistics Fact Sheets (seer.cancer.gov/statfacts/)",
+      "Incidence by age from CDC WONDER",
+      "",
+      "",
+      "Approximately 60% of publications have different electronic vs. print dates. Using edate assigns publications to the year they first became available online, which may differ from NCI website counts by 10-20% per year.",
+      "",
+      "Publications without specific tumor site data are categorized as 'Not Specified'"
+    )
+  )
+  openxlsx::addWorksheet(wb, "About")
+  openxlsx::writeData(wb, "About", about_data)
+  
   excel_filename <- "SEER-Medicare-Publications.xlsx"
   excel_path <- file.path(outputPath, excel_filename)
   openxlsx::saveWorkbook(wb, excel_path, overwrite = TRUE)
@@ -436,7 +478,22 @@ generate_web <- function(seer_pub_data, report_data = NULL, outputPath = ".") {
             ),
             htmltools::tags$li("Higher numbers reflect more publications per patient"),
             htmltools::tags$li("The median publication ratio across all tumors was used as an index for establishing high versus low ratios")
-          )
+          ),
+          htmltools::tags$h3("Data Note"),
+          htmltools::tags$p("Publication counts on this page may differ from the ",
+            htmltools::tags$a(href = "https://healthcaredelivery.cancer.gov/publications/", 
+                              "NCI SEER-Medicare Publications Search", target = "_blank"),
+            ". This is due to how publication year is determined:"
+          ),
+          htmltools::tags$ul(
+            htmltools::tags$li(htmltools::tags$strong("This page: "), 
+              "Uses the electronic publication date when available, falling back to print publication date. This reflects when papers first became available online."),
+            htmltools::tags$li(htmltools::tags$strong("NCI website: "), 
+              "Filters by a computed date based on the print publication date.")
+          ),
+          htmltools::tags$p(htmltools::tags$em(
+            "Approximately 60% of publications have different electronic vs. print dates, which can shift year-over-year counts by 10-20%."
+          ))
         ),
         
         # Publications Explorer Section
