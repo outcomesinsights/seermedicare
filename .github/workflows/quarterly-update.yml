@@ -1,0 +1,96 @@
+name: Quarterly update
+
+# Runs monthly; the full update happens in January, April, July and October.
+# Other months only keep the schedule alive (GitHub disables scheduled workflows
+# in public repos after 60 days without activity, and a quarter is longer than that).
+on:
+  schedule:
+    - cron: "0 14 5 * *"   # 14:00 UTC on the 5th
+  workflow_dispatch:       # "Run workflow" button: always does the full update
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: quarterly-update
+
+env:
+  NOTIFY: markdanese      # GitHub user assigned the PR (or failure issue), which emails them
+  GH_TOKEN: ${{ github.token }}
+  GH_REPO: ${{ github.repository }}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Decide whether this is an update month
+        id: when
+        run: |
+          month=$(date -u +%m)
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$month" =~ ^(01|04|07|10)$ ]]; then
+            echo "update=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "update=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Keep the schedule alive
+        if: steps.when.outputs.update == 'false'
+        run: gh api -X PUT "repos/$GH_REPO/actions/workflows/quarterly-update.yml/enable"
+
+      - uses: actions/checkout@v7
+        if: steps.when.outputs.update == 'true'
+
+      - uses: r-lib/actions/setup-r@v2
+        if: steps.when.outputs.update == 'true'
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        if: steps.when.outputs.update == 'true'
+        with:
+          dependencies: '"all"'
+
+      - name: Run tests
+        if: steps.when.outputs.update == 'true'
+        run: Rscript run_tests.R
+
+      - name: Scrape, check, and rebuild
+        if: steps.when.outputs.update == 'true'
+        run: Rscript -e 'targets::tar_make()'
+
+      - name: Open pull request
+        if: steps.when.outputs.update == 'true'
+        run: |
+          if git diff --quiet -- data; then
+            echo "No data changes since the last update; nothing to publish."
+            exit 0
+          fi
+          today=$(date -u +%F)
+          total=$(Rscript -e 'cat(format(nrow(data.table::fread("data/publications.csv")), big.mark = ","))')
+          branch="update/${today}-${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add data site
+          git commit -m "Quarterly update ${today}: ${total} publications"
+          git push -u origin "$branch"
+          gh pr create --base master --head "$branch" \
+            --title "Quarterly update ${today}: ${total} publications" \
+            --body-file output/update_summary.md \
+            --assignee "$NOTIFY"
+
+      - name: Open an issue if anything failed
+        if: failure()
+        run: |
+          run_url="${{ github.server_url }}/$GH_REPO/actions/runs/${{ github.run_id }}"
+          gh issue create --assignee "$NOTIFY" \
+            --title "Quarterly SEER-Medicare update failed ($(date -u +%F))" \
+            --body "The scheduled update failed and nothing was published. The live site is unchanged.
+
+          Run log: ${run_url}
+
+          If the **Scrape, check, and rebuild** step failed with \"Update checks failed\", a data source probably changed format; the log lists which check. Other failures are usually a source being temporarily down: re-run from the Actions tab (Quarterly update → Run workflow)."

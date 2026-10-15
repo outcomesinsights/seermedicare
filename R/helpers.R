@@ -4,8 +4,6 @@
 #' @param dataset dataset to search
 #'
 #' @return Stops with error if column not found, otherwise returns invisibly
-#' @import data.table
-#' @keywords internal
 .arg_error <- function(x, dataset){
   if(!x %in% colnames(dataset)){
     stop(paste0("Invalid argument '", x, "': column not found in dataset"), call. = F)
@@ -18,8 +16,6 @@
 #' @param dataset Dataset from which to get column data
 #'
 #' @return Data with parameter column factored by frequency (NCI publications data used in bar and line plot functions)
-#' @import data.table magrittr
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -37,29 +33,12 @@ get_data <- function(x, dataset = publications) {
   data[, `:=`(values = factor(values, levels = names(sort(table(values), decreasing = T))))]
 }
 
-#' Get Metadata Field
-#'
-#' @param x String representing data to return
-#'
-#' @return Parameter metadata field
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' get_metadata("access_date")
-#' }
-get_metadata <- function(x) {
-  metadata[[x]]
-}
-
-
 #' Create Data Scales (used for incidence, prevalence, and deaths data)
 #'
 #' @param x Data column to use to calculate scale - should be "incidence", "prevalence", or "deaths"
 #' @param limit Numeric limit - scales will be created to keep max values under this limit
 #'
 #' @return Base 10 scale calculated from max value and target limit (to use as denominator)
-#' @export
 #'
 #' @examples \dontrun{
 #' get_scale(sites$incidence)
@@ -68,22 +47,9 @@ get_scale <- function(x, limit = 500) {
   10^ceiling(log10(max(x, na.rm = T) / limit))
 }
 
-#' Get Color Palette for Graphics
-#'
-#' @return Character vector of colors
-#' @export
-#'
-#' @examples \dontrun{
-#' seer_palette()
-#' }
-seer_palette <- function() {
-  c("steelblue4", "black", "darkorange4", "chartreuse4")
-}
-
 #' Get Column Names for Relevant SEER Data
 #'
 #' @return Character vector column names
-#' @export
 #'
 #' @examples \dontrun{
 #' seer_cols()
@@ -92,16 +58,25 @@ seer_cols <- function() {
   c("incidence", "prevalence", "deaths")
 }
 
-#' Format Seer Labels
+#' Scale Publications to Incidence, Prevalence, and Deaths Data
 #'
-#' @param x Character string for the SEER data type ("incidence", "prevalence", or "deaths")
 #' @param sites data.table of site summary data from scrape_all_data
-#' @param metadata List of metadata from scrape_all_data
-#' @param measure Character string for the measure label (defaults to title case of x)
 #'
-#' @return String in the form [SEER Data] per [SEER Data Scale] ([SEER Data Year]) - e.g., Incidence per 1,000 (2016)
-#' @export
-.seer_label <- function(x, sites, metadata, measure = tools::toTitleCase(x)) {
-  sprintf("%s per %s (%s)", measure, format(get_scale(sites[[x]]), big.mark = ","), metadata[[paste0(x, "_year")]])
+#' @return data.table with scaled incidence, prevalence, and deaths columns
+#'
+#' @examples
+#' \dontrun{
+#' seer_pub_data <- scrape_all_data()
+#' scale_seer(seer_pub_data$site_summary)
+#' }
+scale_seer <- function(sites) {
+  copy(sites) %>% setkey("site") %>% .[, (seer_cols()) := lapply(.SD, function(x){x / get_scale(x)}), .SDcols = seer_cols()]
 }
 
+#' Packages the project code needs, read from DESCRIPTION's Imports
+#' (DESCRIPTION is only a dependency list; this is not an installable package)
+project_packages <- function(description = "DESCRIPTION") {
+  imports <- read.dcf(description, fields = "Imports")[1, "Imports"]
+  pkgs <- trimws(strsplit(imports, ",")[[1]])
+  sub("\\s*\\(.*\\)$", "", pkgs[nzchar(pkgs)])
+}

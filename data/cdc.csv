@@ -1,0 +1,1484 @@
+site,age,count,year,event_type,race,sex
+Acute Lymphocytic Leukemia,1-4,1146,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,10-14,510,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,15-19,432,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,20-24,236,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,25-29,163,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,30-34,180,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,35-39,163,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,40-44,154,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,45-49,172,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,5-9,678,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,50-54,186,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,55-59,217,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,60-64,261,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,65-69,251,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,70-74,239,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,75-79,186,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,80-84,117,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,85+,96,2022,Incidence,All Races,Male and Female
+Acute Lymphocytic Leukemia,< 1 year,52,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,45-49,17,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,50-54,22,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,55-59,27,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,60-64,31,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,65-69,53,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,70-74,66,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,75-79,73,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,80-84,57,2022,Incidence,All Races,Male and Female
+Acute Monocytic Leukemia,85+,31,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,1-4,130,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,10-14,145,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,15-19,203,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,20-24,239,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,25-29,243,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,30-34,345,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,35-39,394,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,40-44,430,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,45-49,529,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,5-9,85,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,50-54,753,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,55-59,1056,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,60-64,1601,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,65-69,2262,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,70-74,2596,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,75-79,2622,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,80-84,1848,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,85+,1736,2022,Incidence,All Races,Male and Female
+Acute Myeloid Leukemia,< 1 year,49,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",20-24,17,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",25-29,22,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",30-34,26,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",35-39,42,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",40-44,56,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",45-49,71,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",50-54,122,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",55-59,144,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",60-64,217,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",65-69,304,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",70-74,305,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",75-79,297,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",80-84,266,2022,Incidence,All Races,Male and Female
+"Aleukemic, Subleukemic and NOS",85+,333,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",30-34,83,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",35-39,131,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",40-44,270,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",45-49,434,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",50-54,716,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",55-59,1134,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",60-64,1458,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",65-69,1527,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",70-74,1312,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",75-79,926,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",80-84,543,2022,Incidence,All Races,Male and Female
+"Anus, Anal Canal and Anorectum",85+,539,2022,Incidence,All Races,Male and Female
+Appendix,10-14,123,2022,Incidence,All Races,Male and Female
+Appendix,15-19,271,2022,Incidence,All Races,Male and Female
+Appendix,20-24,247,2022,Incidence,All Races,Male and Female
+Appendix,25-29,318,2022,Incidence,All Races,Male and Female
+Appendix,30-34,341,2022,Incidence,All Races,Male and Female
+Appendix,35-39,388,2022,Incidence,All Races,Male and Female
+Appendix,40-44,458,2022,Incidence,All Races,Male and Female
+Appendix,45-49,483,2022,Incidence,All Races,Male and Female
+Appendix,5-9,29,2022,Incidence,All Races,Male and Female
+Appendix,50-54,689,2022,Incidence,All Races,Male and Female
+Appendix,55-59,739,2022,Incidence,All Races,Male and Female
+Appendix,60-64,786,2022,Incidence,All Races,Male and Female
+Appendix,65-69,821,2022,Incidence,All Races,Male and Female
+Appendix,70-74,711,2022,Incidence,All Races,Male and Female
+Appendix,75-79,537,2022,Incidence,All Races,Male and Female
+Appendix,80-84,302,2022,Incidence,All Races,Male and Female
+Appendix,85+,206,2022,Incidence,All Races,Male and Female
+Ascending Colon,25-29,37,2022,Incidence,All Races,Male and Female
+Ascending Colon,30-34,80,2022,Incidence,All Races,Male and Female
+Ascending Colon,35-39,164,2022,Incidence,All Races,Male and Female
+Ascending Colon,40-44,325,2022,Incidence,All Races,Male and Female
+Ascending Colon,45-49,638,2022,Incidence,All Races,Male and Female
+Ascending Colon,50-54,990,2022,Incidence,All Races,Male and Female
+Ascending Colon,55-59,1290,2022,Incidence,All Races,Male and Female
+Ascending Colon,60-64,1835,2022,Incidence,All Races,Male and Female
+Ascending Colon,65-69,2569,2022,Incidence,All Races,Male and Female
+Ascending Colon,70-74,3030,2022,Incidence,All Races,Male and Female
+Ascending Colon,75-79,2930,2022,Incidence,All Races,Male and Female
+Ascending Colon,80-84,2383,2022,Incidence,All Races,Male and Female
+Ascending Colon,85+,2649,2022,Incidence,All Races,Male and Female
+Bones and Joints,1-4,24,2022,Incidence,All Races,Male and Female
+Bones and Joints,10-14,330,2022,Incidence,All Races,Male and Female
+Bones and Joints,15-19,356,2022,Incidence,All Races,Male and Female
+Bones and Joints,20-24,177,2022,Incidence,All Races,Male and Female
+Bones and Joints,25-29,163,2022,Incidence,All Races,Male and Female
+Bones and Joints,30-34,169,2022,Incidence,All Races,Male and Female
+Bones and Joints,35-39,147,2022,Incidence,All Races,Male and Female
+Bones and Joints,40-44,171,2022,Incidence,All Races,Male and Female
+Bones and Joints,45-49,159,2022,Incidence,All Races,Male and Female
+Bones and Joints,5-9,132,2022,Incidence,All Races,Male and Female
+Bones and Joints,50-54,180,2022,Incidence,All Races,Male and Female
+Bones and Joints,55-59,253,2022,Incidence,All Races,Male and Female
+Bones and Joints,60-64,293,2022,Incidence,All Races,Male and Female
+Bones and Joints,65-69,275,2022,Incidence,All Races,Male and Female
+Bones and Joints,70-74,292,2022,Incidence,All Races,Male and Female
+Bones and Joints,75-79,238,2022,Incidence,All Races,Male and Female
+Bones and Joints,80-84,162,2022,Incidence,All Races,Male and Female
+Bones and Joints,85+,159,2022,Incidence,All Races,Male and Female
+Brain,1-4,526,2022,Incidence,All Races,Male and Female
+Brain,10-14,501,2022,Incidence,All Races,Male and Female
+Brain,15-19,424,2022,Incidence,All Races,Male and Female
+Brain,20-24,407,2022,Incidence,All Races,Male and Female
+Brain,25-29,558,2022,Incidence,All Races,Male and Female
+Brain,30-34,729,2022,Incidence,All Races,Male and Female
+Brain,35-39,761,2022,Incidence,All Races,Male and Female
+Brain,40-44,868,2022,Incidence,All Races,Male and Female
+Brain,45-49,945,2022,Incidence,All Races,Male and Female
+Brain,5-9,603,2022,Incidence,All Races,Male and Female
+Brain,50-54,1395,2022,Incidence,All Races,Male and Female
+Brain,55-59,1844,2022,Incidence,All Races,Male and Female
+Brain,60-64,2472,2022,Incidence,All Races,Male and Female
+Brain,65-69,2806,2022,Incidence,All Races,Male and Female
+Brain,70-74,2605,2022,Incidence,All Races,Male and Female
+Brain,75-79,2191,2022,Incidence,All Races,Male and Female
+Brain,80-84,1287,2022,Incidence,All Races,Male and Female
+Brain,85+,1031,2022,Incidence,All Races,Male and Female
+Brain,< 1 year,117,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,1-4,597,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,10-14,548,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,15-19,456,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,20-24,429,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,25-29,592,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,30-34,769,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,35-39,811,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,40-44,936,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,45-49,1025,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,5-9,639,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,50-54,1483,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,55-59,1933,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,60-64,2577,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,65-69,2908,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,70-74,2698,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,75-79,2275,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,80-84,1326,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,85+,1076,2022,Incidence,All Races,Male and Female
+Brain and Other Nervous System,< 1 year,132,2022,Incidence,All Races,Male and Female
+Cecum,25-29,31,2022,Incidence,All Races,Male and Female
+Cecum,30-34,95,2022,Incidence,All Races,Male and Female
+Cecum,35-39,147,2022,Incidence,All Races,Male and Female
+Cecum,40-44,325,2022,Incidence,All Races,Male and Female
+Cecum,45-49,642,2022,Incidence,All Races,Male and Female
+Cecum,50-54,1151,2022,Incidence,All Races,Male and Female
+Cecum,55-59,1404,2022,Incidence,All Races,Male and Female
+Cecum,60-64,2020,2022,Incidence,All Races,Male and Female
+Cecum,65-69,2648,2022,Incidence,All Races,Male and Female
+Cecum,70-74,2845,2022,Incidence,All Races,Male and Female
+Cecum,75-79,2801,2022,Incidence,All Races,Male and Female
+Cecum,80-84,2417,2022,Incidence,All Races,Male and Female
+Cecum,85+,2671,2022,Incidence,All Races,Male and Female
+Cervix Uteri,20-24,36,2022,Incidence,All Races,Male and Female
+Cervix Uteri,25-29,258,2022,Incidence,All Races,Male and Female
+Cervix Uteri,30-34,1113,2022,Incidence,All Races,Male and Female
+Cervix Uteri,35-39,1572,2022,Incidence,All Races,Male and Female
+Cervix Uteri,40-44,1652,2022,Incidence,All Races,Male and Female
+Cervix Uteri,45-49,1478,2022,Incidence,All Races,Male and Female
+Cervix Uteri,50-54,1389,2022,Incidence,All Races,Male and Female
+Cervix Uteri,55-59,1260,2022,Incidence,All Races,Male and Female
+Cervix Uteri,60-64,1299,2022,Incidence,All Races,Male and Female
+Cervix Uteri,65-69,985,2022,Incidence,All Races,Male and Female
+Cervix Uteri,70-74,784,2022,Incidence,All Races,Male and Female
+Cervix Uteri,75-79,515,2022,Incidence,All Races,Male and Female
+Cervix Uteri,80-84,309,2022,Incidence,All Races,Male and Female
+Cervix Uteri,85+,302,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,30-34,23,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,35-39,69,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,40-44,198,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,45-49,413,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,50-54,857,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,55-59,1491,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,60-64,2322,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,65-69,3101,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,70-74,3126,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,75-79,2915,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,80-84,2069,2022,Incidence,All Races,Male and Female
+Chronic Lymphocytic Leukemia,85+,2070,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,10-14,24,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,15-19,56,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,20-24,92,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,25-29,148,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,30-34,225,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,35-39,282,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,40-44,325,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,45-49,352,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,50-54,453,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,55-59,549,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,60-64,707,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,65-69,890,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,70-74,979,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,75-79,984,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,80-84,792,2022,Incidence,All Races,Male and Female
+Chronic Myeloid Leukemia,85+,691,2022,Incidence,All Races,Male and Female
+Colon and Rectum,10-14,129,2022,Incidence,All Races,Male and Female
+Colon and Rectum,15-19,305,2022,Incidence,All Races,Male and Female
+Colon and Rectum,20-24,424,2022,Incidence,All Races,Male and Female
+Colon and Rectum,25-29,800,2022,Incidence,All Races,Male and Female
+Colon and Rectum,30-34,1562,2022,Incidence,All Races,Male and Female
+Colon and Rectum,35-39,2861,2022,Incidence,All Races,Male and Female
+Colon and Rectum,40-44,4869,2022,Incidence,All Races,Male and Female
+Colon and Rectum,45-49,9443,2022,Incidence,All Races,Male and Female
+Colon and Rectum,5-9,29,2022,Incidence,All Races,Male and Female
+Colon and Rectum,50-54,14143,2022,Incidence,All Races,Male and Female
+Colon and Rectum,55-59,14356,2022,Incidence,All Races,Male and Female
+Colon and Rectum,60-64,17381,2022,Incidence,All Races,Male and Female
+Colon and Rectum,65-69,19879,2022,Incidence,All Races,Male and Female
+Colon and Rectum,70-74,18876,2022,Incidence,All Races,Male and Female
+Colon and Rectum,75-79,16225,2022,Incidence,All Races,Male and Female
+Colon and Rectum,80-84,12792,2022,Incidence,All Races,Male and Female
+Colon and Rectum,85+,13854,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,10-14,128,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,15-19,293,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,20-24,345,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,25-29,568,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,30-34,1047,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,35-39,1750,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,40-44,2974,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,45-49,5505,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,5-9,29,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,50-54,8494,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,55-59,8910,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,60-64,11393,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,65-69,13660,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,70-74,13905,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,75-79,12481,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,80-84,10220,2022,Incidence,All Races,Male and Female
+Colon excluding Rectum,85+,11330,2022,Incidence,All Races,Male and Female
+Corpus Uteri,20-24,59,2022,Incidence,All Races,Male and Female
+Corpus Uteri,25-29,235,2022,Incidence,All Races,Male and Female
+Corpus Uteri,30-34,726,2022,Incidence,All Races,Male and Female
+Corpus Uteri,35-39,1147,2022,Incidence,All Races,Male and Female
+Corpus Uteri,40-44,1792,2022,Incidence,All Races,Male and Female
+Corpus Uteri,45-49,2626,2022,Incidence,All Races,Male and Female
+Corpus Uteri,50-54,4617,2022,Incidence,All Races,Male and Female
+Corpus Uteri,55-59,7948,2022,Incidence,All Races,Male and Female
+Corpus Uteri,60-64,10243,2022,Incidence,All Races,Male and Female
+Corpus Uteri,65-69,10711,2022,Incidence,All Races,Male and Female
+Corpus Uteri,70-74,8862,2022,Incidence,All Races,Male and Female
+Corpus Uteri,75-79,5588,2022,Incidence,All Races,Male and Female
+Corpus Uteri,80-84,3031,2022,Incidence,All Races,Male and Female
+Corpus Uteri,85+,1815,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,1-4,71,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,10-14,47,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,15-19,32,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,20-24,22,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,25-29,34,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,30-34,40,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,35-39,50,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,40-44,68,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,45-49,80,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,5-9,36,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,50-54,88,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,55-59,89,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,60-64,105,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,65-69,102,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,70-74,93,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,75-79,84,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,80-84,39,2022,Incidence,All Races,Male and Female
+Cranial Nerves Other Nervous System,85+,45,2022,Incidence,All Races,Male and Female
+Descending Colon,25-29,25,2022,Incidence,All Races,Male and Female
+Descending Colon,30-34,86,2022,Incidence,All Races,Male and Female
+Descending Colon,35-39,137,2022,Incidence,All Races,Male and Female
+Descending Colon,40-44,218,2022,Incidence,All Races,Male and Female
+Descending Colon,45-49,426,2022,Incidence,All Races,Male and Female
+Descending Colon,50-54,659,2022,Incidence,All Races,Male and Female
+Descending Colon,55-59,572,2022,Incidence,All Races,Male and Female
+Descending Colon,60-64,700,2022,Incidence,All Races,Male and Female
+Descending Colon,65-69,739,2022,Incidence,All Races,Male and Female
+Descending Colon,70-74,716,2022,Incidence,All Races,Male and Female
+Descending Colon,75-79,582,2022,Incidence,All Races,Male and Female
+Descending Colon,80-84,500,2022,Incidence,All Races,Male and Female
+Descending Colon,85+,467,2022,Incidence,All Races,Male and Female
+Digestive System,1-4,194,2022,Incidence,All Races,Male and Female
+Digestive System,10-14,226,2022,Incidence,All Races,Male and Female
+Digestive System,15-19,451,2022,Incidence,All Races,Male and Female
+Digestive System,20-24,662,2022,Incidence,All Races,Male and Female
+Digestive System,25-29,1284,2022,Incidence,All Races,Male and Female
+Digestive System,30-34,2550,2022,Incidence,All Races,Male and Female
+Digestive System,35-39,4530,2022,Incidence,All Races,Male and Female
+Digestive System,40-44,7980,2022,Incidence,All Races,Male and Female
+Digestive System,45-49,14591,2022,Incidence,All Races,Male and Female
+Digestive System,5-9,95,2022,Incidence,All Races,Male and Female
+Digestive System,50-54,23314,2022,Incidence,All Races,Male and Female
+Digestive System,55-59,30232,2022,Incidence,All Races,Male and Female
+Digestive System,60-64,42141,2022,Incidence,All Races,Male and Female
+Digestive System,65-69,50751,2022,Incidence,All Races,Male and Female
+Digestive System,70-74,49528,2022,Incidence,All Races,Male and Female
+Digestive System,75-79,41795,2022,Incidence,All Races,Male and Female
+Digestive System,80-84,30135,2022,Incidence,All Races,Male and Female
+Digestive System,85+,29095,2022,Incidence,All Races,Male and Female
+Digestive System,< 1 year,83,2022,Incidence,All Races,Male and Female
+Endocrine System,1-4,179,2022,Incidence,All Races,Male and Female
+Endocrine System,10-14,200,2022,Incidence,All Races,Male and Female
+Endocrine System,15-19,785,2022,Incidence,All Races,Male and Female
+Endocrine System,20-24,1606,2022,Incidence,All Races,Male and Female
+Endocrine System,25-29,2410,2022,Incidence,All Races,Male and Female
+Endocrine System,30-34,3529,2022,Incidence,All Races,Male and Female
+Endocrine System,35-39,4037,2022,Incidence,All Races,Male and Female
+Endocrine System,40-44,4481,2022,Incidence,All Races,Male and Female
+Endocrine System,45-49,4449,2022,Incidence,All Races,Male and Female
+Endocrine System,5-9,96,2022,Incidence,All Races,Male and Female
+Endocrine System,50-54,4975,2022,Incidence,All Races,Male and Female
+Endocrine System,55-59,4999,2022,Incidence,All Races,Male and Female
+Endocrine System,60-64,5160,2022,Incidence,All Races,Male and Female
+Endocrine System,65-69,5239,2022,Incidence,All Races,Male and Female
+Endocrine System,70-74,4083,2022,Incidence,All Races,Male and Female
+Endocrine System,75-79,2613,2022,Incidence,All Races,Male and Female
+Endocrine System,80-84,1291,2022,Incidence,All Races,Male and Female
+Endocrine System,85+,781,2022,Incidence,All Races,Male and Female
+Endocrine System,< 1 year,113,2022,Incidence,All Races,Male and Female
+Esophagus,25-29,26,2022,Incidence,All Races,Male and Female
+Esophagus,30-34,51,2022,Incidence,All Races,Male and Female
+Esophagus,35-39,96,2022,Incidence,All Races,Male and Female
+Esophagus,40-44,247,2022,Incidence,All Races,Male and Female
+Esophagus,45-49,500,2022,Incidence,All Races,Male and Female
+Esophagus,50-54,1039,2022,Incidence,All Races,Male and Female
+Esophagus,55-59,1853,2022,Incidence,All Races,Male and Female
+Esophagus,60-64,2984,2022,Incidence,All Races,Male and Female
+Esophagus,65-69,3637,2022,Incidence,All Races,Male and Female
+Esophagus,70-74,3550,2022,Incidence,All Races,Male and Female
+Esophagus,75-79,2817,2022,Incidence,All Races,Male and Female
+Esophagus,80-84,1733,2022,Incidence,All Races,Male and Female
+Esophagus,85+,1393,2022,Incidence,All Races,Male and Female
+Eye and Orbit,1-4,112,2022,Incidence,All Races,Male and Female
+Eye and Orbit,20-24,26,2022,Incidence,All Races,Male and Female
+Eye and Orbit,25-29,35,2022,Incidence,All Races,Male and Female
+Eye and Orbit,30-34,47,2022,Incidence,All Races,Male and Female
+Eye and Orbit,35-39,83,2022,Incidence,All Races,Male and Female
+Eye and Orbit,40-44,104,2022,Incidence,All Races,Male and Female
+Eye and Orbit,45-49,127,2022,Incidence,All Races,Male and Female
+Eye and Orbit,5-9,36,2022,Incidence,All Races,Male and Female
+Eye and Orbit,50-54,175,2022,Incidence,All Races,Male and Female
+Eye and Orbit,55-59,317,2022,Incidence,All Races,Male and Female
+Eye and Orbit,60-64,408,2022,Incidence,All Races,Male and Female
+Eye and Orbit,65-69,419,2022,Incidence,All Races,Male and Female
+Eye and Orbit,70-74,403,2022,Incidence,All Races,Male and Female
+Eye and Orbit,75-79,326,2022,Incidence,All Races,Male and Female
+Eye and Orbit,80-84,193,2022,Incidence,All Races,Male and Female
+Eye and Orbit,85+,169,2022,Incidence,All Races,Male and Female
+Eye and Orbit,< 1 year,106,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",20-24,16,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",25-29,91,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",30-34,396,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",35-39,1085,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",40-44,4676,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",45-49,6084,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",50-54,7224,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",55-59,7741,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",60-64,9245,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",65-69,10065,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",70-74,8872,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",75-79,5567,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",80-84,2410,2022,Incidence,All Races,Male and Female
+"Female Breast, In Situ *",85+,1026,2022,Incidence,All Races,Male and Female
+Female Breast *,15-19,20,2022,Incidence,All Races,Male and Female
+Female Breast *,20-24,184,2022,Incidence,All Races,Male and Female
+Female Breast *,25-29,1177,2022,Incidence,All Races,Male and Female
+Female Breast *,30-34,3673,2022,Incidence,All Races,Male and Female
+Female Breast *,35-39,7317,2022,Incidence,All Races,Male and Female
+Female Breast *,40-44,14945,2022,Incidence,All Races,Male and Female
+Female Breast *,45-49,20378,2022,Incidence,All Races,Male and Female
+Female Breast *,50-54,25722,2022,Incidence,All Races,Male and Female
+Female Breast *,55-59,28892,2022,Incidence,All Races,Male and Female
+Female Breast *,60-64,37440,2022,Incidence,All Races,Male and Female
+Female Breast *,65-69,41717,2022,Incidence,All Races,Male and Female
+Female Breast *,70-74,38730,2022,Incidence,All Races,Male and Female
+Female Breast *,75-79,28714,2022,Incidence,All Races,Male and Female
+Female Breast *,80-84,17166,2022,Incidence,All Races,Male and Female
+Female Breast *,85+,13649,2022,Incidence,All Races,Male and Female
+Female Genital System,1-4,16,2022,Incidence,All Races,Male and Female
+Female Genital System,10-14,96,2022,Incidence,All Races,Male and Female
+Female Genital System,15-19,185,2022,Incidence,All Races,Male and Female
+Female Genital System,20-24,321,2022,Incidence,All Races,Male and Female
+Female Genital System,25-29,848,2022,Incidence,All Races,Male and Female
+Female Genital System,30-34,2400,2022,Incidence,All Races,Male and Female
+Female Genital System,35-39,3586,2022,Incidence,All Races,Male and Female
+Female Genital System,40-44,4732,2022,Incidence,All Races,Male and Female
+Female Genital System,45-49,5981,2022,Incidence,All Races,Male and Female
+Female Genital System,5-9,20,2022,Incidence,All Races,Male and Female
+Female Genital System,50-54,8641,2022,Incidence,All Races,Male and Female
+Female Genital System,55-59,12739,2022,Incidence,All Races,Male and Female
+Female Genital System,60-64,16050,2022,Incidence,All Races,Male and Female
+Female Genital System,65-69,16483,2022,Incidence,All Races,Male and Female
+Female Genital System,70-74,14271,2022,Incidence,All Races,Male and Female
+Female Genital System,75-79,10008,2022,Incidence,All Races,Male and Female
+Female Genital System,80-84,6105,2022,Incidence,All Races,Male and Female
+Female Genital System,85+,4794,2022,Incidence,All Races,Male and Female
+Floor of Mouth,40-44,25,2022,Incidence,All Races,Male and Female
+Floor of Mouth,45-49,45,2022,Incidence,All Races,Male and Female
+Floor of Mouth,50-54,111,2022,Incidence,All Races,Male and Female
+Floor of Mouth,55-59,206,2022,Incidence,All Races,Male and Female
+Floor of Mouth,60-64,325,2022,Incidence,All Races,Male and Female
+Floor of Mouth,65-69,328,2022,Incidence,All Races,Male and Female
+Floor of Mouth,70-74,272,2022,Incidence,All Races,Male and Female
+Floor of Mouth,75-79,164,2022,Incidence,All Races,Male and Female
+Floor of Mouth,80-84,106,2022,Incidence,All Races,Male and Female
+Floor of Mouth,85+,83,2022,Incidence,All Races,Male and Female
+Gallbladder,35-39,20,2022,Incidence,All Races,Male and Female
+Gallbladder,40-44,63,2022,Incidence,All Races,Male and Female
+Gallbladder,45-49,123,2022,Incidence,All Races,Male and Female
+Gallbladder,50-54,209,2022,Incidence,All Races,Male and Female
+Gallbladder,55-59,330,2022,Incidence,All Races,Male and Female
+Gallbladder,60-64,519,2022,Incidence,All Races,Male and Female
+Gallbladder,65-69,634,2022,Incidence,All Races,Male and Female
+Gallbladder,70-74,753,2022,Incidence,All Races,Male and Female
+Gallbladder,75-79,673,2022,Incidence,All Races,Male and Female
+Gallbladder,80-84,499,2022,Incidence,All Races,Male and Female
+Gallbladder,85+,511,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,15-19,21,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,25-29,26,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,30-34,51,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,35-39,87,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,40-44,127,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,45-49,212,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,50-54,427,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,55-59,661,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,60-64,909,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,65-69,1116,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,70-74,1024,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,75-79,934,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,80-84,658,2022,Incidence,All Races,Male and Female
+Gum and Other Mouth,85+,766,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,30-34,26,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,35-39,65,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,40-44,90,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,45-49,171,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,50-54,298,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,55-59,341,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,60-64,464,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,65-69,667,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,70-74,699,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,75-79,724,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,80-84,605,2022,Incidence,All Races,Male and Female
+Hepatic Flexure,85+,611,2022,Incidence,All Races,Male and Female
+Hodgkin - Extranodal,20-24,16,2022,Incidence,All Races,Male and Female
+Hodgkin - Extranodal,65-69,20,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,10-14,279,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,15-19,685,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,20-24,896,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,25-29,908,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,30-34,772,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,35-39,605,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,40-44,505,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,45-49,434,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,5-9,66,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,50-54,451,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,55-59,507,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,60-64,501,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,65-69,518,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,70-74,508,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,75-79,336,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,80-84,251,2022,Incidence,All Races,Male and Female
+Hodgkin - Nodal,85+,189,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,10-14,284,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,15-19,692,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,20-24,912,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,25-29,921,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,30-34,785,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,35-39,617,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,40-44,513,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,45-49,439,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,5-9,67,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,50-54,457,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,55-59,518,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,60-64,511,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,65-69,538,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,70-74,521,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,75-79,347,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,80-84,254,2022,Incidence,All Races,Male and Female
+Hodgkin Lymphoma,85+,193,2022,Incidence,All Races,Male and Female
+Hypopharynx,35-39,16,2022,Incidence,All Races,Male and Female
+Hypopharynx,40-44,31,2022,Incidence,All Races,Male and Female
+Hypopharynx,45-49,60,2022,Incidence,All Races,Male and Female
+Hypopharynx,50-54,145,2022,Incidence,All Races,Male and Female
+Hypopharynx,55-59,278,2022,Incidence,All Races,Male and Female
+Hypopharynx,60-64,411,2022,Incidence,All Races,Male and Female
+Hypopharynx,65-69,427,2022,Incidence,All Races,Male and Female
+Hypopharynx,70-74,356,2022,Incidence,All Races,Male and Female
+Hypopharynx,75-79,235,2022,Incidence,All Races,Male and Female
+Hypopharynx,80-84,161,2022,Incidence,All Races,Male and Female
+Hypopharynx,85+,104,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,25-29,23,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,30-34,38,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,35-39,73,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,40-44,145,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,45-49,218,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,50-54,393,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,55-59,659,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,60-64,1091,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,65-69,1407,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,70-74,1419,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,75-79,1210,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,80-84,768,2022,Incidence,All Races,Male and Female
+Intrahepatic Bile Duct,85+,660,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,20-24,31,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,25-29,74,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,30-34,144,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,35-39,113,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,40-44,84,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,45-49,52,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,50-54,102,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,55-59,97,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,60-64,81,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,65-69,51,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,70-74,61,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,75-79,55,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,80-84,43,2022,Incidence,All Races,Male and Female
+Kaposi Sarcoma,85+,43,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,1-4,280,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,10-14,46,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,15-19,67,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,20-24,122,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,25-29,294,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,30-34,714,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,35-39,1405,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,40-44,2519,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,45-49,3786,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,5-9,127,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,50-54,5549,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,55-59,7719,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,60-64,10068,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,65-69,11552,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,70-74,10748,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,75-79,8168,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,80-84,4658,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,85+,3380,2022,Incidence,All Races,Male and Female
+Kidney and Renal Pelvis,< 1 year,46,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",25-29,24,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",30-34,54,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",35-39,123,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",40-44,174,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",45-49,260,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",50-54,455,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",55-59,655,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",60-64,923,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",65-69,1077,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",70-74,1044,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",75-79,990,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",80-84,1004,2022,Incidence,All Races,Male and Female
+"Large Intestine, NOS",85+,1634,2022,Incidence,All Races,Male and Female
+Larynx,30-34,29,2022,Incidence,All Races,Male and Female
+Larynx,35-39,56,2022,Incidence,All Races,Male and Female
+Larynx,40-44,153,2022,Incidence,All Races,Male and Female
+Larynx,45-49,312,2022,Incidence,All Races,Male and Female
+Larynx,50-54,707,2022,Incidence,All Races,Male and Female
+Larynx,55-59,1302,2022,Incidence,All Races,Male and Female
+Larynx,60-64,2196,2022,Incidence,All Races,Male and Female
+Larynx,65-69,2304,2022,Incidence,All Races,Male and Female
+Larynx,70-74,1871,2022,Incidence,All Races,Male and Female
+Larynx,75-79,1316,2022,Incidence,All Races,Male and Female
+Larynx,80-84,777,2022,Incidence,All Races,Male and Female
+Larynx,85+,575,2022,Incidence,All Races,Male and Female
+Leukemias,1-4,1322,2022,Incidence,All Races,Male and Female
+Leukemias,10-14,716,2022,Incidence,All Races,Male and Female
+Leukemias,15-19,735,2022,Incidence,All Races,Male and Female
+Leukemias,20-24,618,2022,Incidence,All Races,Male and Female
+Leukemias,25-29,620,2022,Incidence,All Races,Male and Female
+Leukemias,30-34,846,2022,Incidence,All Races,Male and Female
+Leukemias,35-39,1031,2022,Incidence,All Races,Male and Female
+Leukemias,40-44,1270,2022,Incidence,All Races,Male and Female
+Leukemias,45-49,1677,2022,Incidence,All Races,Male and Female
+Leukemias,5-9,791,2022,Incidence,All Races,Male and Female
+Leukemias,50-54,2562,2022,Incidence,All Races,Male and Female
+Leukemias,55-59,3673,2022,Incidence,All Races,Male and Female
+Leukemias,60-64,5408,2022,Incidence,All Races,Male and Female
+Leukemias,65-69,7204,2022,Incidence,All Races,Male and Female
+Leukemias,70-74,7655,2022,Incidence,All Races,Male and Female
+Leukemias,75-79,7398,2022,Incidence,All Races,Male and Female
+Leukemias,80-84,5445,2022,Incidence,All Races,Male and Female
+Leukemias,85+,5316,2022,Incidence,All Races,Male and Female
+Leukemias,< 1 year,116,2022,Incidence,All Races,Male and Female
+Lip,35-39,17,2022,Incidence,All Races,Male and Female
+Lip,40-44,26,2022,Incidence,All Races,Male and Female
+Lip,45-49,58,2022,Incidence,All Races,Male and Female
+Lip,50-54,81,2022,Incidence,All Races,Male and Female
+Lip,55-59,142,2022,Incidence,All Races,Male and Female
+Lip,60-64,211,2022,Incidence,All Races,Male and Female
+Lip,65-69,244,2022,Incidence,All Races,Male and Female
+Lip,70-74,275,2022,Incidence,All Races,Male and Female
+Lip,75-79,277,2022,Incidence,All Races,Male and Female
+Lip,80-84,208,2022,Incidence,All Races,Male and Female
+Lip,85+,236,2022,Incidence,All Races,Male and Female
+Liver,1-4,113,2022,Incidence,All Races,Male and Female
+Liver,10-14,28,2022,Incidence,All Races,Male and Female
+Liver,15-19,36,2022,Incidence,All Races,Male and Female
+Liver,20-24,37,2022,Incidence,All Races,Male and Female
+Liver,25-29,72,2022,Incidence,All Races,Male and Female
+Liver,30-34,81,2022,Incidence,All Races,Male and Female
+Liver,35-39,161,2022,Incidence,All Races,Male and Female
+Liver,40-44,242,2022,Incidence,All Races,Male and Female
+Liver,45-49,490,2022,Incidence,All Races,Male and Female
+Liver,5-9,29,2022,Incidence,All Races,Male and Female
+Liver,50-54,1034,2022,Incidence,All Races,Male and Female
+Liver,55-59,2557,2022,Incidence,All Races,Male and Female
+Liver,60-64,4767,2022,Incidence,All Races,Male and Female
+Liver,65-69,6171,2022,Incidence,All Races,Male and Female
+Liver,70-74,5126,2022,Incidence,All Races,Male and Female
+Liver,75-79,3650,2022,Incidence,All Races,Male and Female
+Liver,80-84,2227,2022,Incidence,All Races,Male and Female
+Liver,85+,1678,2022,Incidence,All Races,Male and Female
+Liver,< 1 year,53,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,1-4,113,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,10-14,28,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,15-19,39,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,20-24,44,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,25-29,95,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,30-34,119,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,35-39,234,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,40-44,387,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,45-49,708,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,5-9,29,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,50-54,1427,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,55-59,3216,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,60-64,5858,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,65-69,7578,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,70-74,6545,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,75-79,4860,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,80-84,2995,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,85+,2338,2022,Incidence,All Races,Male and Female
+Liver and Intrahepatic Bile Duct,< 1 year,53,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,10-14,16,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,15-19,41,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,20-24,55,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,25-29,142,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,30-34,279,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,35-39,549,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,40-44,1317,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,45-49,2726,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,50-54,6599,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,55-59,15708,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,60-64,30904,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,65-69,40272,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,70-74,41510,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,75-79,37399,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,80-84,24055,2022,Incidence,All Races,Male and Female
+Lung and Bronchus,85+,17298,2022,Incidence,All Races,Male and Female
+Lymphomas,1-4,157,2022,Incidence,All Races,Male and Female
+Lymphomas,10-14,592,2022,Incidence,All Races,Male and Female
+Lymphomas,15-19,1128,2022,Incidence,All Races,Male and Female
+Lymphomas,20-24,1483,2022,Incidence,All Races,Male and Female
+Lymphomas,25-29,1682,2022,Incidence,All Races,Male and Female
+Lymphomas,30-34,1822,2022,Incidence,All Races,Male and Female
+Lymphomas,35-39,1978,2022,Incidence,All Races,Male and Female
+Lymphomas,40-44,2339,2022,Incidence,All Races,Male and Female
+Lymphomas,45-49,3031,2022,Incidence,All Races,Male and Female
+Lymphomas,5-9,299,2022,Incidence,All Races,Male and Female
+Lymphomas,50-54,4373,2022,Incidence,All Races,Male and Female
+Lymphomas,55-59,6194,2022,Incidence,All Races,Male and Female
+Lymphomas,60-64,8729,2022,Incidence,All Races,Male and Female
+Lymphomas,65-69,11152,2022,Incidence,All Races,Male and Female
+Lymphomas,70-74,11531,2022,Incidence,All Races,Male and Female
+Lymphomas,75-79,10551,2022,Incidence,All Races,Male and Female
+Lymphomas,80-84,7539,2022,Incidence,All Races,Male and Female
+Lymphomas,85+,6387,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",45-49,18,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",50-54,24,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",55-59,26,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",60-64,28,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",65-69,54,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",70-74,36,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",75-79,32,2022,Incidence,All Races,Male and Female
+"Male Breast, In Situ *",80-84,19,2022,Incidence,All Races,Male and Female
+Male Breast *,35-39,23,2022,Incidence,All Races,Male and Female
+Male Breast *,40-44,63,2022,Incidence,All Races,Male and Female
+Male Breast *,45-49,95,2022,Incidence,All Races,Male and Female
+Male Breast *,50-54,149,2022,Incidence,All Races,Male and Female
+Male Breast *,55-59,220,2022,Incidence,All Races,Male and Female
+Male Breast *,60-64,299,2022,Incidence,All Races,Male and Female
+Male Breast *,65-69,430,2022,Incidence,All Races,Male and Female
+Male Breast *,70-74,409,2022,Incidence,All Races,Male and Female
+Male Breast *,75-79,380,2022,Incidence,All Races,Male and Female
+Male Breast *,80-84,211,2022,Incidence,All Races,Male and Female
+Male Breast *,85+,200,2022,Incidence,All Races,Male and Female
+Male Genital System,1-4,20,2022,Incidence,All Races,Male and Female
+Male Genital System,10-14,37,2022,Incidence,All Races,Male and Female
+Male Genital System,15-19,438,2022,Incidence,All Races,Male and Female
+Male Genital System,20-24,979,2022,Incidence,All Races,Male and Female
+Male Genital System,25-29,1739,2022,Incidence,All Races,Male and Female
+Male Genital System,30-34,1694,2022,Incidence,All Races,Male and Female
+Male Genital System,35-39,1483,2022,Incidence,All Races,Male and Female
+Male Genital System,40-44,1596,2022,Incidence,All Races,Male and Female
+Male Genital System,45-49,3370,2022,Incidence,All Races,Male and Female
+Male Genital System,50-54,11392,2022,Incidence,All Races,Male and Female
+Male Genital System,55-59,25869,2022,Incidence,All Races,Male and Female
+Male Genital System,60-64,44941,2022,Incidence,All Races,Male and Female
+Male Genital System,65-69,61371,2022,Incidence,All Races,Male and Female
+Male Genital System,70-74,52348,2022,Incidence,All Races,Male and Female
+Male Genital System,75-79,33928,2022,Incidence,All Races,Male and Female
+Male Genital System,80-84,15637,2022,Incidence,All Races,Male and Female
+Male Genital System,85+,9617,2022,Incidence,All Races,Male and Female
+Male Genital System,< 1 year,19,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",20-24,17,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",25-29,92,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",30-34,398,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",35-39,1091,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",40-44,4690,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",45-49,6102,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",50-54,7248,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",55-59,7767,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",60-64,9273,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",65-69,10119,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",70-74,8908,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",75-79,5599,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",80-84,2429,2022,Incidence,All Races,Male and Female
+"Male and Female Breast, In Situ *",85+,1039,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,15-19,20,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,20-24,186,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,25-29,1183,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,30-34,3687,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,35-39,7340,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,40-44,15008,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,45-49,20473,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,50-54,25871,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,55-59,29112,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,60-64,37739,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,65-69,42147,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,70-74,39139,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,75-79,29094,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,80-84,17377,2022,Incidence,All Races,Male and Female
+Male and Female Breast *,85+,13849,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,10-14,42,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,15-19,156,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,20-24,498,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,25-29,987,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,30-34,1910,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,35-39,2884,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,40-44,3726,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,45-49,4378,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,5-9,18,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,50-54,6227,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,55-59,8308,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,60-64,11566,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,65-69,14001,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,70-74,14157,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,75-79,12240,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,80-84,8286,2022,Incidence,All Races,Male and Female
+Melanoma of the Skin,85+,7654,2022,Incidence,All Races,Male and Female
+Mesothelioma,35-39,17,2022,Incidence,All Races,Male and Female
+Mesothelioma,40-44,46,2022,Incidence,All Races,Male and Female
+Mesothelioma,45-49,46,2022,Incidence,All Races,Male and Female
+Mesothelioma,50-54,66,2022,Incidence,All Races,Male and Female
+Mesothelioma,55-59,136,2022,Incidence,All Races,Male and Female
+Mesothelioma,60-64,180,2022,Incidence,All Races,Male and Female
+Mesothelioma,65-69,298,2022,Incidence,All Races,Male and Female
+Mesothelioma,70-74,406,2022,Incidence,All Races,Male and Female
+Mesothelioma,75-79,537,2022,Incidence,All Races,Male and Female
+Mesothelioma,80-84,464,2022,Incidence,All Races,Male and Female
+Mesothelioma,85+,440,2022,Incidence,All Races,Male and Female
+Miscellaneous,1-4,65,2022,Incidence,All Races,Male and Female
+Miscellaneous,10-14,45,2022,Incidence,All Races,Male and Female
+Miscellaneous,15-19,80,2022,Incidence,All Races,Male and Female
+Miscellaneous,20-24,205,2022,Incidence,All Races,Male and Female
+Miscellaneous,25-29,300,2022,Incidence,All Races,Male and Female
+Miscellaneous,30-34,438,2022,Incidence,All Races,Male and Female
+Miscellaneous,35-39,688,2022,Incidence,All Races,Male and Female
+Miscellaneous,40-44,1040,2022,Incidence,All Races,Male and Female
+Miscellaneous,45-49,1481,2022,Incidence,All Races,Male and Female
+Miscellaneous,5-9,42,2022,Incidence,All Races,Male and Female
+Miscellaneous,50-54,2224,2022,Incidence,All Races,Male and Female
+Miscellaneous,55-59,3773,2022,Incidence,All Races,Male and Female
+Miscellaneous,60-64,5991,2022,Incidence,All Races,Male and Female
+Miscellaneous,65-69,8342,2022,Incidence,All Races,Male and Female
+Miscellaneous,70-74,9627,2022,Incidence,All Races,Male and Female
+Miscellaneous,75-79,10040,2022,Incidence,All Races,Male and Female
+Miscellaneous,80-84,8492,2022,Incidence,All Races,Male and Female
+Miscellaneous,85+,10310,2022,Incidence,All Races,Male and Female
+Miscellaneous,< 1 year,50,2022,Incidence,All Races,Male and Female
+Myeloma,25-29,27,2022,Incidence,All Races,Male and Female
+Myeloma,30-34,83,2022,Incidence,All Races,Male and Female
+Myeloma,35-39,182,2022,Incidence,All Races,Male and Female
+Myeloma,40-44,479,2022,Incidence,All Races,Male and Female
+Myeloma,45-49,925,2022,Incidence,All Races,Male and Female
+Myeloma,50-54,1591,2022,Incidence,All Races,Male and Female
+Myeloma,55-59,2643,2022,Incidence,All Races,Male and Female
+Myeloma,60-64,3680,2022,Incidence,All Races,Male and Female
+Myeloma,65-69,4776,2022,Incidence,All Races,Male and Female
+Myeloma,70-74,5100,2022,Incidence,All Races,Male and Female
+Myeloma,75-79,4406,2022,Incidence,All Races,Male and Female
+Myeloma,80-84,3130,2022,Incidence,All Races,Male and Female
+Myeloma,85+,2447,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,1-4,55,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,10-14,121,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,15-19,174,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,20-24,212,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,25-29,318,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,30-34,463,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,35-39,516,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,40-44,675,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,45-49,882,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,5-9,88,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,50-54,1267,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,55-59,1746,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,60-64,2485,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,65-69,3315,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,70-74,3558,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,75-79,3288,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,80-84,2213,2022,Incidence,All Races,Male and Female
+NHL - Extranodal,85+,2017,2022,Incidence,All Races,Male and Female
+NHL - Nodal,1-4,88,2022,Incidence,All Races,Male and Female
+NHL - Nodal,10-14,187,2022,Incidence,All Races,Male and Female
+NHL - Nodal,15-19,262,2022,Incidence,All Races,Male and Female
+NHL - Nodal,20-24,359,2022,Incidence,All Races,Male and Female
+NHL - Nodal,25-29,443,2022,Incidence,All Races,Male and Female
+NHL - Nodal,30-34,574,2022,Incidence,All Races,Male and Female
+NHL - Nodal,35-39,845,2022,Incidence,All Races,Male and Female
+NHL - Nodal,40-44,1151,2022,Incidence,All Races,Male and Female
+NHL - Nodal,45-49,1710,2022,Incidence,All Races,Male and Female
+NHL - Nodal,5-9,144,2022,Incidence,All Races,Male and Female
+NHL - Nodal,50-54,2649,2022,Incidence,All Races,Male and Female
+NHL - Nodal,55-59,3930,2022,Incidence,All Races,Male and Female
+NHL - Nodal,60-64,5733,2022,Incidence,All Races,Male and Female
+NHL - Nodal,65-69,7299,2022,Incidence,All Races,Male and Female
+NHL - Nodal,70-74,7452,2022,Incidence,All Races,Male and Female
+NHL - Nodal,75-79,6916,2022,Incidence,All Races,Male and Female
+NHL - Nodal,80-84,5072,2022,Incidence,All Races,Male and Female
+NHL - Nodal,85+,4177,2022,Incidence,All Races,Male and Female
+Nasopharynx,15-19,22,2022,Incidence,All Races,Male and Female
+Nasopharynx,20-24,16,2022,Incidence,All Races,Male and Female
+Nasopharynx,25-29,25,2022,Incidence,All Races,Male and Female
+Nasopharynx,30-34,41,2022,Incidence,All Races,Male and Female
+Nasopharynx,35-39,81,2022,Incidence,All Races,Male and Female
+Nasopharynx,40-44,98,2022,Incidence,All Races,Male and Female
+Nasopharynx,45-49,130,2022,Incidence,All Races,Male and Female
+Nasopharynx,50-54,191,2022,Incidence,All Races,Male and Female
+Nasopharynx,55-59,227,2022,Incidence,All Races,Male and Female
+Nasopharynx,60-64,307,2022,Incidence,All Races,Male and Female
+Nasopharynx,65-69,281,2022,Incidence,All Races,Male and Female
+Nasopharynx,70-74,212,2022,Incidence,All Races,Male and Female
+Nasopharynx,75-79,123,2022,Incidence,All Races,Male and Female
+Nasopharynx,80-84,84,2022,Incidence,All Races,Male and Female
+Nasopharynx,85+,47,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,1-4,143,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,10-14,308,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,15-19,436,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,20-24,571,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,25-29,761,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,30-34,1037,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,35-39,1361,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,40-44,1826,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,45-49,2592,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,5-9,232,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,50-54,3916,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,55-59,5676,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,60-64,8218,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,65-69,10614,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,70-74,11010,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,75-79,10204,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,80-84,7285,2022,Incidence,All Races,Male and Female
+Non-Hodgkin Lymphoma,85+,6194,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",25-29,33,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",30-34,56,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",35-39,62,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",40-44,101,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",45-49,136,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",50-54,199,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",55-59,285,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",60-64,416,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",65-69,417,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",70-74,403,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",75-79,339,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",80-84,207,2022,Incidence,All Races,Male and Female
+"Nose, Nasal Cavity and Middle Ear",85+,215,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,10-14,36,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,15-19,84,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,20-24,117,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,25-29,232,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,30-34,386,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,35-39,628,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,40-44,1147,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,45-49,2054,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,5-9,21,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,50-54,4084,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,55-59,6347,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,60-64,8594,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,65-69,8669,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,70-74,7369,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,75-79,5327,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,80-84,3160,2022,Incidence,All Races,Male and Female
+Oral Cavity and Pharynx,85+,2853,2022,Incidence,All Races,Male and Female
+Oropharynx,35-39,17,2022,Incidence,All Races,Male and Female
+Oropharynx,40-44,85,2022,Incidence,All Races,Male and Female
+Oropharynx,45-49,173,2022,Incidence,All Races,Male and Female
+Oropharynx,50-54,348,2022,Incidence,All Races,Male and Female
+Oropharynx,55-59,606,2022,Incidence,All Races,Male and Female
+Oropharynx,60-64,830,2022,Incidence,All Races,Male and Female
+Oropharynx,65-69,765,2022,Incidence,All Races,Male and Female
+Oropharynx,70-74,598,2022,Incidence,All Races,Male and Female
+Oropharynx,75-79,362,2022,Incidence,All Races,Male and Female
+Oropharynx,80-84,171,2022,Incidence,All Races,Male and Female
+Oropharynx,85+,126,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,10-14,16,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,15-19,22,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,20-24,17,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,25-29,19,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,35-39,20,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,40-44,19,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,45-49,27,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,50-54,26,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,55-59,33,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,60-64,48,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,65-69,72,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,70-74,83,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,75-79,87,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,80-84,89,2022,Incidence,All Races,Male and Female
+Other Acute Leukemia,85+,130,2022,Incidence,All Races,Male and Female
+Other Biliary,30-34,30,2022,Incidence,All Races,Male and Female
+Other Biliary,35-39,41,2022,Incidence,All Races,Male and Female
+Other Biliary,40-44,75,2022,Incidence,All Races,Male and Female
+Other Biliary,45-49,191,2022,Incidence,All Races,Male and Female
+Other Biliary,50-54,294,2022,Incidence,All Races,Male and Female
+Other Biliary,55-59,491,2022,Incidence,All Races,Male and Female
+Other Biliary,60-64,813,2022,Incidence,All Races,Male and Female
+Other Biliary,65-69,1025,2022,Incidence,All Races,Male and Female
+Other Biliary,70-74,1167,2022,Incidence,All Races,Male and Female
+Other Biliary,75-79,1012,2022,Incidence,All Races,Male and Female
+Other Biliary,80-84,851,2022,Incidence,All Races,Male and Female
+Other Biliary,85+,801,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,30-34,17,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,35-39,29,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,40-44,51,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,45-49,87,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,50-54,141,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,55-59,269,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,60-64,364,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,65-69,487,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,70-74,523,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,75-79,508,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,80-84,363,2022,Incidence,All Races,Male and Female
+Other Digestive Organs,85+,377,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,1-4,174,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,10-14,72,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,15-19,80,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,20-24,83,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,25-29,102,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,30-34,178,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,35-39,206,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,40-44,267,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,45-49,356,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,5-9,64,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,50-54,430,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,55-59,558,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,60-64,663,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,65-69,730,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,70-74,685,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,75-79,456,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,80-84,247,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,85+,143,2022,Incidence,All Races,Male and Female
+Other Endocrine including Thymus,< 1 year,112,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,20-24,17,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,25-29,40,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,30-34,41,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,35-39,71,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,40-44,106,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,45-49,195,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,50-54,283,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,55-59,497,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,60-64,663,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,65-69,796,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,70-74,796,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,75-79,663,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,80-84,414,2022,Incidence,All Races,Male and Female
+Other Female Genital Organs,85+,349,2022,Incidence,All Races,Male and Female
+Other Leukemias,1-4,31,2022,Incidence,All Races,Male and Female
+Other Leukemias,10-14,36,2022,Incidence,All Races,Male and Female
+Other Leukemias,15-19,43,2022,Incidence,All Races,Male and Female
+Other Leukemias,20-24,49,2022,Incidence,All Races,Male and Female
+Other Leukemias,25-29,61,2022,Incidence,All Races,Male and Female
+Other Leukemias,30-34,73,2022,Incidence,All Races,Male and Female
+Other Leukemias,35-39,123,2022,Incidence,All Races,Male and Female
+Other Leukemias,40-44,163,2022,Incidence,All Races,Male and Female
+Other Leukemias,45-49,211,2022,Incidence,All Races,Male and Female
+Other Leukemias,5-9,16,2022,Incidence,All Races,Male and Female
+Other Leukemias,50-54,313,2022,Incidence,All Races,Male and Female
+Other Leukemias,55-59,360,2022,Incidence,All Races,Male and Female
+Other Leukemias,60-64,517,2022,Incidence,All Races,Male and Female
+Other Leukemias,65-69,700,2022,Incidence,All Races,Male and Female
+Other Leukemias,70-74,715,2022,Incidence,All Races,Male and Female
+Other Leukemias,75-79,691,2022,Incidence,All Races,Male and Female
+Other Leukemias,80-84,619,2022,Incidence,All Races,Male and Female
+Other Leukemias,85+,723,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,30-34,18,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,35-39,41,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,40-44,71,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,45-49,78,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,50-54,119,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,55-59,117,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,60-64,187,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,65-69,214,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,70-74,191,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,75-79,152,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,80-84,122,2022,Incidence,All Races,Male and Female
+Other Lymphocytic Leukemia,85+,148,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,45-49,19,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,50-54,23,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,55-59,40,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,60-64,70,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,65-69,71,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,70-74,71,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,75-79,65,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,80-84,34,2022,Incidence,All Races,Male and Female
+Other Male Genital Organs,85+,32,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,45-49,18,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,50-54,24,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,55-59,39,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,60-64,34,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,65-69,57,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,70-74,70,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,75-79,82,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,80-84,85,2022,Incidence,All Races,Male and Female
+Other Myeloid/Monocytic Leukemia,85+,81,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,20-24,33,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,25-29,48,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,30-34,67,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,35-39,87,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,40-44,93,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,45-49,148,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,50-54,222,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,55-59,345,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,60-64,514,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,65-69,766,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,70-74,949,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,75-79,1030,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,80-84,986,2022,Incidence,All Races,Male and Female
+Other Non-Epithelial Skin,85+,1140,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,50-54,37,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,55-59,74,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,60-64,100,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,65-69,114,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,70-74,116,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,75-79,86,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,80-84,42,2022,Incidence,All Races,Male and Female
+Other Oral Cavity and Pharynx,85+,34,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,45-49,21,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,50-54,54,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,55-59,101,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,60-64,159,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,65-69,239,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,70-74,258,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,75-79,292,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,80-84,234,2022,Incidence,All Races,Male and Female
+Other Urinary Organs,85+,248,2022,Incidence,All Races,Male and Female
+Ovary,10-14,89,2022,Incidence,All Races,Male and Female
+Ovary,15-19,161,2022,Incidence,All Races,Male and Female
+Ovary,20-24,197,2022,Incidence,All Races,Male and Female
+Ovary,25-29,284,2022,Incidence,All Races,Male and Female
+Ovary,30-34,465,2022,Incidence,All Races,Male and Female
+Ovary,35-39,631,2022,Incidence,All Races,Male and Female
+Ovary,40-44,917,2022,Incidence,All Races,Male and Female
+Ovary,45-49,1269,2022,Incidence,All Races,Male and Female
+Ovary,5-9,18,2022,Incidence,All Races,Male and Female
+Ovary,50-54,1756,2022,Incidence,All Races,Male and Female
+Ovary,55-59,2181,2022,Incidence,All Races,Male and Female
+Ovary,60-64,2655,2022,Incidence,All Races,Male and Female
+Ovary,65-69,2681,2022,Incidence,All Races,Male and Female
+Ovary,70-74,2536,2022,Incidence,All Races,Male and Female
+Ovary,75-79,2085,2022,Incidence,All Races,Male and Female
+Ovary,80-84,1474,2022,Incidence,All Races,Male and Female
+Ovary,85+,1237,2022,Incidence,All Races,Male and Female
+Pancreas,10-14,42,2022,Incidence,All Races,Male and Female
+Pancreas,15-19,67,2022,Incidence,All Races,Male and Female
+Pancreas,20-24,77,2022,Incidence,All Races,Male and Female
+Pancreas,25-29,112,2022,Incidence,All Races,Male and Female
+Pancreas,30-34,209,2022,Incidence,All Races,Male and Female
+Pancreas,35-39,346,2022,Incidence,All Races,Male and Female
+Pancreas,40-44,702,2022,Incidence,All Races,Male and Female
+Pancreas,45-49,1243,2022,Incidence,All Races,Male and Female
+Pancreas,50-54,2519,2022,Incidence,All Races,Male and Female
+Pancreas,55-59,4498,2022,Incidence,All Races,Male and Female
+Pancreas,60-64,7314,2022,Incidence,All Races,Male and Female
+Pancreas,65-69,9322,2022,Incidence,All Races,Male and Female
+Pancreas,70-74,10234,2022,Incidence,All Races,Male and Female
+Pancreas,75-79,9166,2022,Incidence,All Races,Male and Female
+Pancreas,80-84,6539,2022,Incidence,All Races,Male and Female
+Pancreas,85+,6070,2022,Incidence,All Races,Male and Female
+Penis,35-39,28,2022,Incidence,All Races,Male and Female
+Penis,40-44,49,2022,Incidence,All Races,Male and Female
+Penis,45-49,67,2022,Incidence,All Races,Male and Female
+Penis,50-54,87,2022,Incidence,All Races,Male and Female
+Penis,55-59,122,2022,Incidence,All Races,Male and Female
+Penis,60-64,176,2022,Incidence,All Races,Male and Female
+Penis,65-69,200,2022,Incidence,All Races,Male and Female
+Penis,70-74,225,2022,Incidence,All Races,Male and Female
+Penis,75-79,215,2022,Incidence,All Races,Male and Female
+Penis,80-84,169,2022,Incidence,All Races,Male and Female
+Penis,85+,184,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",35-39,23,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",40-44,33,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",45-49,50,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",50-54,85,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",55-59,166,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",60-64,237,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",65-69,325,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",70-74,301,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",75-79,283,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",80-84,222,2022,Incidence,All Races,Male and Female
+"Peritoneum, Omentum and Mesentery",85+,154,2022,Incidence,All Races,Male and Female
+Pleura,75-79,17,2022,Incidence,All Races,Male and Female
+Pleura,85+,16,2022,Incidence,All Races,Male and Female
+Prostate,35-39,50,2022,Incidence,All Races,Male and Female
+Prostate,40-44,560,2022,Incidence,All Races,Male and Female
+Prostate,45-49,2665,2022,Incidence,All Races,Male and Female
+Prostate,50-54,10910,2022,Incidence,All Races,Male and Female
+Prostate,55-59,25417,2022,Incidence,All Races,Male and Female
+Prostate,60-64,44464,2022,Incidence,All Races,Male and Female
+Prostate,65-69,60949,2022,Incidence,All Races,Male and Female
+Prostate,70-74,51964,2022,Incidence,All Races,Male and Female
+Prostate,75-79,33592,2022,Incidence,All Races,Male and Female
+Prostate,80-84,15410,2022,Incidence,All Races,Male and Female
+Prostate,85+,9379,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,20-24,18,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,25-29,39,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,30-34,96,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,35-39,203,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,40-44,387,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,45-49,730,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,50-54,1096,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,55-59,1103,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,60-64,1200,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,65-69,1294,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,70-74,971,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,75-79,767,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,80-84,526,2022,Incidence,All Races,Male and Female
+Rectosigmoid Junction,85+,493,2022,Incidence,All Races,Male and Female
+Rectum,20-24,61,2022,Incidence,All Races,Male and Female
+Rectum,25-29,193,2022,Incidence,All Races,Male and Female
+Rectum,30-34,419,2022,Incidence,All Races,Male and Female
+Rectum,35-39,908,2022,Incidence,All Races,Male and Female
+Rectum,40-44,1508,2022,Incidence,All Races,Male and Female
+Rectum,45-49,3208,2022,Incidence,All Races,Male and Female
+Rectum,50-54,4553,2022,Incidence,All Races,Male and Female
+Rectum,55-59,4343,2022,Incidence,All Races,Male and Female
+Rectum,60-64,4788,2022,Incidence,All Races,Male and Female
+Rectum,65-69,4925,2022,Incidence,All Races,Male and Female
+Rectum,70-74,4000,2022,Incidence,All Races,Male and Female
+Rectum,75-79,2977,2022,Incidence,All Races,Male and Female
+Rectum,80-84,2046,2022,Incidence,All Races,Male and Female
+Rectum,85+,2031,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,20-24,79,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,25-29,232,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,30-34,515,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,35-39,1111,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,40-44,1895,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,45-49,3938,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,50-54,5649,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,55-59,5446,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,60-64,5988,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,65-69,6219,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,70-74,4971,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,75-79,3744,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,80-84,2572,2022,Incidence,All Races,Male and Female
+Rectum and Rectosigmoid Junction,85+,2524,2022,Incidence,All Races,Male and Female
+Respiratory System,1-4,51,2022,Incidence,All Races,Male and Female
+Respiratory System,10-14,30,2022,Incidence,All Races,Male and Female
+Respiratory System,15-19,84,2022,Incidence,All Races,Male and Female
+Respiratory System,20-24,119,2022,Incidence,All Races,Male and Female
+Respiratory System,25-29,221,2022,Incidence,All Races,Male and Female
+Respiratory System,30-34,402,2022,Incidence,All Races,Male and Female
+Respiratory System,35-39,695,2022,Incidence,All Races,Male and Female
+Respiratory System,40-44,1597,2022,Incidence,All Races,Male and Female
+Respiratory System,45-49,3196,2022,Incidence,All Races,Male and Female
+Respiratory System,5-9,19,2022,Incidence,All Races,Male and Female
+Respiratory System,50-54,7538,2022,Incidence,All Races,Male and Female
+Respiratory System,55-59,17343,2022,Incidence,All Races,Male and Female
+Respiratory System,60-64,33589,2022,Incidence,All Races,Male and Female
+Respiratory System,65-69,43085,2022,Incidence,All Races,Male and Female
+Respiratory System,70-74,43864,2022,Incidence,All Races,Male and Female
+Respiratory System,75-79,39119,2022,Incidence,All Races,Male and Female
+Respiratory System,80-84,25081,2022,Incidence,All Races,Male and Female
+Respiratory System,85+,18150,2022,Incidence,All Races,Male and Female
+Respiratory System,< 1 year,20,2022,Incidence,All Races,Male and Female
+Retroperitoneum,1-4,75,2022,Incidence,All Races,Male and Female
+Retroperitoneum,10-14,17,2022,Incidence,All Races,Male and Female
+Retroperitoneum,20-24,22,2022,Incidence,All Races,Male and Female
+Retroperitoneum,25-29,37,2022,Incidence,All Races,Male and Female
+Retroperitoneum,30-34,30,2022,Incidence,All Races,Male and Female
+Retroperitoneum,35-39,39,2022,Incidence,All Races,Male and Female
+Retroperitoneum,40-44,68,2022,Incidence,All Races,Male and Female
+Retroperitoneum,45-49,87,2022,Incidence,All Races,Male and Female
+Retroperitoneum,5-9,25,2022,Incidence,All Races,Male and Female
+Retroperitoneum,50-54,128,2022,Incidence,All Races,Male and Female
+Retroperitoneum,55-59,183,2022,Incidence,All Races,Male and Female
+Retroperitoneum,60-64,219,2022,Incidence,All Races,Male and Female
+Retroperitoneum,65-69,285,2022,Incidence,All Races,Male and Female
+Retroperitoneum,70-74,257,2022,Incidence,All Races,Male and Female
+Retroperitoneum,75-79,201,2022,Incidence,All Races,Male and Female
+Retroperitoneum,80-84,122,2022,Incidence,All Races,Male and Female
+Retroperitoneum,85+,92,2022,Incidence,All Races,Male and Female
+Retroperitoneum,< 1 year,23,2022,Incidence,All Races,Male and Female
+Salivary Gland,10-14,19,2022,Incidence,All Races,Male and Female
+Salivary Gland,15-19,31,2022,Incidence,All Races,Male and Female
+Salivary Gland,20-24,53,2022,Incidence,All Races,Male and Female
+Salivary Gland,25-29,82,2022,Incidence,All Races,Male and Female
+Salivary Gland,30-34,113,2022,Incidence,All Races,Male and Female
+Salivary Gland,35-39,132,2022,Incidence,All Races,Male and Female
+Salivary Gland,40-44,149,2022,Incidence,All Races,Male and Female
+Salivary Gland,45-49,198,2022,Incidence,All Races,Male and Female
+Salivary Gland,50-54,302,2022,Incidence,All Races,Male and Female
+Salivary Gland,55-59,414,2022,Incidence,All Races,Male and Female
+Salivary Gland,60-64,569,2022,Incidence,All Races,Male and Female
+Salivary Gland,65-69,618,2022,Incidence,All Races,Male and Female
+Salivary Gland,70-74,665,2022,Incidence,All Races,Male and Female
+Salivary Gland,75-79,640,2022,Incidence,All Races,Male and Female
+Salivary Gland,80-84,472,2022,Incidence,All Races,Male and Female
+Salivary Gland,85+,561,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,20-24,29,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,25-29,89,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,30-34,259,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,35-39,559,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,40-44,1075,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,45-49,2322,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,50-54,3311,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,55-59,2894,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,60-64,3271,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,65-69,3391,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,70-74,3057,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,75-79,2175,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,80-84,1643,2022,Incidence,All Races,Male and Female
+Sigmoid Colon,85+,1455,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,10-14,50,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,15-19,167,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,20-24,531,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,25-29,1035,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,30-34,1977,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,35-39,2971,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,40-44,3819,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,45-49,4526,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,5-9,25,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,50-54,6449,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,55-59,8653,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,60-64,12080,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,65-69,14767,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,70-74,15106,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,75-79,13270,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,80-84,9272,2022,Incidence,All Races,Male and Female
+Skin excluding Basal and Squamous,85+,8794,2022,Incidence,All Races,Male and Female
+Small Intestine,20-24,29,2022,Incidence,All Races,Male and Female
+Small Intestine,25-29,54,2022,Incidence,All Races,Male and Female
+Small Intestine,30-34,122,2022,Incidence,All Races,Male and Female
+Small Intestine,35-39,237,2022,Incidence,All Races,Male and Female
+Small Intestine,40-44,386,2022,Incidence,All Races,Male and Female
+Small Intestine,45-49,596,2022,Incidence,All Races,Male and Female
+Small Intestine,50-54,867,2022,Incidence,All Races,Male and Female
+Small Intestine,55-59,1182,2022,Incidence,All Races,Male and Female
+Small Intestine,60-64,1521,2022,Incidence,All Races,Male and Female
+Small Intestine,65-69,1766,2022,Incidence,All Races,Male and Female
+Small Intestine,70-74,1662,2022,Incidence,All Races,Male and Female
+Small Intestine,75-79,1386,2022,Incidence,All Races,Male and Female
+Small Intestine,80-84,876,2022,Incidence,All Races,Male and Female
+Small Intestine,85+,660,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,1-4,164,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,10-14,201,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,15-19,233,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,20-24,233,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,25-29,318,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,30-34,414,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,35-39,410,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,40-44,554,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,45-49,606,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,5-9,106,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,50-54,760,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,55-59,1006,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,60-64,1170,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,65-69,1447,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,70-74,1415,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,75-79,1298,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,80-84,995,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,85+,948,2022,Incidence,All Races,Male and Female
+Soft Tissue including Heart,< 1 year,100,2022,Incidence,All Races,Male and Female
+Splenic Flexure,30-34,33,2022,Incidence,All Races,Male and Female
+Splenic Flexure,35-39,49,2022,Incidence,All Races,Male and Female
+Splenic Flexure,40-44,98,2022,Incidence,All Races,Male and Female
+Splenic Flexure,45-49,169,2022,Incidence,All Races,Male and Female
+Splenic Flexure,50-54,292,2022,Incidence,All Races,Male and Female
+Splenic Flexure,55-59,279,2022,Incidence,All Races,Male and Female
+Splenic Flexure,60-64,345,2022,Incidence,All Races,Male and Female
+Splenic Flexure,65-69,409,2022,Incidence,All Races,Male and Female
+Splenic Flexure,70-74,402,2022,Incidence,All Races,Male and Female
+Splenic Flexure,75-79,341,2022,Incidence,All Races,Male and Female
+Splenic Flexure,80-84,272,2022,Incidence,All Races,Male and Female
+Splenic Flexure,85+,269,2022,Incidence,All Races,Male and Female
+Stomach,20-24,47,2022,Incidence,All Races,Male and Female
+Stomach,25-29,122,2022,Incidence,All Races,Male and Female
+Stomach,30-34,306,2022,Incidence,All Races,Male and Female
+Stomach,35-39,473,2022,Incidence,All Races,Male and Female
+Stomach,40-44,829,2022,Incidence,All Races,Male and Female
+Stomach,45-49,1129,2022,Incidence,All Races,Male and Female
+Stomach,50-54,1746,2022,Incidence,All Races,Male and Female
+Stomach,55-59,2554,2022,Incidence,All Races,Male and Female
+Stomach,60-64,3473,2022,Incidence,All Races,Male and Female
+Stomach,65-69,4286,2022,Incidence,All Races,Male and Female
+Stomach,70-74,4348,2022,Incidence,All Races,Male and Female
+Stomach,75-79,3738,2022,Incidence,All Races,Male and Female
+Stomach,80-84,2600,2022,Incidence,All Races,Male and Female
+Stomach,85+,2306,2022,Incidence,All Races,Male and Female
+Testis,1-4,18,2022,Incidence,All Races,Male and Female
+Testis,10-14,31,2022,Incidence,All Races,Male and Female
+Testis,15-19,429,2022,Incidence,All Races,Male and Female
+Testis,20-24,971,2022,Incidence,All Races,Male and Female
+Testis,25-29,1728,2022,Incidence,All Races,Male and Female
+Testis,30-34,1669,2022,Incidence,All Races,Male and Female
+Testis,35-39,1396,2022,Incidence,All Races,Male and Female
+Testis,40-44,980,2022,Incidence,All Races,Male and Female
+Testis,45-49,619,2022,Incidence,All Races,Male and Female
+Testis,50-54,372,2022,Incidence,All Races,Male and Female
+Testis,55-59,290,2022,Incidence,All Races,Male and Female
+Testis,60-64,231,2022,Incidence,All Races,Male and Female
+Testis,65-69,151,2022,Incidence,All Races,Male and Female
+Testis,70-74,88,2022,Incidence,All Races,Male and Female
+Testis,75-79,56,2022,Incidence,All Races,Male and Female
+Testis,80-84,24,2022,Incidence,All Races,Male and Female
+Testis,85+,22,2022,Incidence,All Races,Male and Female
+Thyroid,10-14,128,2022,Incidence,All Races,Male and Female
+Thyroid,15-19,705,2022,Incidence,All Races,Male and Female
+Thyroid,20-24,1523,2022,Incidence,All Races,Male and Female
+Thyroid,25-29,2308,2022,Incidence,All Races,Male and Female
+Thyroid,30-34,3351,2022,Incidence,All Races,Male and Female
+Thyroid,35-39,3831,2022,Incidence,All Races,Male and Female
+Thyroid,40-44,4214,2022,Incidence,All Races,Male and Female
+Thyroid,45-49,4093,2022,Incidence,All Races,Male and Female
+Thyroid,5-9,32,2022,Incidence,All Races,Male and Female
+Thyroid,50-54,4545,2022,Incidence,All Races,Male and Female
+Thyroid,55-59,4441,2022,Incidence,All Races,Male and Female
+Thyroid,60-64,4497,2022,Incidence,All Races,Male and Female
+Thyroid,65-69,4509,2022,Incidence,All Races,Male and Female
+Thyroid,70-74,3398,2022,Incidence,All Races,Male and Female
+Thyroid,75-79,2157,2022,Incidence,All Races,Male and Female
+Thyroid,80-84,1044,2022,Incidence,All Races,Male and Female
+Thyroid,85+,638,2022,Incidence,All Races,Male and Female
+Tongue,20-24,30,2022,Incidence,All Races,Male and Female
+Tongue,25-29,77,2022,Incidence,All Races,Male and Female
+Tongue,30-34,137,2022,Incidence,All Races,Male and Female
+Tongue,35-39,192,2022,Incidence,All Races,Male and Female
+Tongue,40-44,372,2022,Incidence,All Races,Male and Female
+Tongue,45-49,657,2022,Incidence,All Races,Male and Female
+Tongue,50-54,1307,2022,Incidence,All Races,Male and Female
+Tongue,55-59,2141,2022,Incidence,All Races,Male and Female
+Tongue,60-64,2930,2022,Incidence,All Races,Male and Female
+Tongue,65-69,2968,2022,Incidence,All Races,Male and Female
+Tongue,70-74,2608,2022,Incidence,All Races,Male and Female
+Tongue,75-79,1807,2022,Incidence,All Races,Male and Female
+Tongue,80-84,958,2022,Incidence,All Races,Male and Female
+Tongue,85+,728,2022,Incidence,All Races,Male and Female
+Tonsil,30-34,19,2022,Incidence,All Races,Male and Female
+Tonsil,35-39,70,2022,Incidence,All Races,Male and Female
+Tonsil,40-44,230,2022,Incidence,All Races,Male and Female
+Tonsil,45-49,506,2022,Incidence,All Races,Male and Female
+Tonsil,50-54,1135,2022,Incidence,All Races,Male and Female
+Tonsil,55-59,1598,2022,Incidence,All Races,Male and Female
+Tonsil,60-64,2002,2022,Incidence,All Races,Male and Female
+Tonsil,65-69,1808,2022,Incidence,All Races,Male and Female
+Tonsil,70-74,1243,2022,Incidence,All Races,Male and Female
+Tonsil,75-79,699,2022,Incidence,All Races,Male and Female
+Tonsil,80-84,300,2022,Incidence,All Races,Male and Female
+Tonsil,85+,168,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",1-4,29,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",15-19,26,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",20-24,37,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",25-29,39,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",30-34,35,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",35-39,26,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",40-44,23,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",45-49,20,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",50-54,31,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",55-59,39,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",60-64,65,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",65-69,81,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",70-74,66,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",75-79,48,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",80-84,35,2022,Incidence,All Races,Male and Female
+"Trachea, Mediastinum and Other Respiratory Organs",85+,46,2022,Incidence,All Races,Male and Female
+Transverse Colon,20-24,17,2022,Incidence,All Races,Male and Female
+Transverse Colon,25-29,32,2022,Incidence,All Races,Male and Female
+Transverse Colon,30-34,73,2022,Incidence,All Races,Male and Female
+Transverse Colon,35-39,118,2022,Incidence,All Races,Male and Female
+Transverse Colon,40-44,211,2022,Incidence,All Races,Male and Female
+Transverse Colon,45-49,394,2022,Incidence,All Races,Male and Female
+Transverse Colon,50-54,649,2022,Incidence,All Races,Male and Female
+Transverse Colon,55-59,736,2022,Incidence,All Races,Male and Female
+Transverse Colon,60-64,1049,2022,Incidence,All Races,Male and Female
+Transverse Colon,65-69,1339,2022,Incidence,All Races,Male and Female
+Transverse Colon,70-74,1401,2022,Incidence,All Races,Male and Female
+Transverse Colon,75-79,1401,2022,Incidence,All Races,Male and Female
+Transverse Colon,80-84,1094,2022,Incidence,All Races,Male and Female
+Transverse Colon,85+,1368,2022,Incidence,All Races,Male and Female
+Ureter,45-49,19,2022,Incidence,All Races,Male and Female
+Ureter,50-54,29,2022,Incidence,All Races,Male and Female
+Ureter,55-59,104,2022,Incidence,All Races,Male and Female
+Ureter,60-64,166,2022,Incidence,All Races,Male and Female
+Ureter,65-69,314,2022,Incidence,All Races,Male and Female
+Ureter,70-74,380,2022,Incidence,All Races,Male and Female
+Ureter,75-79,447,2022,Incidence,All Races,Male and Female
+Ureter,80-84,323,2022,Incidence,All Races,Male and Female
+Ureter,85+,342,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",15-19,19,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",20-24,46,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",25-29,75,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",30-34,154,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",35-39,272,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",40-44,552,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",45-49,957,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",50-54,2125,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",55-59,4282,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",60-64,7912,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",65-69,11803,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",70-74,13768,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",75-79,13813,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",80-84,10462,2022,Incidence,All Races,Male and Female
+"Urinary Bladder, invasive and in situ",85+,10274,2022,Incidence,All Races,Male and Female
+Urinary System,1-4,286,2022,Incidence,All Races,Male and Female
+Urinary System,10-14,47,2022,Incidence,All Races,Male and Female
+Urinary System,15-19,86,2022,Incidence,All Races,Male and Female
+Urinary System,20-24,168,2022,Incidence,All Races,Male and Female
+Urinary System,25-29,369,2022,Incidence,All Races,Male and Female
+Urinary System,30-34,872,2022,Incidence,All Races,Male and Female
+Urinary System,35-39,1689,2022,Incidence,All Races,Male and Female
+Urinary System,40-44,3096,2022,Incidence,All Races,Male and Female
+Urinary System,45-49,4783,2022,Incidence,All Races,Male and Female
+Urinary System,5-9,134,2022,Incidence,All Races,Male and Female
+Urinary System,50-54,7757,2022,Incidence,All Races,Male and Female
+Urinary System,55-59,12206,2022,Incidence,All Races,Male and Female
+Urinary System,60-64,18305,2022,Incidence,All Races,Male and Female
+Urinary System,65-69,23908,2022,Incidence,All Races,Male and Female
+Urinary System,70-74,25154,2022,Incidence,All Races,Male and Female
+Urinary System,75-79,22720,2022,Incidence,All Races,Male and Female
+Urinary System,80-84,15677,2022,Incidence,All Races,Male and Female
+Urinary System,85+,14244,2022,Incidence,All Races,Male and Female
+Urinary System,< 1 year,48,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",30-34,16,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",35-39,38,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",40-44,62,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",45-49,103,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",50-54,156,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",55-59,215,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",60-64,309,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",65-69,272,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",70-74,264,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",75-79,234,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",80-84,168,2022,Incidence,All Races,Male and Female
+"Uterus, NOS",85+,230,2022,Incidence,All Races,Male and Female
+Vagina,40-44,32,2022,Incidence,All Races,Male and Female
+Vagina,45-49,57,2022,Incidence,All Races,Male and Female
+Vagina,50-54,84,2022,Incidence,All Races,Male and Female
+Vagina,55-59,136,2022,Incidence,All Races,Male and Female
+Vagina,60-64,168,2022,Incidence,All Races,Male and Female
+Vagina,65-69,219,2022,Incidence,All Races,Male and Female
+Vagina,70-74,212,2022,Incidence,All Races,Male and Female
+Vagina,75-79,172,2022,Incidence,All Races,Male and Female
+Vagina,80-84,131,2022,Incidence,All Races,Male and Female
+Vagina,85+,150,2022,Incidence,All Races,Male and Female
+Vulva,25-29,21,2022,Incidence,All Races,Male and Female
+Vulva,30-34,33,2022,Incidence,All Races,Male and Female
+Vulva,35-39,112,2022,Incidence,All Races,Male and Female
+Vulva,40-44,171,2022,Incidence,All Races,Male and Female
+Vulva,45-49,253,2022,Incidence,All Races,Male and Female
+Vulva,50-54,356,2022,Incidence,All Races,Male and Female
+Vulva,55-59,502,2022,Incidence,All Races,Male and Female
+Vulva,60-64,713,2022,Incidence,All Races,Male and Female
+Vulva,65-69,819,2022,Incidence,All Races,Male and Female
+Vulva,70-74,817,2022,Incidence,All Races,Male and Female
+Vulva,75-79,751,2022,Incidence,All Races,Male and Female
+Vulva,80-84,578,2022,Incidence,All Races,Male and Female
+Vulva,85+,711,2022,Incidence,All Races,Male and Female

@@ -24,7 +24,7 @@ test_that("get_cdc_data handles WONDER XML flow", {
     .package = "httr"
   )
 
-  dt <- seermedicare:::get_cdc_data(wonder_request_xml = path, year = "2022")
+  dt <- get_cdc_data(wonder_request_xml = path, year = "2022")
   expect_equal(dt$site[[1]], "Breast")
   expect_equal(dt$count[[1]], 100)
   expect_equal(dt$year[[1]], "2022")
@@ -47,7 +47,7 @@ test_that("get_publication_data uses pubsearch API flow", {
     auto_unbox = TRUE
   )
 
-  testthat::local_mocked_bindings(
+  rlang::local_bindings(
     .fetch_journal_abbreviations = function(pmids, batch_size = 200) {
       data.table::data.table(pmid = character(), journal_abbrev = character())
     },
@@ -57,7 +57,7 @@ test_that("get_publication_data uses pubsearch API flow", {
       }
       list(status = 200, body = payload)
     },
-    .package = "seermedicare"
+    .env = globalenv()
   )
 
   testthat::local_mocked_bindings(
@@ -67,7 +67,7 @@ test_that("get_publication_data uses pubsearch API flow", {
     .package = "httr"
   )
 
-  dt <- seermedicare:::get_publication_data(
+  dt <- get_publication_data(
     nci_search_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
     auth_token = "Token test"
   )
@@ -92,17 +92,17 @@ test_that("get_seer_data parses site pages end-to-end", {
     "</div></div></div>"
   )
 
-  testthat::local_mocked_bindings(
+  rlang::local_bindings(
     .seer_fetch_html = function(url, retries, user_agent) {
       if (grepl("more.html", url)) {
         return(xml2::read_html(index_html))
       }
       xml2::read_html(site_html)
     },
-    .package = "seermedicare"
+    .env = globalenv()
   )
 
-  dt <- seermedicare:::get_seer_data(seer_url = "http://seer.cancer.gov/statfacts/more.html")
+  dt <- get_seer_data(seer_url = "http://seer.cancer.gov/statfacts/more.html")
   expect_true(any(dt$x == "incidence"))
   expect_true(any(dt$x == "prevalence"))
   expect_true(any(dt$x == "deaths"))

@@ -1,6 +1,6 @@
 test_that("default CDC year uses April update lag", {
-  expect_equal(seermedicare:::.default_cdc_year(as.Date("2026-01-15")), "2022")
-  expect_equal(seermedicare:::.default_cdc_year(as.Date("2026-05-02")), "2023")
+  expect_equal(.default_cdc_year(as.Date("2026-01-15")), "2022")
+  expect_equal(.default_cdc_year(as.Date("2026-05-02")), "2023")
 })
 
 test_that("read_wonder_request_xml overrides year", {
@@ -13,7 +13,7 @@ test_that("read_wonder_request_xml overrides year", {
   )
   path <- tempfile(fileext = ".xml")
   writeLines(xml, path)
-  params <- seermedicare:::.read_wonder_request_xml(path, year = "2022", export_format = "csv")
+  params <- .read_wonder_request_xml(path, year = "2022", export_format = "csv")
   expect_equal(params[["V_D205.V1"]], "2022")
 })
 
@@ -26,7 +26,7 @@ test_that("parse_wonder_csv maps expected columns from WONDER HTML table", {
     rows,
     "</table></body></html>"
   )
-  dt <- seermedicare:::.parse_wonder_csv(html, year = "2022")
+  dt <- .parse_wonder_csv(html, year = "2022")
   expect_equal(nrow(dt), 101)
   expect_equal(dt$site[[1]], "Breast")
   expect_equal(dt$age[[1]], "65-69")
@@ -45,7 +45,7 @@ test_that("normalize_pubsearch_publications maps core fields", {
     pmid = "12345",
     Title = "Sample Title"
   ))
-  dt <- seermedicare:::.normalize_pubsearch_publications(publications)
+  dt <- .normalize_pubsearch_publications(publications)
   expect_equal(dt$authors[[1]], "A B, C D")
   expect_equal(dt$topics[[1]], "Topic1; Topic2")
   expect_equal(dt$sites[[1]], "Breast")
@@ -69,7 +69,7 @@ test_that("fetch_pubsearch_token extracts token from JS bundle", {
     .package = "httr"
   )
 
-  expect_equal(seermedicare:::.fetch_pubsearch_token(), token)
+  expect_equal(.fetch_pubsearch_token(), token)
 })
 
 test_that("pubsearch token refresh occurs on auth errors", {
@@ -97,7 +97,7 @@ test_that("pubsearch token refresh occurs on auth errors", {
     auto_unbox = TRUE
   )
 
-  testthat::local_mocked_bindings(
+  rlang::local_bindings(
     .pubsearch_get = function(api_url, token, params) {
       calls$get_calls <- calls$get_calls + 1
       if (calls$get_calls == 1) {
@@ -109,7 +109,7 @@ test_that("pubsearch token refresh occurs on auth errors", {
       calls$token_refresh <- calls$token_refresh + 1
       "Token refreshed"
     },
-    .package = "seermedicare"
+    .env = globalenv()
   )
 
   testthat::local_mocked_bindings(
@@ -119,7 +119,7 @@ test_that("pubsearch token refresh occurs on auth errors", {
     .package = "httr"
   )
 
-  dt <- seermedicare:::.fetch_pubsearch_publications(
+  dt <- .fetch_pubsearch_publications(
     api_url = "https://toolbox.imsweb.com/pubsearch-api/publications/hdrp/advanced/",
     data_source = "SEERM",
     auth_token = "Token stale",
