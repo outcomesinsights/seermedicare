@@ -1,7 +1,4 @@
 pub_id,pmid,year,date,journal,title,authors,sites,topics,link
-pmid:10052442,10052442,1999,,JAMA,Stage at diagnosis and treatment patterns among older women with breast cancer: an HMO and fee-for-service comparison.,Riley G; Potosky A; Klabunde C; Warren J; Ballard-Barbash R,Breast,H_CARE_SYS; TREAT; SCREEN,https://pubmed.ncbi.nlm.nih.gov/10052442/
-pmid:10165033,10165033,1996,,Health Care Financ Rev,Use of Medicare data to identify incident breast cancer cases.,Warren J; Riley G; McBean A; Hakim R,Breast,RES_METH,https://pubmed.ncbi.nlm.nih.gov/10165033/
-pmid:10235157,10235157,1999,,JAMA,Rising incidence of renal cell cancer in the United States.,Chow W; Devesa S; Warren J; Fraumeni JF J,Renal,PREV; SCREEN,https://pubmed.ncbi.nlm.nih.gov/10235157/
 pmid:10326689,10326689,1999,,Cancer,Geographic and patient variation among Medicare beneficiaries in the use of follow-up testing after surgery for nonmetastatic colorectal carcinoma.,Cooper G; Yuan Z; Chak A; Rimm A,Colorectal,HEALTH_DIS,https://pubmed.ncbi.nlm.nih.gov/10326689/
 pmid:10335746,10335746,1999,,Med Care,The sensitivity of Medicare claims data for case ascertainment of six common cancers.,Cooper G; Yuan Z; Stange K; Dennis L; Amini S; Rimm A,Breast; Colorectal; Lung; Pancreas; Prostate,RES_METH,https://pubmed.ncbi.nlm.nih.gov/10335746/
 pmid:10335747,10335747,1999,,Med Care,Use of Medicare hospital and physician data to assess breast cancer incidence.,Warren J; Feuer E; Potosky A; Riley G; Lynch C,Breast,RES_METH,https://pubmed.ncbi.nlm.nih.gov/10335747/
