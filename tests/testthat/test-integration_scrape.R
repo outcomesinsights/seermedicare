@@ -6,16 +6,19 @@ test_that("get_cdc_data handles WONDER XML flow", {
     "<parameter><name>O_export-format</name><value>csv</value></parameter>",
     "</request-parameters>"
   )
-  csv <- paste(
-    "\"Notes\",\"Cancer Sites\",\"Cancer Sites Code\",\"Age Groups\",\"Age Groups Code\",Count",
-    ",\"Breast\",\"26000\",\"65-69 years\",\"65-69\",100",
-    sep = "\n"
+  # WONDER returns an HTML page; the parser looks for a data table with > 100 rows
+  rows <- paste0("<tr><td>Breast</td><td>65-69 years</td><td>", 100:200, "</td></tr>", collapse = "")
+  html <- paste0(
+    "<html><body><table>",
+    "<tr><th>Cancer Sites</th><th>Age Groups</th><th>Count</th></tr>",
+    rows,
+    "</table></body></html>"
   )
   path <- tempfile(fileext = ".xml")
   writeLines(xml, path)
 
   testthat::local_mocked_bindings(
-    POST = function(url, body, encode) list(body = csv),
+    POST = function(url, body, encode) list(body = html),
     content = function(resp, as, encoding) resp$body,
     stop_for_status = function(...) NULL,
     .package = "httr"
@@ -45,6 +48,9 @@ test_that("get_publication_data uses pubsearch API flow", {
   )
 
   testthat::local_mocked_bindings(
+    .fetch_journal_abbreviations = function(pmids, batch_size = 200) {
+      data.table::data.table(pmid = character(), journal_abbrev = character())
+    },
     .pubsearch_get = function(api_url, token, params) {
       if (params$b_start > 0) {
         return(list(status = 200, body = jsonlite::toJSON(list(metadata = list(numresults = 1), publications = list()), auto_unbox = TRUE)))
@@ -72,14 +78,14 @@ test_that("get_publication_data uses pubsearch API flow", {
 
 test_that("get_seer_data parses site pages end-to-end", {
   index_html <- paste0(
-    "<div class=\"alphaList rpw\">",
+    "<div class=\"alphaList row\">",
     "<a href=\"/statfacts/testcancer.html\">Test Cancer</a>",
     "</div>"
   )
   site_html <- paste0(
     "<div class=\"glance-factSheet\">",
-    "<div class=\"glanceBox new\"><p>2022</p><p><span></span><span>1,234</span></p></div>",
-    "<div class=\"glanceBox death\"><p><span></span><span>321</span></p></div>",
+    "<div class=\"glanceBox new\"><p><span>Estimated New Cases in 2026</span> <span>1,234</span></p></div>",
+    "<div class=\"glanceBox death\"><p><span>Estimated Deaths in 2026</span> <span>321</span></p></div>",
     "</div>",
     "<div class=\"factSheet\"><div class=\"tog-content\"><div class=\"row\">",
     "<p></p><p></p><p>It is estimated 5,678 people were living.</p>",

@@ -13,7 +13,7 @@ get_cdc_data(
 \arguments{
 \item{wonder_request_xml}{\code{character} Path to CDC WONDER request XML file}
 
-\item{year}{\code{character} Year to request from CDC WONDER (single year)}
+\item{year}{\code{character} Year to request from CDC WONDER (single year). If NULL, uses the most recent year WONDER has available.}
 
 \item{pathToZip}{\code{character} Path to zip file on cdc website}
 }

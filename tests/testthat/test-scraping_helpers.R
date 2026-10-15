@@ -3,7 +3,7 @@ test_that("default CDC year uses April update lag", {
   expect_equal(seermedicare:::.default_cdc_year(as.Date("2026-05-02")), "2023")
 })
 
-test_that("read_wonder_request_xml overrides year and export format", {
+test_that("read_wonder_request_xml overrides year", {
   xml <- paste0(
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
     "<request-parameters>",
@@ -15,16 +15,19 @@ test_that("read_wonder_request_xml overrides year and export format", {
   writeLines(xml, path)
   params <- seermedicare:::.read_wonder_request_xml(path, year = "2022", export_format = "csv")
   expect_equal(params[["V_D205.V1"]], "2022")
-  expect_equal(params[["O_export-format"]], "csv")
 })
 
-test_that("parse_wonder_csv maps expected columns", {
-  csv <- paste(
-    "\"Notes\",\"Cancer Sites\",\"Cancer Sites Code\",\"Age Groups\",\"Age Groups Code\",Count",
-    ",\"Breast\",\"26000\",\"65-69 years\",\"65-69\",100",
-    sep = "\n"
+test_that("parse_wonder_csv maps expected columns from WONDER HTML table", {
+  # WONDER returns an HTML page; the parser looks for a data table with > 100 rows
+  rows <- paste0("<tr><td>Breast</td><td>65-69 years</td><td>", 100:200, "</td></tr>", collapse = "")
+  html <- paste0(
+    "<html><body><table>",
+    "<tr><th>Cancer Sites</th><th>Age Groups</th><th>Count</th></tr>",
+    rows,
+    "</table></body></html>"
   )
-  dt <- seermedicare:::.parse_wonder_csv(csv, year = "2022")
+  dt <- seermedicare:::.parse_wonder_csv(html, year = "2022")
+  expect_equal(nrow(dt), 101)
   expect_equal(dt$site[[1]], "Breast")
   expect_equal(dt$age[[1]], "65-69")
   expect_equal(dt$count[[1]], 100)

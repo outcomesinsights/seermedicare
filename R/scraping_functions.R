@@ -34,9 +34,8 @@ scrape_all_data <- function(
 ) {
 
   message("Starting Process")
-  if (!is.null(cdc_wonder_request_xml) && (is.null(cdc_year) || !nzchar(cdc_year))) {
-    cdc_year <- .default_cdc_year()
-    message(sprintf("CDC WONDER year not provided; using default %s", cdc_year))
+  if (!is.null(cdc_year) && !nzchar(cdc_year)) {
+    cdc_year <- NULL
   }
 
   ## SCRAPE PUBLICATIONS DATA
@@ -335,7 +334,7 @@ create_std_site_lookup <- function(publications, seer, cdc) {
 #' see https://www.cdc.gov/cancer/npcr/uscs/download_data.htm which has links to all historical data
 #'
 #' @param wonder_request_xml \code{character} Path to CDC WONDER request XML file
-#' @param year \code{character} Year to request from CDC WONDER (single year)
+#' @param year \code{character} Year to request from CDC WONDER (single year). If NULL, uses the most recent year WONDER has available.
 #' @param pathToZip \code{character} Path to zip file on cdc website
 #'
 #' @return \code{\link{data.table}}
@@ -349,14 +348,12 @@ create_std_site_lookup <- function(publications, seer, cdc) {
 #' }
 get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "http://www.cdc.gov/cancer/npcr/uscs/USCS_1999_2014_ASCII.zip") {
   if (!is.null(wonder_request_xml)) {
-    if (is.null(year) || !nzchar(year)) {
-      year <- .default_cdc_year()
-      message(sprintf("CDC WONDER year not provided; using default %s", year))
+    if (!is.null(year) && nzchar(year)) {
+      params <- .read_wonder_request_xml(wonder_request_xml, year = year, export_format = "csv")
+      csv_text <- .fetch_wonder_csv(params, url = "https://wonder.cdc.gov/controller/datarequest/D205")
+      return(.parse_wonder_csv(csv_text, year = params[["V_D205.V1"]][1]))
     }
-    params <- .read_wonder_request_xml(wonder_request_xml, year = year, export_format = "csv")
-    csv_text <- .fetch_wonder_csv(params, url = "https://wonder.cdc.gov/controller/datarequest/D205")
-    year_value <- params[["V_D205.V1"]][1]
-    return(.parse_wonder_csv(csv_text, year = year_value))
+    return(.fetch_wonder_latest_year(wonder_request_xml))
   }
 
   if (is.null(pathToZip)) {
@@ -403,6 +400,27 @@ get_cdc_data <- function(wonder_request_xml = NULL, year = NULL, pathToZip = "ht
   month_val <- as.integer(format(current_date, "%m"))
   update_year <- if (month_val > update_month) year_val else (year_val - 1)
   as.character(update_year - lag_years)
+}
+
+# CDC WONDER releases lag the calendar unpredictably and reject years not yet
+# in the dataset (HTTP 500), so start from the date-based guess and step back.
+.fetch_wonder_latest_year <- function(wonder_request_xml, start_year = .default_cdc_year(), max_tries = 4) {
+  candidates <- as.character(as.integer(start_year) - seq_len(max_tries) + 1)
+  for (year in candidates) {
+    params <- .read_wonder_request_xml(wonder_request_xml, year = year, export_format = "csv")
+    csv_text <- tryCatch(
+      .fetch_wonder_csv(params, url = "https://wonder.cdc.gov/controller/datarequest/D205"),
+      error = function(e) {
+        message(sprintf("CDC WONDER year %s not available (%s)", year, conditionMessage(e)))
+        NULL
+      }
+    )
+    if (!is.null(csv_text)) {
+      message(sprintf("CDC WONDER year not provided; using latest available year %s", year))
+      return(.parse_wonder_csv(csv_text, year = year))
+    }
+  }
+  stop(sprintf("CDC WONDER returned no data for years %s.", paste(candidates, collapse = ", ")))
 }
 
 .fetch_wonder_csv <- function(params, url) {
