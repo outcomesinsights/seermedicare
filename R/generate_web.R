@@ -615,7 +615,9 @@ generate_web <- function(seer_pub_data, report_data = NULL, outputPath = ".") {
   # Save to file
   html_path <- file.path(outputPath, "index.html")
   lib_path <- file.path(outputPath, "lib")
-  
+  # Start lib/ fresh so library folders from older package versions don't accumulate
+  unlink(lib_path, recursive = TRUE)
+
   htmltools::save_html(html_content, file = html_path, libdir = lib_path)
   
   message(sprintf("Web page generated: %s", html_path))

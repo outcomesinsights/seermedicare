@@ -15,3 +15,14 @@ test_that("generate_web writes the page, Excel download, and JS libraries", {
   expect_match(html, "SEER-Medicare-Publications.xlsx", fixed = TRUE)
   expect_equal(sort(openxlsx::getSheetNames(file.path(out, "SEER-Medicare-Publications.xlsx")))[1], "About")
 })
+
+test_that("generate_web clears library folders left by older package versions", {
+  d <- readRDS(test_path("fixtures", "seer_pub_data_sample.rds"))
+  out <- withr::local_tempdir()
+  stale <- file.path(out, "lib", "plotly-binding-0.0.1")
+  dir.create(stale, recursive = TRUE)
+  suppressWarnings(suppressMessages(generate_web(d, prepare_report_data(d), outputPath = out)))
+
+  expect_false(dir.exists(stale))
+  expect_true(length(list.files(file.path(out, "lib"))) > 0)
+})
