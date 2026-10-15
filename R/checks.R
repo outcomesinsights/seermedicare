@@ -102,7 +102,8 @@ check_update <- function(publications, seer, cdc, baseline = NULL, cdc_release =
         paste(sprintf("%s (%d -> %d)", fell$year, fell$N_old, fell$N_new), collapse = ", ")))
     }
 
-    not_spec <- function(d) mean(d$sites == "Not Specified" | !nzchar(d$sites))
+    # blank sites come back from CSV as NA
+    not_spec <- function(d) mean(is.na(d$sites) | d$sites %in% c("", "Not Specified"))
     if (not_spec(new) > not_spec(baseline) + 0.02) {
       warnings <- c(warnings, sprintf("Share of publications with no cancer site rose from %.1f%% to %.1f%%.",
         100 * not_spec(baseline), 100 * not_spec(new)))

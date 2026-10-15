@@ -108,3 +108,15 @@ test_that("SEER values missing in the committed snapshot too are not flagged aga
   expect_length(check_update(make_pubs(), seer, make_cdc(), seer_baseline = base)$warnings, 0)
   expect_match(check_update(make_pubs(), seer, make_cdc())$warnings, "Site 1 prevalence", all = FALSE)
 })
+
+test_that("checks work on a baseline read back from CSV (blank fields become NA)", {
+  pubs <- make_pubs()
+  pubs[1:5, sites := list(list(character()))]
+  path <- withr::local_tempfile(fileext = ".csv")
+  data.table::fwrite(publications_snapshot(pubs), path)
+  base <- data.table::fread(path, colClasses = "character")
+  expect_true(anyNA(base$sites))
+  res <- check_update(pubs, make_seer(), make_cdc(), baseline = base)
+  expect_length(res$errors, 0)
+  expect_length(res$warnings, 0)
+})
